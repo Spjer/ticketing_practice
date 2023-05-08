@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\comment;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -40,9 +41,23 @@ class TicketController extends Controller
 
     }
     
+    // take on ticket -> ticket goes to my_tickets
     public function takeTicket($id){
         //Ticket::find($id)->user_id = Auth::user()->id;
         Ticket::where('id', $id)->update(['user_id'=> Auth::user()->id]);
         return redirect()->route('all_tickets');
+    }
+    // drop/release ticket -> ticket goes to all_tickets
+    public function dropTicket($id){
+        //Ticket::find($id)->user_id = Auth::user()->id;
+        Ticket::where('id', $id)->update(['user_id'=> 0]);
+        return redirect()->back();
+    }
+
+    // view comments
+    public function viewComments($id){
+        $ticket = Ticket::find($id);
+
+        return view('user.view_comments')->with('ticket', $ticket);
     }
 }

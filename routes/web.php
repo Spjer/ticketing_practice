@@ -46,17 +46,22 @@ Route::post('client/login', [ClientAuthController::class, 'customLogin'])
 Route::get('client/logout', [ClientAuthController::class, 'logout'])
     ->name('client.logout');
 
-    // provjerit radi li registracija
+    // provjerit radi li registracija -> radi -> osigurat
 Route::get('client/registration', [ClientAuthController::class, 'registration'])
     ->name('client.register');
 Route::post('client/customRegistration', [ClientAuthController::class, 'customRegistration'])
     ->name('client.customRegistration');
 
-
+    // Ticket and ticket creation ----> add deletion   Ticket and Client
 Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket'); //ticket per client
 Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket'); //client creates ticket
 Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('store_ticket'); // store created ticket
 
+    // Ticket and User
 Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets'); // show all tickets  ->>>turn into show all AVAILABLE
-Route::get('/take_ticket/{id}', [TicketController::class, 'takeTicket']) ->name('take_ticket');
-Route::get('/my_tickets/{id}', [UserAuthController::class, 'myTickets'])->name("user.my_tickets");
+Route::get('/take_ticket/{id}', [TicketController::class, 'takeTicket']) ->name('take_ticket'); // user takes on ticket
+Route::get('/drop_ticket/{id}', [TicketController::class, 'dropTicket']) ->name('drop_ticket'); // user drops ticket
+Route::get('/my_tickets/{id}', [UserAuthController::class, 'myTickets'])->name("user.my_tickets"); // show ticket user took on
+
+    // Ticket and comment
+Route::get('/view_comments/{id}', [TicketController::class, 'viewComments']) ->name('view_comments');

@@ -23,6 +23,17 @@
                       <td>{{$ticket->status}}</td>
                       <td>
                       <!-- Napravit da se moze promijenit status i otpustit ticket -->
+                      <!-- drop ticket = otpusti ticket -->
+                        <a href="{{ route('drop_ticket', [$ticket->id]) }}">
+                          <button type="button">Odbaci</button>
+                        </a>
+                     
+                      <!-- view comments, add comments, delete comment-->
+                        <a href="{{ route('view_comments', [$ticket->id]) }}">
+                          <button type="button">Komentari</button>
+                        </a>
+                         <!-- nije jos route napravljena - add comments -->
+                        
                       </td>
                       
                       
