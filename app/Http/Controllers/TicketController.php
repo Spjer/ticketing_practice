@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\comment;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -17,6 +18,11 @@ class TicketController extends Controller
 
     }
 
+    public function createTicket($id){
+        $user = User::find($id);
+        return view('user.create_ticket') -> with('user', $user);
+    }
+
     public function storeTicket(Request $request)
     {
         /// SJETI se napravit validaciju
@@ -25,24 +31,24 @@ class TicketController extends Controller
             'details' => ['required', 'max:400'],
             'status' => ['required', 'max:12']
         ]);
-        $client_id = $request->input('client_id');
+        $user_id = $request->input('user_id');
         $tic_name = $request->input('tic_name');
         $details = $request->input('details');
 
-        $status = 'open';
-        $user_id = 0;
+        //$status_id = '1';
+        $status = 'Open';
        // $user_id = $request->input('user_id');
         
 
         $ticket = new Ticket();
-        $ticket->client_id = $client_id;
+        $ticket->user_id = $user_id;
         $ticket->tic_name = $tic_name;
         $ticket->details = $details;
 
+       // $ticket->status_id = $status_id;
         $ticket->status = $status;
-        $ticket->user_id = $user_id;
         $ticket->save();
-        return redirect()->route('client.home');
+        return redirect()->route('user.home');
 
     }
     

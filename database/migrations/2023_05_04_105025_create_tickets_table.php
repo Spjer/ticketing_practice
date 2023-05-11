@@ -13,23 +13,22 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('client_id')->unsigned;
+          //  $table->unsignedBigInteger('status_id')->unsigned;
             $table->string('tic_name', 50);
             $table->string('details', 255);
             
             $table->string('status', 15)->default('Open');
             $table->unsignedBigInteger('user_id')->nulltable();
-            //$table->unsignedBigInteger('comment_id')->nulltable()->unsigned;
+           
             $table->timestamps();
         });
 
-        Schema::table('tickets', function ($table){
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-           // $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+       // Schema::table('tickets', function ($table){
+         //   $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            
             
 
-        });
+        //});
     }
 
     /**

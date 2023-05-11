@@ -9,6 +9,10 @@
 
             
 @auth
+<a href="{{ route('create_ticket', [Auth::user()->id]) }}">
+    <button type="button"> Napravi ticket</button>
+</a>
+</br>
 <a href="{{ route('all_tickets') }}">
     <button type="submit">Svi ticketi</button>
 </a>

@@ -13,7 +13,7 @@
 
 
             @csrf
-            <input type="hidden" id="client_id" name="client_id" value="{{$client->id}}">
+            <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
             
             <div>
                 <label for="tic_name">Naziv</label>

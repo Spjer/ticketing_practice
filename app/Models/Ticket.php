@@ -9,9 +9,9 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    //poveznica s client - > 1 client many tickets
+    //poveznica s client - > 1 client 1 tickets
     public function client(){
-        return $this->belongsTo(Client::class);
+        return $this->hasOne(Client::class);
     }
 
     //poveznica s user -> 1 user many tickets       mozda nepotrebno posto user_id nije foreign key -> jos provjerit
@@ -23,4 +23,9 @@ class Ticket extends Model
     public function comments(){
         return $this->hasMany(comment::class);
     }
+
+    //poveznica s status -> 1 status many ticket
+    //public function status(){
+    //    return $this->belongsTo(Status::class);
+    //}
 }

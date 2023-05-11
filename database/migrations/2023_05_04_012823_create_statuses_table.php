@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('comm', 400);
-            $table->unsignedBigInteger('ticket_id')->unsigned;
-
+            $table->string('status')->default('Open');
+            //$table->unsignedBigInteger('ticket_id');
             $table->timestamps();
         });
 
-        Schema::table('comments', function ($table){
-            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
-        });
+       // Schema::table('statuses', function ($table){
+       //     $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+       // });
+
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('statuses');
     }
 };
