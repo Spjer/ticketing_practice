@@ -17,6 +17,9 @@
                       <td>{{$comment->comm}}</td>
                       <td>
                        <!-- dodat delete comment -->
+                       <a href="{{ route('delete_comment', [$comment->id]) }}">
+                          <button type="button">Izbiši komentar</button>
+                        </a>
                       </td>
                       
                       

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +65,8 @@ Route::get('/drop_ticket/{id}', [TicketController::class, 'dropTicket']) ->name(
 Route::get('/my_tickets/{id}', [UserAuthController::class, 'myTickets'])->name("user.my_tickets"); // show ticket user took on
 
     // Ticket and comment
-Route::get('/view_comments/{id}', [TicketController::class, 'viewComments']) ->name('view_comments');
+Route::get('/view_comments/{id}', [CommentController::class, 'viewComments']) ->name('view_comments');
+Route::get('/create_comment/{id}', [CommentController::class, 'createComment']) ->name('create_comment');
+Route::post('/store_comment', [CommentController::class, 'storeComment']) ->name('store_comment');
+Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) ->name('delete_comment');
+

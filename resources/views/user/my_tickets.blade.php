@@ -32,6 +32,9 @@
                         <a href="{{ route('view_comments', [$ticket->id]) }}">
                           <button type="button">Komentari</button>
                         </a>
+                        <a href="{{ route('create_comment', [$ticket->id]) }}">
+                          <button type="button">Dodaj komentar</button>
+                        </a>
                          <!-- nije jos route napravljena - add comments -->
                         
                       </td>

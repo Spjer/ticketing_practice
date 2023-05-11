@@ -20,6 +20,11 @@ class TicketController extends Controller
     public function storeTicket(Request $request)
     {
         /// SJETI se napravit validaciju
+        $validateData = $request->validate([
+            'tic_name' => ['required', 'max:40'],
+            'details' => ['required', 'max:400'],
+            'status' => ['required', 'max:12']
+        ]);
         $client_id = $request->input('client_id');
         $tic_name = $request->input('tic_name');
         $details = $request->input('details');
@@ -54,10 +59,43 @@ class TicketController extends Controller
         return redirect()->back();
     }
 
+
+
+
+
+    // Functions relating to comments - nesto bi mogao premjestit u CommmentController
     // view comments
-    public function viewComments($id){
+    /*public function viewComments($id){
         $ticket = Ticket::find($id);
 
         return view('user.view_comments')->with('ticket', $ticket);
     }
+
+    public function createComment($id){
+        $ticket = Ticket::find($id);
+
+        return view('user.create_comment')->with('ticket', $ticket);
+    }
+
+    public function storeComment(Request $request)
+    {
+        /// SJETI se napravit validaciju
+        $ticket_id = $request->input('ticket_id');
+        $comm = $request->input('comm');
+        
+        $comment= new comment();
+        $comment->ticket_id = $ticket_id;
+        $comment->comm = $comm;
+        $comment->save();
+        return redirect()->route('user.home'); // probat namjestit da vrati na my_tickets
+
+    }
+
+    public function deleteComment($id){
+        $comment = comment::find($id);
+        $ticket = $comment->all_tickets;
+        $comment->delete();
+
+        return redirect()->back();
+    }*/
 }

@@ -53,9 +53,9 @@ class ClientAuthController extends Controller
     public function customRegistration(Request $request)
     {  
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:6',
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required','min:6'],
         ]);
            
         $data = $request->all();
