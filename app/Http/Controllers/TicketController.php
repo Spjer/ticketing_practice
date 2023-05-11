@@ -23,13 +23,14 @@ class TicketController extends Controller
         $validateData = $request->validate([
             'tic_name' => ['required', 'max:40'],
             'details' => ['required', 'max:400'],
-            'status' => ['required', 'max:12']
+            //'status' => ['required', 'max:12']
         ]);
         $client_id = $request->input('client_id');
         $tic_name = $request->input('tic_name');
         $details = $request->input('details');
 
-        $status = 'open';
+        //$status = 'open';
+        $status_id = 1;
         $user_id = 0;
        // $user_id = $request->input('user_id');
         
@@ -39,7 +40,8 @@ class TicketController extends Controller
         $ticket->tic_name = $tic_name;
         $ticket->details = $details;
 
-        $ticket->status = $status;
+        //$ticket->status = $status;
+        $ticket->status_id = $status_id;
         $ticket->user_id = $user_id;
         $ticket->save();
         return redirect()->route('client.home');
@@ -58,7 +60,16 @@ class TicketController extends Controller
         Ticket::where('id', $id)->update(['user_id'=> 0]);
         return redirect()->back();
     }
+    // switch status -> probat nac ljepsi nacin
+    public function editStatus($id){
+        $ticket = Ticket::find($id);
 
+        return view('user.edit_status') -> with('ticket', $ticket);
+    }
+
+    
+    
+   
 
 
 

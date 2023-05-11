@@ -26,7 +26,7 @@
             </div>
 
             <br>
-            <input type="hidden" id="status" name="status" value=open>
+            <!--<input type="hidden" id="status" name="status" value=open>-->
             <br>
 
             

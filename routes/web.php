@@ -70,3 +70,9 @@ Route::get('/create_comment/{id}', [CommentController::class, 'createComment']) 
 Route::post('/store_comment', [CommentController::class, 'storeComment']) ->name('store_comment');
 Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) ->name('delete_comment');
 
+    // Status -> jos razmislit u koj kontroler stavit
+Route::get('/edit_status/{id}', [TicketController::class, 'editStatus']) ->name('edit_status'); 
+Route::post('/store_status', [TicketController::class, 'storeStatus']) ->name('store_status'); 
+
+
+

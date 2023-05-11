@@ -7,7 +7,8 @@
                       <td>{{$ticket->client_id}}</td>
                       <td>{{$ticket->tic_name}}</td>
                       <td>{{$ticket->details}}</td>
-                      <td>{{$ticket->status}}</td>
+                      <!--<td>{{$ticket->status}}</td>-->
+                      <td>{{$ticket->status->status}}</td>
                       
                     </tr>
                   @endforeach

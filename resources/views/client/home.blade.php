@@ -2,7 +2,7 @@
 
 
 @section('content')
-<h1>Hello </h1>
+<h1>Hello Client</h1>
 @auth
 @if (auth()->guard('webclient'))
 <a href="{{ route('client_ticket', [Auth::user()->id]) }}">

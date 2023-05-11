@@ -6,7 +6,7 @@
                     <th scope="col"> Naziv</th>
                     <th scope="col">Detaljnije</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Klijent</th>
                     
                     
                   </tr>
@@ -19,7 +19,17 @@
                       <td>{{$ticket->client_id}}</td>
                       <td>{{$ticket->tic_name}}</td>
                       <td>{{$ticket->details}}</td>
-                      <td>{{$ticket->status}}</td>
+                      <td>{{$ticket->status->status}}</td>
+                      <td>
+                        <div>
+                          @if(isset($ticket->client))
+                            {{$ticket->client->name}}
+                            
+                            @else
+                              Nema
+                          @endif
+                        </div>
+                      </td>
                       <td>
                       <a href="{{ route('take_ticket', [$ticket->id]) }}">
                           <button type="button">Preuzmi</button>

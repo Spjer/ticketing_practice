@@ -53,9 +53,11 @@ class ClientAuthController extends Controller
     public function customRegistration(Request $request)
     {  
         $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
+            'name' => ['required', 'max:30'],
+            'email' => ['required', 'email', 'max:40'],
+            'phone_number' =>  ['required','numeric', 'digits:10'],
             'password' => ['required','min:6'],
+
         ]);
            
         $data = $request->all();
@@ -69,7 +71,9 @@ class ClientAuthController extends Controller
       return Client::create([
         'name' => $data['name'],
         'email' => $data['email'],
-        'password' => Hash::make($data['password'])
+        'phone_number' => $data['phone_number'],
+        'password' => Hash::make($data['password']),
+
       ]);
     }
 

@@ -20,7 +20,13 @@
                       <td>{{$ticket->client_id}}</td>
                       <td>{{$ticket->tic_name}}</td>
                       <td>{{$ticket->details}}</td>
-                      <td>{{$ticket->status}}</td>
+                      <td>{{$ticket->status->status}}<br>
+                        
+                      <a href="{{ route('edit_status', [$ticket->id]) }}">
+                          <button type="button">Promijeni status</button>
+                        </a>
+                        
+                      </td>
                       <td>
                       <!-- Napravit da se moze promijenit status i otpustit ticket -->
                       <!-- drop ticket = otpusti ticket -->
@@ -38,6 +44,16 @@
                          <!-- nije jos route napravljena - add comments -->
                         
                       </td>
+                      <td>
+                        <div>
+                          @if(isset($ticket->client))
+                          {{$ticket->client->id}}-{{$ticket->client->name}}<br>
+                            {{$ticket->client->email}}<br>
+                            {{$ticket->client->phone_number}}<br>
+                            
+                              
+                          @endif
+                        </div>
                       
                       
                       
