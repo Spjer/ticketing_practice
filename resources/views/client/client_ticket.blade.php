@@ -1,4 +1,10 @@
+@extends('layout.masterClient')
+ 
+@section('title', 'My tickets')
+ 
+@yield('navbar')
 
+@section('content')
 <table class="table" border=1>
 <tbody>
                   @foreach($client->tickets as $ticket) 
@@ -14,3 +20,4 @@
                   @endforeach
 </tbody>
 </table>
+@stop

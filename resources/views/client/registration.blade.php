@@ -1,11 +1,10 @@
-@extends('layout.base')
+@extends('layout.masterClient')
  
-@section('title', 'Registracija')
+@section('title', 'Registration')
  
 @yield('navbar')
 
 @section('content')
-
 <main class="signup-form">
     <div class="cotainer">
         <div class="row justify-content-center">

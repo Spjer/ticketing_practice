@@ -35,6 +35,7 @@ Route::get('/registration', [UserAuthController::class, 'registration'])
     ->name('user.register');
 Route::post('/customRegistration', [UserAuthController::class, 'customRegistration'])
     ->name('user.customRegistration');
+    
 
 //Client auth
 Route::get('client/', [ClientAuthController::class, 'index'])

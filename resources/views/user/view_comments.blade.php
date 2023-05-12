@@ -1,3 +1,10 @@
+@extends('layout.master')
+ 
+@section('title', 'Comments')
+ 
+@yield('navbar')
+
+@section('content')
 <table class="table" border=1>
                 <thead>
                   <tr>
@@ -31,3 +38,4 @@
                 @endif
                 </tbody>
             </table>
+@stop

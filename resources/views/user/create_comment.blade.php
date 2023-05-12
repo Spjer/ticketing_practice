@@ -1,3 +1,10 @@
+@extends('layout.master')
+ 
+@section('title', 'Adding Comments')
+ 
+@yield('navbar')
+
+@section('content')
 <h2>Dodavanje komentara</h2>
         <br>
         <form action="{{route('store_comment')}}" method="POST" >
@@ -25,3 +32,4 @@
 
             <button type="submit" class="btn btn-primary mt-3">Dodaj komentar</button>
         </form>
+@stop

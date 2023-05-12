@@ -1,6 +1,6 @@
-@extends('layout.base')
+@extends('layout.master')
  
-@section('title', 'Registracija')
+@section('title', 'Registration')
  
 @yield('navbar')
 

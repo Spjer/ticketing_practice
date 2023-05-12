@@ -1,3 +1,10 @@
+@extends('layout.masterClient')
+ 
+@section('title', 'Create support ticket')
+ 
+@yield('navbar')
+
+@section('content')
 <h2>Slanje ticketa</h2>
         <br>
         <form action="{{route('store_ticket')}}" method="POST" >
@@ -34,3 +41,4 @@
 
             <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
         </form>
+        @stop

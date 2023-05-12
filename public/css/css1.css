@@ -1,0 +1,41 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+div.navbar{
+    background-color: rgb(17, 27, 27);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding-left: 0;
+}
+ul.navbar{
+    background-color: darkslategray;
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+   
+    
+}
+li.navbar{
+    float: left;
+}
+li.navbar a{
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    padding: 14px 16px;
+}
+
+li a:hover {
+    background-color: #333333;
+  }
+
+div.container{
+    margin-top: 70px;
+    margin-left: 10px;
+}

@@ -1,5 +1,8 @@
-@extends('layout.base') 
-
+@extends('layout.masterClient')
+ 
+@section('title', 'Home')
+ 
+@yield('navbar')
 
 @section('content')
 <h1>Hello Client</h1>
@@ -22,5 +25,4 @@
 
 
 
-
-@endsection
+@stop

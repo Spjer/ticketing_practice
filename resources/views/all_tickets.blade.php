@@ -1,3 +1,10 @@
+@extends('layout.master')
+ 
+@section('title', 'Ticket list')
+ 
+@yield('navbar')
+
+@section('content')
 <table class="table" border=1>
                 <thead>
                   <tr>
@@ -44,3 +51,4 @@
                   @endforeach
                 </tbody>
             </table>
+@stop

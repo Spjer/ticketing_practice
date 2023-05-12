@@ -1,28 +1,34 @@
-@extends('layout.base') 
+@extends('layout.master')
+ 
+@section('title', 'Home')
+ 
+@yield('navbar')
+    
+
+ 
 
 
 @section('content')
-
-
-<h1>Hello User</h1>
+    <h1>Hello User</h1>
 
 
             
-@auth
-<a href="{{ route('all_tickets') }}">
-    <button type="submit">Svi ticketi</button>
-</a>
-<br>
-<a href="{{ route('user.my_tickets', [Auth::user()->id]) }}">
-    <button type="submit">Peuzeti ticketi</button>
-</a>
-<br>
-<a href="{{ route('user.logout') }}">Logout</a>
-<div>{{ Auth::user()->name }}</div>
+    @auth
+    <a href="{{ route('all_tickets') }}">
+        <button type="submit">Svi ticketi</button>
+    </a>
+    <br>
+    <a href="{{ route('user.my_tickets', [Auth::user()->id]) }}">
+        <button type="submit">Peuzeti ticketi</button>
+    </a>
+    <br>
+    <a href="{{ route('user.logout') }}">Logout</a>
+    <div>{{ Auth::user()->name }}</div>
 
-@endauth
-
-
+    @endauth
 
 
-@endsection
+
+
+
+@stop
