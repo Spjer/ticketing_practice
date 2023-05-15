@@ -47,6 +47,11 @@ class TicketController extends Controller
         return redirect()->route('client.home');
 
     }
+    // delete ticket after status set to closed
+    public function deleteTicket($id){
+        Ticket::find($id)->delete();
+        return redirect()->back();
+    }
     
     // take on ticket -> ticket goes to my_tickets
     public function takeTicket($id){
@@ -60,22 +65,7 @@ class TicketController extends Controller
         Ticket::where('id', $id)->update(['user_id'=> 0]);
         return redirect()->back();
     }
-    // switch status -> probat nac ljepsi nacin
-    public function editStatus($id){
-        $ticket = Ticket::find($id);
-
-        return view('user.edit_status') -> with('ticket', $ticket);
-    }
-
-    //namjestit store status funkciju
-    public function storeStatus(Request $request){
-        $ticket_id = $request->input('ticket_id');
-        $new_status_id = $request->input('new_status_id');
-
-        Ticket::where('id', $ticket_id)->update(['status_id'=> $new_status_id]);
-
-        return view('user.home');
-    }
+   
     
    
 

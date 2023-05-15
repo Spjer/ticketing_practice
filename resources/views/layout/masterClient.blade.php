@@ -13,7 +13,6 @@
     <div class='navbar'>
         <ul class='navbar'>
             <li class='navbar'><a href="{{ route('client.home') }}">Home</a></li>
-            <li class='navbar'><a href="#news">News</a></li>
             @auth
                 <li class='navbar'><a href="{{ route('client.logout') }}">Logout</a></li>
                 @else

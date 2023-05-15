@@ -5,6 +5,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::post('client/customRegistration', [ClientAuthController::class, 'customRe
 Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket'); //ticket per client
 Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket'); //client creates ticket
 Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('store_ticket'); // store created ticket
+Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket'); // delete ticket after status -> closed
 
     // Ticket and User
 Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets'); // show all tickets  ->>>turn into show all AVAILABLE
@@ -72,8 +74,8 @@ Route::post('/store_comment', [CommentController::class, 'storeComment']) ->name
 Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) ->name('delete_comment');
 
     // Status -> jos razmislit u koj kontroler stavit
-Route::get('/edit_status/{id}', [TicketController::class, 'editStatus']) ->name('edit_status'); 
-Route::post('/store_status', [TicketController::class, 'storeStatus']) ->name('store_status'); 
+Route::get('/edit_status/{id}', [StatusController::class, 'editStatus']) ->name('edit_status'); 
+Route::post('/store_status', [StatusController::class, 'storeStatus']) ->name('store_status'); 
 
 
 

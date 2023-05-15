@@ -15,6 +15,13 @@
                       <td>{{$ticket->details}}</td>
                       <!--<td>{{$ticket->status}}</td>-->
                       <td>{{$ticket->status->status}}</td>
+                      <td>
+                        @if($ticket->status_id == '3')
+                          <a href="{{ route('delete_ticket', [$ticket->id]) }}">
+                            <button type="button">Potvrdite izvršenje</button>
+                          </a>
+                        @endif
+                      </td>
                       
                     </tr>
                   @endforeach

@@ -13,7 +13,8 @@
                     <th scope="col"> Naziv</th>
                     <th scope="col">Detaljnije</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Komentari</th>
+                    <th scope="col">Klijent</th>
                     
                     
                   </tr>
@@ -31,7 +32,7 @@
                         
                       <a href="{{ route('edit_status', [$ticket->id]) }}">
                           <button type="button">Promijeni status</button>
-                        </a>
+                      </a>
                         
                       </td>
                       <td>
