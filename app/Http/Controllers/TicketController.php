@@ -31,7 +31,7 @@ class TicketController extends Controller
 
         //$status = 'open';
         $status_id = 1;
-        $user_id = 0;
+        $user_id = 1;
        // $user_id = $request->input('user_id');
         
 

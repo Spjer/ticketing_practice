@@ -12,6 +12,7 @@
 @section('navbar')
     <div class='navbar'>
         <ul class='navbar'>
+            <li class='navbar'><a href="{{ route('opening') }}">Opening Page</a></li>
             <li class='navbar'><a href="{{ route('user.home') }}">Home</a></li>
             @auth
                 <li class='navbar'><a href="{{ route('user.logout') }}">Logout</a></li>

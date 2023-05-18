@@ -36,6 +36,7 @@ class CommentController extends Controller
         $comment= new comment();
         $comment->ticket_id = $ticket_id;
         $comment->comm = $comm;
+        $comment->created_at = now();
         $comment->save();
         return redirect()->route('user.home'); // probat namjestit da vrati na my_tickets
 

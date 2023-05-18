@@ -9,12 +9,24 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'client_id',
+        'tic_name',
+        'details',
+        'user_id',
+        'status_id',
+        
+    ];
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     //poveznica s client - > 1 client many tickets
     public function client(){
         return $this->belongsTo(Client::class);
     }
 
-    //poveznica s user -> 1 user many tickets       mozda nepotrebno posto user_id nije foreign key -> jos provjerit
+    //poveznica s user -> 1 user many tickets       
     public function user(){
         return $this->belongsTo(User::class);
     }

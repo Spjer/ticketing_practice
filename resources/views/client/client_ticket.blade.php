@@ -6,6 +6,18 @@
 
 @section('content')
 <table class="table" border=1>
+<thead>
+                  <tr>
+                    <th scope="col">Id ticketa</th>
+                    <th scope="col">Moj id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Detaljnije</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Potvrda</th>
+                    
+                    
+                  </tr>
+                </thead>
 <tbody>
                   @foreach($client->tickets as $ticket) 
                     <tr align="right">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\TicketController;
@@ -18,9 +19,11 @@ use App\Http\Controllers\StatusController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get('/', [Controller::class, 'index'])
+    ->name('opening');
 
 //User(agent) auth
 Route::get('user/', [UserAuthController::class, 'index'])
@@ -56,10 +59,10 @@ Route::post('client/customRegistration', [ClientAuthController::class, 'customRe
     ->name('client.customRegistration');
 
     // Ticket and ticket creation ----> add deletion   Ticket and Client
-Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket'); //ticket per client
-Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket'); //client creates ticket
+Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket')->middleware('auth:webclient'); //ticket per client
+Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket')->middleware('auth:webclient'); //client creates ticket
 Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('store_ticket'); // store created ticket
-Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket'); // delete ticket after status -> closed
+Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket')->middleware('auth:webclient'); // delete ticket after status -> closed
 
     // Ticket and User
 Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets'); // show all tickets  ->>>turn into show all AVAILABLE
@@ -77,5 +80,8 @@ Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) 
 Route::get('/edit_status/{id}', [StatusController::class, 'editStatus']) ->name('edit_status'); 
 Route::post('/store_status', [StatusController::class, 'storeStatus']) ->name('store_status'); 
 
+
+Route::get('/view_clients', [ClientAuthController::class, 'viewClient']) ->name('user.view_clients'); 
+Route::get('/view_userss', [UserAuthController::class, 'viewUser']) ->name('user.view_users'); 
 
 

@@ -22,7 +22,7 @@ class ClientFactory extends Factory
             //
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'phone_number' => $this->faker->randomNumber(8),
+            'phone_number' => $this->faker->phoneNumber(),
             'email_verified_at' => now(),
             'password' => Hash::make("Password"),
             'remember_token' => Str::random(10),

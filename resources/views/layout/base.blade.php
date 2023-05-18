@@ -9,16 +9,29 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    @section('navbar')
+@section('navbar')
     <div class='navbar'>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li style="float:right"><a class="active" href="#about">About</a></li>
+        <ul class='navbar'>
+            
+            @if(auth()->user())
+                <li class='navbar'><a href="{{ route('user.home') }}">Users</a></li>
+            @else
+                <li class='navbar'><a href="{{ route('user.login') }}">Users</a></li>
+            @endif
+
+            
+            @if(Auth::guard('webclient')->check())
+                <li class='navbar'><a href="{{ route('client.home') }}">Clients</a></li>
+            @else
+                <li class='navbar'><a href="{{ route('client.login') }}">Clients</a></li>
+
+            @endif
+            
+                
         </ul>
     </div>
-    @show
+    
+@show
     <div class='container'>
         @yield('content')
     </div>

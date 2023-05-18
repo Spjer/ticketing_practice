@@ -2,22 +2,24 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class OpeningSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
+        // Seede for first seeding after clearing database
         $this->call([
-            //StatusSeeder::class,
+            StatusSeeder::class,
             ClientSeeder::class,
-            UserSeeder::class,
+            UserSeederOpening::class,
             TicketSeeder::class,
             CommentSeeder::class,
         ]);
+    
     }
 }

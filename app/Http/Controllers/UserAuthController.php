@@ -93,4 +93,21 @@ class UserAuthController extends Controller
         return view('user.my_tickets')->with('user', $user);
     }
 
+        // Skratit i mozda premjestit
+        public function viewUser(){
+            $user= User::all();
+            if(Auth::check()){
+                if(Auth::user()->id == 1){
+                    return view('user.view_users')->with('user', $user);
+                }
+                else{
+                    return view('user.home');
+                }
+            }
+            else{
+                return view('opening');
+            }
+    
+        }
+
 }

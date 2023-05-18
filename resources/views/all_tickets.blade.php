@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                   @foreach($ticket as $ticket) 
-                  @if($ticket->user_id == NULL)
+                  @if($ticket->user_id == 1)
                     <tr align="right">
                       <td>{{$ticket->id}}</td>
                       <td>{{$ticket->client_id}}</td>
@@ -37,11 +37,13 @@
                           @endif
                         </div>
                       </td>
+                      @if( Auth::user()->id != 1)
                       <td>
                       <a href="{{ route('take_ticket', [$ticket->id]) }}">
                           <button type="button">Preuzmi</button>
                         </a>
                       </td>
+                      @endif
                       
                       
                       

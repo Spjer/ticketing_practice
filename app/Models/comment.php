@@ -9,6 +9,14 @@ class comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'comm',
+        'ticket_id',
+    ];
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     // poveznica s ticket 1 ticket many comments
     public function ticket(){
         return $this->belongsTo(Ticket::class);

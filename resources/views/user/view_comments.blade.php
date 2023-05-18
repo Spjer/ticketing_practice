@@ -11,6 +11,7 @@
                     <th scope="col">Id ticketa</th>
                     <th scope="col"> Id komentara</th>
                     <th scope="col"> Komentar</th>
+                    <th scope="col"> Datum</th>
                     <th scope="col"> </th>
                   </tr>
                 </thead>
@@ -22,6 +23,7 @@
                       <td>{{$ticket->id}}</td>
                       <td>{{$comment->id}}</td>
                       <td>{{$comment->comm}}</td>
+                      <td>{{$comment->created_at}}</td>
                       <td>
                        <!-- dodat delete comment -->
                        <a href="{{ route('delete_comment', [$comment->id]) }}">

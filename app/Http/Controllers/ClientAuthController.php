@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Hash;
 use Session;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ClientAuthController extends Controller
@@ -55,7 +56,7 @@ class ClientAuthController extends Controller
         $request->validate([
             'name' => ['required', 'max:30'],
             'email' => ['required', 'email', 'max:40'],
-            'phone_number' =>  ['required','numeric', 'digits:10'],
+            'phone_number' =>  ['required', 'min:11', 'max:12', 'regex:/^([0-9]){3}-([0-9]){3}-([0-9])/'],
             'password' => ['required','min:6'],
 
         ]);
@@ -71,6 +72,7 @@ class ClientAuthController extends Controller
       return Client::create([
         'name' => $data['name'],
         'email' => $data['email'],
+        //'phone_number' => chunk_split($data['phone_number'], 3, ' '),
         'phone_number' => $data['phone_number'],
         'password' => Hash::make($data['password']),
 
@@ -86,6 +88,24 @@ class ClientAuthController extends Controller
     public function createTicket($id){
         $client = Client::find($id);
         return view('client.create_ticket') -> with('client', $client);
+    }
+
+
+        // Skratit i mozda premjestit
+    public function viewClient(){
+        $client= Client::all();
+        if(Auth::check()){
+            if(Auth::user()->id == 1){
+                return view('user.view_clients')->with('client', $client);
+            }
+            else{
+                return view('user.home');
+            }
+        }
+        else{
+            return view('opening');
+        }
+
     }
     
     
