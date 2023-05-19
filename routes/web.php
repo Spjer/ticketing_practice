@@ -26,31 +26,19 @@ Route::get('/', [Controller::class, 'index'])
     ->name('opening');
 
 //User(agent) auth
-Route::get('user/', [UserAuthController::class, 'index'])
-    ->name('user.home');
-    //->middleware('auth:web');
-Route::get('/login', [UserAuthController::class, 'login'])
-    ->name('user.login');
-Route::post('/login', [UserAuthController::class, 'customLogin'])
-    ->name('user.customLogin');
-Route::get('/logout', [UserAuthController::class, 'logout'])
-    ->name('user.logout');
-Route::get('/registration', [UserAuthController::class, 'registration'])
-    ->name('user.register');
-Route::post('/customRegistration', [UserAuthController::class, 'customRegistration'])
-    ->name('user.customRegistration');
+Route::get('user/', [UserAuthController::class, 'index'])->name('user.home')->middleware('auth:web');
+Route::get('/login', [UserAuthController::class, 'login'])->name('user.login');
+Route::post('/login', [UserAuthController::class, 'customLogin'])->name('user.customLogin');
+Route::get('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
+Route::get('/registration', [UserAuthController::class, 'registration'])->name('user.register');
+Route::post('/customRegistration', [UserAuthController::class, 'customRegistration'])->name('user.customRegistration');
     
 
 //Client auth
-Route::get('client/', [ClientAuthController::class, 'index'])
-    ->name('client.home')
-    ->middleware('auth:webclient');
-Route::get('client/login', [ClientAuthController::class, 'login'])
-    ->name('client.login');
-Route::post('client/login', [ClientAuthController::class, 'customLogin'])
-    ->name('client.customLogin');
-Route::get('client/logout', [ClientAuthController::class, 'logout'])
-    ->name('client.logout');
+Route::get('client/', [ClientAuthController::class, 'index'])->name('client.home')->middleware('auth:webclient');
+Route::get('client/login', [ClientAuthController::class, 'login'])->name('client.login');
+Route::post('client/login', [ClientAuthController::class, 'customLogin'])->name('client.customLogin');
+Route::get('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
 
     // provjerit radi li registracija -> radi -> osigurat
 Route::get('client/registration', [ClientAuthController::class, 'registration'])
@@ -65,20 +53,20 @@ Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('s
 Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket')->middleware('auth:webclient'); // delete ticket after status -> closed
 
     // Ticket and User
-Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets'); // show all tickets  ->>>turn into show all AVAILABLE
-Route::get('/take_ticket/{id}', [TicketController::class, 'takeTicket']) ->name('take_ticket'); // user takes on ticket
-Route::get('/drop_ticket/{id}', [TicketController::class, 'dropTicket']) ->name('drop_ticket'); // user drops ticket
-Route::get('/my_tickets/{id}', [UserAuthController::class, 'myTickets'])->name("user.my_tickets"); // show ticket user took on
+Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets')->middleware('auth:web'); // show all tickets  ->>>turn into show all AVAILABLE
+Route::get('/take_ticket/{id}', [TicketController::class, 'takeTicket']) ->name('take_ticket')->middleware('auth:web'); // user takes on ticket
+Route::get('/drop_ticket/{id}', [TicketController::class, 'dropTicket']) ->name('drop_ticket')->middleware('auth:web'); // user drops ticket
+Route::get('/my_tickets/{id}', [UserAuthController::class, 'myTickets'])->name("user.my_tickets")->middleware('auth:web'); // show ticket user took on
 
     // Ticket and comment
-Route::get('/view_comments/{id}', [CommentController::class, 'viewComments']) ->name('view_comments');
-Route::get('/create_comment/{id}', [CommentController::class, 'createComment']) ->name('create_comment');
-Route::post('/store_comment', [CommentController::class, 'storeComment']) ->name('store_comment');
-Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) ->name('delete_comment');
+Route::get('/view_comments/{id}', [CommentController::class, 'viewComments']) ->name('view_comments')->middleware('auth:web');
+Route::get('/create_comment/{id}', [CommentController::class, 'createComment']) ->name('create_comment')->middleware('auth:web');
+Route::post('/store_comment', [CommentController::class, 'storeComment']) ->name('store_comment')->middleware('auth:web');
+Route::get('/delete_comment/{id}', [CommentController::class, 'deleteComment']) ->name('delete_comment')->middleware('auth:web');
 
     // Status -> jos razmislit u koj kontroler stavit
-Route::get('/edit_status/{id}', [StatusController::class, 'editStatus']) ->name('edit_status'); 
-Route::post('/store_status', [StatusController::class, 'storeStatus']) ->name('store_status'); 
+Route::get('/edit_status/{id}', [StatusController::class, 'editStatus']) ->name('edit_status')->middleware('auth:web'); 
+Route::post('/store_status', [StatusController::class, 'storeStatus']) ->name('store_status')->middleware('auth:web'); 
 
 
 Route::get('/view_clients', [ClientAuthController::class, 'viewClient']) ->name('user.view_clients'); 

@@ -9,16 +9,26 @@
 @if(session('error'))
     <p>{{ session('error') }}</p>
 @endif
-
+<main>
 <form action="{{ route('client.customLogin') }}" method="POST">
     @csrf
-    <input type="text" name="email" />
-    <input type="password" name="password" />
-    <button type="submit">Log in</button>
+    <div>
+        <label for="email">Email:</label><br>
+        <input type="text"  placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" />
+        @if ($errors->has('name'))
+            <span>{{ $errors->first('email') }}</span>
+        @endif
+    </div>
+    <div>
+        <label for="password">Lozinka:</label><br>
+        <input type="password" name="password" name="id" placeholder="********"/>
+        @if ($errors->has('password'))
+            <span>{{ $errors->first('password') }}</span>
+        @endif
+    </div>
+    <div>
+        <button type="submit">Log in</button>
+    </div>
 </form>
-
-
-
-
-
+</main>
 @stop

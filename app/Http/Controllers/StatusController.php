@@ -16,7 +16,7 @@ class StatusController extends Controller
         return view('user.edit_status') -> with('ticket', $ticket);
     }
 
-    //namjestit store status funkciju
+    // store status funkcija
     public function storeStatus(Request $request){
         $ticket_id = $request->input('ticket_id');
         $new_status_id = $request->input('new_status_id');

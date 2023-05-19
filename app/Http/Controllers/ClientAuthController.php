@@ -93,9 +93,9 @@ class ClientAuthController extends Controller
 
         // Skratit i mozda premjestit
     public function viewClient(){
-        $client= Client::all();
         if(Auth::check()){
             if(Auth::user()->id == 1){
+                $client= Client::all();
                 return view('user.view_clients')->with('client', $client);
             }
             else{

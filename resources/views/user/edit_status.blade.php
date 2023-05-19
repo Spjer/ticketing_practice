@@ -5,6 +5,7 @@
 @yield('navbar')
 
 @section('content')
+<main>
 <form action="{{ route('store_status') }}" method="POST" >
     @csrf
     <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
@@ -14,4 +15,5 @@
         <option value="3">Closed</option>
     </select>
     <button type="submit" class="btn btn-primary mt-3">Promijeni status</button>
+</main>
 @stop

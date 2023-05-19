@@ -22,23 +22,6 @@ class UserAuthController extends Controller
         return view('user.login');
     } 
 
-   /* public function customLogin(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required',
-        ]);
-   
-        $credentials = $request->only('name', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/')
-                        ->withSuccess('Signed in');
-        }
-  
-        return redirect()
-            ->back()
-            ->with('error', 'Login details are not valid');
-    }*/
     public function customLogin(Request $req)
     {
         if(Auth::attempt(
@@ -70,7 +53,7 @@ class UserAuthController extends Controller
     public function customRegistration(Request $request)
     {  
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'unique:users,name'],
             'password' => ['required','min:6'],
         ]);
            
@@ -95,9 +78,9 @@ class UserAuthController extends Controller
 
         // Skratit i mozda premjestit
         public function viewUser(){
-            $user= User::all();
             if(Auth::check()){
                 if(Auth::user()->id == 1){
+                    $user= User::all();
                     return view('user.view_users')->with('user', $user);
                 }
                 else{

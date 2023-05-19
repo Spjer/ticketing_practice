@@ -5,52 +5,49 @@
 @yield('navbar')
 
 @section('content')
-<table class="table" border=1>
-                <thead>
-                  <tr>
-                    <th scope="col">Id ticketa</th>
-                    <th scope="col"> Id klijenta</th>
-                    <th scope="col"> Naziv</th>
-                    <th scope="col">Detaljnije</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Klijent</th>
-                    
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($ticket as $ticket) 
-                  @if($ticket->user_id == 1)
-                    <tr align="right">
-                      <td>{{$ticket->id}}</td>
-                      <td>{{$ticket->client_id}}</td>
-                      <td>{{$ticket->tic_name}}</td>
-                      <td>{{$ticket->details}}</td>
-                      <td>{{$ticket->status->status}}</td>
-                      <td>
-                        <div>
-                          @if(isset($ticket->client))
-                            {{$ticket->client->name}}
-                            
-                            @else
-                              Nema
-                          @endif
-                        </div>
-                      </td>
-                      @if( Auth::user()->id != 1)
-                      <td>
-                      <a href="{{ route('take_ticket', [$ticket->id]) }}">
-                          <button type="button">Preuzmi</button>
-                        </a>
-                      </td>
-                      @endif
-                      
-                      
-                      
-                      
-                    </tr>
-                    @endif
-                  @endforeach
-                </tbody>
-            </table>
+<main>
+  <table class="table" border=1>
+    <thead>
+      <tr>
+        <th scope="col">Id ticketa</th>
+        <th scope="col"> Id klijenta</th>
+        <th scope="col"> Naziv</th>
+        <th scope="col">Detaljnije</th>
+        <th scope="col">Status</th>
+        <th scope="col">Datum</th>                    
+        <th scope="col">Klijent</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($ticket as $ticket) 
+        @if($ticket->user_id == 1)
+          <tr align="right">
+            <td>{{$ticket->id}}</td>
+            <td>{{$ticket->client_id}}</td>
+            <td>{{$ticket->tic_name}}</td>
+            <td>{{$ticket->details}}</td>
+            <td>{{$ticket->status->status}}</td>
+            <td>{{$ticket->created_at}}</td>
+            <td>
+              <div>
+                @if(isset($ticket->client))
+                  {{$ticket->client->name}}
+                @else
+                  Nema
+                @endif
+              </div>
+            </td>
+            @if( Auth::user()->id != 1)
+            <td>
+              <a href="{{ route('take_ticket', [$ticket->id]) }}">
+                <button type="button">Preuzmi</button>
+              </a>
+            </td>
+            @endif
+          </tr>
+        @endif
+      @endforeach
+    </tbody>
+  </table>
+</main>
 @stop

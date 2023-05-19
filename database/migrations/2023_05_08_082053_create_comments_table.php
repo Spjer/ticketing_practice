@@ -21,9 +21,6 @@ return new class extends Migration
 
         Schema::table('comments', function ($table){
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
-            
-            
-
         });
     }
 

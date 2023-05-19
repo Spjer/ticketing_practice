@@ -13,6 +13,7 @@
                     <th scope="col">Naziv</th>
                     <th scope="col">Detaljnije</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Datum</th>
                     <th scope="col">Potvrda</th>
                     
                     
@@ -25,8 +26,8 @@
                       <td>{{$ticket->client_id}}</td>
                       <td>{{$ticket->tic_name}}</td>
                       <td>{{$ticket->details}}</td>
-                      <!--<td>{{$ticket->status}}</td>-->
                       <td>{{$ticket->status->status}}</td>
+                      <td>{{$ticket->created_at}}</td>
                       <td>
                         @if($ticket->status_id == '3')
                           <a href="{{ route('delete_ticket', [$ticket->id]) }}">

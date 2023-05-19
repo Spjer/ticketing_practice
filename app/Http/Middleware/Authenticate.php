@@ -12,11 +12,16 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
+
+        ////// TREBA POPRAVIT --privremeno rjesenje
         if(! $request->expectsJson()){
             if($request->is('webclient')){
-                return route('user.login');
+                //return route('client.login');
+                return route('opening');
             }
-            return route('client.login');
+            //return route('user.login');
+            return route('opening');
+
         }
         //return $request->expectsJson() ? null : route('login');
     }
