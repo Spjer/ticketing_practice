@@ -22,18 +22,29 @@ class UserAuthController extends Controller
         return view('user.login');
     } 
 
-    public function customLogin(Request $req)
+    public function customLogin(Request $request)
     {
+        //logout of client
+        if(Auth::guard('webclient')){
+            Auth::guard('webclient')
+            ->logout();
+        }
+        //
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required', 'min:6',
+        ]);
+            
         if(Auth::attempt(
-            $req->only(['name', 'password'])
+            $request->only(['name', 'password'])
         ))
         {
             return redirect()->route('user.home');
         }
 
         return redirect()
-            ->back()
-            ->with('error', 'Invalid Credentials');
+            ->back();
+            //->with('error', 'Invalid Credentials');
     }
 
     public function logout() {
@@ -57,19 +68,26 @@ class UserAuthController extends Controller
             'password' => ['required','min:6'],
         ]);
            
-        $data = $request->all();
-        $check = $this->create($data);
+        //$data = $request->all();
+        $name = $request->input('name');
+        $password = $request->input('password');
+        $user = new User();
+        $user->name = $name;
+        $user->password = Hash::make($password);
+        $user->save();
+
+        //$check = $this->create($data);
          
         return Redirect()->route('user.login');
     }
 
-    public function create(array $data)
+    /*public function create(array $data)
     {
       return User::create([
         'name' => $data['name'],
         'password' => Hash::make($data['password'])
       ]);
-    }
+    }*/
 
     public function myTickets($id){
         $user = User::find($id);

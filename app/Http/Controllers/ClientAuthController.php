@@ -23,21 +23,32 @@ class ClientAuthController extends Controller
         return view('client.login');
     } 
 
-    public function customLogin(Request $req)
+    public function customLogin(Request $request)
     {
+        //logout of user
+        if(Auth::guard('web')){
+            Auth::guard('web')
+            ->logout();
+        }
+        //
+
+        $request->validate([
+            'email' => 'required', 'email',
+            'password' => 'required', 'min:6',
+        ]);
+
         if(Auth::guard('webclient')
-            ->attempt($req->only(['email', 'password'])))
+            ->attempt($request->only(['email', 'password'])))
         {
             return redirect()->route('client.home');
         }
 
         return redirect()
-            ->back()
-            ->with('error', 'Invalid Credentials');
+            ->back();
+            //->with('error', 'Invalid Credentials');
     }
 
     public function logout() {
-        //Session::flush();
         
         Auth::guard('webclient')
             ->logout();
@@ -55,29 +66,27 @@ class ClientAuthController extends Controller
     {  
         $request->validate([
             'name' => ['required', 'max:30'],
-            'email' => ['required', 'email', 'max:40'],
+            'email' => ['required', 'email', 'max:40', 'unique:clients,email'],
             'phone_number' =>  ['required', 'min:11', 'max:12', 'regex:/^([0-9]){3}-([0-9]){3}-([0-9])/'],
             'password' => ['required','min:6'],
 
         ]);
            
-        $data = $request->all();
-        $check = $this->create($data);
+        
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $phone_number = $request->input('phone_number');
+        $password = $request->input('password');
+        $client = new Client();
+        $client->name = $name;
+        $client->email = $email;
+        $client->phone_number = $phone_number;
+        $client->password = Hash::make($password);
+        $client->save();
          
         return Redirect()->route('client.login');
     }
 
-    public function create(array $data)
-    {
-      return Client::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        //'phone_number' => chunk_split($data['phone_number'], 3, ' '),
-        'phone_number' => $data['phone_number'],
-        'password' => Hash::make($data['password']),
-
-      ]);
-    }
 
     //mozda premjestit
     public function getTicket($id){

@@ -13,7 +13,7 @@
 </a>
 <br>
 <a href="{{ route('create_ticket', [Auth::user()->id]) }}">
-    <button type="button"> Napravi ticket</button>
+    <button type="button"> Prijavi problem</button>
 </a>
 <br>
 

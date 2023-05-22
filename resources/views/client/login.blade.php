@@ -6,22 +6,20 @@
 
 @section('content')
 
-@if(session('error'))
-    <p>{{ session('error') }}</p>
-@endif
+
 <main>
 <form action="{{ route('client.customLogin') }}" method="POST">
     @csrf
     <div>
         <label for="email">Email:</label><br>
-        <input type="text"  placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" />
-        @if ($errors->has('name'))
+        <input type="text"  placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" required/>
+        @if ($errors->has('email'))
             <span>{{ $errors->first('email') }}</span>
         @endif
     </div>
     <div>
         <label for="password">Lozinka:</label><br>
-        <input type="password" name="password" name="id" placeholder="********"/>
+        <input type="password" name="password" name="id" placeholder="********" required/>
         @if ($errors->has('password'))
             <span>{{ $errors->first('password') }}</span>
         @endif
