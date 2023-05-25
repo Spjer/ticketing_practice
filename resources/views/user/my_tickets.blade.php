@@ -51,9 +51,15 @@
           <td>
             <div>
               @if(isset($ticket->client))
-                {{$ticket->client->id}}-{{$ticket->client->name}}<br>
-                {{$ticket->client->email}}<br>
-                {{$ticket->client->phone_number}}<br>
+                @if($ticket->client_id != '1')
+                  {{$ticket->client->id}}-{{$ticket->client->name}}<br>
+                  {{$ticket->client->email}}<br>
+                  {{$ticket->client->phone_number}}<br>
+                @else
+                  <a href="{{ route('pick_client', [$ticket->id]) }}">
+                    <button type="button">Odaberi korisnika</button>
+                  </a>
+                @endif
               @endif
             </div>
                   

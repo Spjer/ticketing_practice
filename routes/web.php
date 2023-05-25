@@ -48,9 +48,9 @@ Route::post('client/customRegistration', [ClientAuthController::class, 'customRe
 
     // Ticket and ticket creation ----> add deletion   Ticket and Client
 Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket')->middleware('auth:webclient'); //ticket per client
-Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket')->middleware('auth:webclient'); //client creates ticket
+Route::get('/create_ticket/{id}', [TicketController::class, 'createTicket']) ->name('create_ticket'); //client creates ticket
 Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('store_ticket'); // store created ticket
-Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket')->middleware('auth:webclient'); // delete ticket after status -> closed
+Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket'); // delete ticket after status -> closed
 
     // Ticket and User
 Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets')->middleware('auth:web'); // show all tickets  ->>>turn into show all AVAILABLE
@@ -71,5 +71,13 @@ Route::post('/store_status', [StatusController::class, 'storeStatus']) ->name('s
 
 Route::get('/view_clients', [ClientAuthController::class, 'viewClient']) ->name('user.view_clients'); 
 Route::get('/view_userss', [UserAuthController::class, 'viewUser']) ->name('user.view_users'); 
+
+
+//nova verzija    TREBA OSIGURAT/////////////////////////////////////////////////////////////////////////////////////////////////////
+//odabir klijenta za ticket napravljen od strane usera
+Route::get('/pick_client/{id}', [TicketController::class, 'pickClient']) ->name('pick_client')->middleware('auth:web');
+Route::get('/create_ticket_user/{id}', [TicketController::class, 'createTicketUser']) ->name('create_ticket_user')->middleware('auth:web'); //client creates ticket
+Route::post('/update_pick', [TicketController::class, 'updatePick']) ->name('update_pick')->middleware('auth:web');
+Route::post('add_client', [ClientAuthController::class, 'addClient'])->name('add_client')->middleware('auth:web');
 
 

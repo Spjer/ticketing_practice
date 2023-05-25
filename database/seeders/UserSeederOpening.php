@@ -17,6 +17,7 @@ class UserSeederOpening extends Seeder
         $user = User::create([
             'name' => 'admin',
             'password' => bcrypt("Password"), // password
+            'role' => 'admin',
             'remember_token' => '123',
         ]);
         User::factory()->count(5)->create();

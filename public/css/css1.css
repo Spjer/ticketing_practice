@@ -29,6 +29,7 @@ li.navbar a{
     text-decoration: none;
     color: white;
     padding: 14px 16px;
+    font-size: 19px;
 }
 
 li a:hover {
@@ -43,6 +44,32 @@ div.container{
 
 main{
     margin: 20px;
+    margin-left: 130px; 
+    padding: 0px 10px;
     
 }
+
+.sidebar{
+    margin-top: 50px;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 130px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(17, 27, 27); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+.sidebar a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 3px 5px;
+    font-size: 16px;
+}
+.sidebar a:hover{
+    background-color: #333333;
+}
+
 

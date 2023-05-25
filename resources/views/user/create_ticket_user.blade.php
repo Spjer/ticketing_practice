@@ -1,11 +1,12 @@
 
-@extends('layout.masterClient')
+@extends('layout.master')
  
 @section('title', 'Create support ticket')
  
 @yield('navbar')
 
 @section('content')
+<main>
 <h2>Slanje ticketa</h2>
         <br>
         <form action="{{route('store_ticket')}}" method="POST" >
@@ -21,7 +22,7 @@
 
 
             @csrf
-            <input type="hidden" id="client_id" name="client_id" value="{{$client->id}}">
+            <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
             
             <div>
                 <label for="tic_name">Naziv</label>
@@ -42,4 +43,5 @@
 
             <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
         </form>
+</main>
         @stop

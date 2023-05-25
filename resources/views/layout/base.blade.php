@@ -13,7 +13,7 @@
     <div class='navbar'>
         <ul class='navbar'>
             
-            @if(auth()->user())
+            @if(Auth::guard('web')->check())
                 <li class='navbar'><a href="{{ route('user.home') }}">Users</a></li>
             @else
                 <li class='navbar'><a href="{{ route('user.login') }}">Users</a></li>

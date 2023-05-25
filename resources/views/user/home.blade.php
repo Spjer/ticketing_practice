@@ -23,7 +23,7 @@
         <button type="submit">Peuzeti ticketi</button>
     </a>
     <br>
-    @if(auth()->user()->id == '1')
+    @if(auth()->user()->role == 'admin')
     <a href="{{ route('user.view_users') }}">
         <button type="submit">Pregled agenata</button>
     </a>
@@ -31,6 +31,12 @@
         <button type="submit">Pregled klijenata</button>
     </a>
     @endif
+    <br>
+    <!--WIP -->
+    <a href="{{ route('create_ticket_user', [Auth::user()->id]) }}">
+        <button type="button">Otvori ticket</button>
+    </a>
+    <!--------------------------------------------------------->
     <br>
     <a href="{{ route('user.logout') }}">Logout</a>
     <div>{{ Auth::user()->name }}</div>

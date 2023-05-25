@@ -86,24 +86,30 @@ class ClientAuthController extends Controller
          
         return Redirect()->route('client.login');
     }
+    
 
 
     //mozda premjestit
     public function getTicket($id){
-        $client = Client::find($id);
-        return view('client.client_ticket') -> with('client', $client);
+        if(Auth::user()->id != $id){
+            return redirect()->route('client.home');
+        }else{
+            $client = Client::find($id);
+            return view('client.client_ticket') -> with('client', $client);
+        }
+        
     }
 
-    public function createTicket($id){
+    /*public function createTicket($id){
         $client = Client::find($id);
         return view('client.create_ticket') -> with('client', $client);
-    }
+    }*/
 
 
         // Skratit i mozda premjestit
     public function viewClient(){
         if(Auth::check()){
-            if(Auth::user()->id == 1){
+            if(Auth::user()->role == 'admin'){
                 $client= Client::all();
                 return view('user.view_clients')->with('client', $client);
             }
@@ -115,6 +121,33 @@ class ClientAuthController extends Controller
             return view('opening');
         }
 
+    }
+
+    /// NOVA VERZIJA /////////////////////////////////////////////////////////////////////////////////////
+    public function addClient(Request $request)
+    {  
+        $request->validate([
+            'name' => ['required', 'max:30'],
+            'email' => ['required', 'email', 'max:40', 'unique:clients,email'],
+            'phone_number' =>  ['required', 'min:11', 'max:12', 'regex:/^([0-9]){3}-([0-9]){3}-([0-9])/'],
+
+        ]);
+           
+        
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $phone_number = $request->input('phone_number');
+        $client = new Client();
+        $client->name = $name;
+        $client->email = $email;
+        $client->phone_number = $phone_number;
+        //$client->password = Hash::make('123');
+        $client->password = '';
+        $client->save();
+
+        ///treba naravit da admin moze izbrisat ako je passwortd null ////////////////////////////////////
+         
+        return Redirect()->back();
     }
     
     

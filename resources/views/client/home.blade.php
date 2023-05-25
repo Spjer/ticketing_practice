@@ -18,6 +18,7 @@
 <br>
 
 <a href="{{ route('client.logout') }}">Logout</a>
+{{auth()->guard('webclient')->user()->name}}
 @endif
 @endauth
 
