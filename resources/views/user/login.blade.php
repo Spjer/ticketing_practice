@@ -3,7 +3,7 @@
 @section('title', 'LogIn')
  
 @yield('navbar')
-
+@section('sidebar')
 @section('content')
 <main>
     <h3>Log In</h3>

@@ -90,20 +90,22 @@ class ClientAuthController extends Controller
 
     //mozda premjestit
     public function getTicket($id){
-        $client = Client::find($id);
-        return view('client.client_ticket') -> with('client', $client);
+        if(Auth::user()->id != $id){
+            return redirect()->route('client.home');
+        }else{
+            $client = Client::find($id);
+            return view('client.client_ticket') -> with('client', $client);
+        }
+        
     }
 
-    public function createTicket($id){
-        $client = Client::find($id);
-        return view('client.create_ticket') -> with('client', $client);
-    }
+   
 
 
         // Skratit i mozda premjestit
     public function viewClient(){
         if(Auth::check()){
-            if(Auth::user()->id == 1){
+            if(Auth::user()->role == 'admin'){
                 $client= Client::all();
                 return view('user.view_clients')->with('client', $client);
             }

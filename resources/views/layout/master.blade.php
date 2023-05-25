@@ -24,6 +24,35 @@
     </div>
     
 @show
+@section('sidebar')
+<div class='sidebar'>     
+        @auth
+        <a href="{{ route('all_tickets') }}">
+            Svi ticketi
+        </a>
+        <br>
+        <a href="{{ route('user.my_tickets', [Auth::user()->id]) }}">
+            Peuzeti ticketi
+        </a>
+        <br>
+        @if(auth()->user()->role == 'admin')
+        <a href="{{ route('user.view_users') }}">
+           Pregled agenata
+        </a>
+        <br>
+        <a href="{{ route('user.view_clients') }}">
+            Pregled klijenata
+        </a>
+        @endif
+        <br>
+    
+        <!--<br>
+        <a href="{{ route('user.logout') }}">Logout</a>-->
+        &nbsp<span style='color: gray'>{{ Auth::user()->name }}</span>
+
+        @endauth
+</div>
+@show
     <div class='container'>
         @yield('content')
     </div>

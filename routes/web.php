@@ -48,9 +48,9 @@ Route::post('client/customRegistration', [ClientAuthController::class, 'customRe
 
     // Ticket and ticket creation ----> add deletion   Ticket and Client
 Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket']) ->name('client_ticket')->middleware('auth:webclient'); //ticket per client
-Route::get('/create_ticket/{id}', [ClientAuthController::class, 'createTicket']) ->name('create_ticket')->middleware('auth:webclient'); //client creates ticket
+Route::get('/create_ticket/{id}', [TicketController::class, 'createTicket']) ->name('create_ticket')->middleware('auth:webclient'); //client creates ticket
 Route::post('/store_ticket', [TicketController::class, 'storeTicket']) ->name('store_ticket'); // store created ticket
-Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket')->middleware('auth:webclient'); // delete ticket after status -> closed
+Route::get('/delete_ticket/{id}', [TicketController::class, 'deleteTicket']) ->name('delete_ticket'); // delete ticket after status -> closed
 
     // Ticket and User
 Route::get('/all_tickets', [TicketController::class, 'all_tickets']) ->name('all_tickets')->middleware('auth:web'); // show all tickets  ->>>turn into show all AVAILABLE

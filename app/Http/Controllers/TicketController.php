@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\comment;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -15,6 +16,11 @@ class TicketController extends Controller
         $ticket = Ticket::all();
         return view('all_tickets')->with('ticket', $ticket);
 
+    }
+
+    public function createTicket($id){
+        $client = Client::find($id);
+        return view('client.create_ticket') -> with('client', $client);
     }
 
     public function storeTicket(Request $request)
@@ -46,8 +52,13 @@ class TicketController extends Controller
     }
     // delete ticket after status set to closed
     public function deleteTicket($id){ //osigurat///////////////////////////////////////////
-        Ticket::find($id)->delete();
-        return redirect()->back();
+        if(Auth::guard('webclient')->check() || Auth::guard('web')->check()){
+            Ticket::find($id)->delete();
+            return redirect()->back();
+            
+
+        }
+        return redirect()->route('opening');
     }
     
     // take on ticket -> ticket goes to my_tickets

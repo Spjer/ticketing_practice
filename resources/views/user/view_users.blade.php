@@ -15,6 +15,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Ime</th>
+                <th scope="col">Role</th>
                 <th scope="col">Tickets</th>
 
              
@@ -27,6 +28,7 @@
                 <tr align="right">
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
+                    <td>{{$user->role}}</td>
                     <td>{{$user->tickets->count()}}</td>
                 </tr>
                    

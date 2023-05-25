@@ -74,6 +74,7 @@ class UserAuthController extends Controller
         $user = new User();
         $user->name = $name;
         $user->password = Hash::make($password);
+        $user->role = 'agent';
         $user->save();
 
         //$check = $this->create($data);
@@ -89,26 +90,32 @@ class UserAuthController extends Controller
       ]);
     }*/
 
+    //mozda premhestit
     public function myTickets($id){
-        $user = User::find($id);
+        if(Auth::user()->id != $id){
+            return redirect()->route('user.home');
+        }else{
+            $user = User::find($id);
         return view('user.my_tickets')->with('user', $user);
+        }
+        
     }
 
         // Skratit i mozda premjestit
-        public function viewUser(){
-            if(Auth::check()){
-                if(Auth::user()->id == 1){
-                    $user= User::all();
-                    return view('user.view_users')->with('user', $user);
-                }
-                else{
-                    return view('user.home');
-                }
+    public function viewUser(){
+        if(Auth::check()){
+            if(Auth::user()->role == 'admin'){
+                $user= User::all();
+                return view('user.view_users')->with('user', $user);
             }
             else{
-                return view('opening');
+                return view('user.home');
             }
-    
         }
+        else{
+            return view('opening');
+        }
+    
+    }
 
 }
