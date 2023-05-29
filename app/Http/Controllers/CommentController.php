@@ -15,15 +15,23 @@ class CommentController extends Controller
     // Functions relating to comments 
     // view comments
     public function viewComments($id){
+        
         $ticket = Ticket::find($id);
+        if(Auth::user()->id == $ticket->user_id){
+            return view('user.view_comments')->with('ticket', $ticket);
+        }
 
-        return view('user.view_comments')->with('ticket', $ticket);
+        return redirect()->route('user.home');
     }
 
     public function createComment($id){
         $ticket = Ticket::find($id);
 
-        return view('user.create_comment')->with('ticket', $ticket);
+        if(Auth::user()->id == $ticket->user_id){
+            return view('user.create_comment')->with('ticket', $ticket);
+        }
+
+        return redirect()->route('user.home');
     }
 
     public function storeComment(Request $request)
@@ -33,15 +41,9 @@ class CommentController extends Controller
             'ticket_id' => ['required', 'numeric'],
             'comm' =>  ['required', 'max:400'],
         ]);
-        $ticket_id = $request->input('ticket_id');
-        $comm = $request->input('comm');
-        
-        $comment= new comment();
-        $comment->ticket_id = $ticket_id;
-        $comment->comm = $comm;
-        $comment->created_at = now();
-        $comment->save();
 
+        comment::query()->create($request->all());
+        
         return redirect()->route('user.my_tickets', [Auth::user()->id]); // vrati na my_tickets
 
     }
@@ -50,6 +52,7 @@ class CommentController extends Controller
         $comment = comment::find($id);
         $ticket = $comment->all_tickets;
         $comment->delete();
+        
 
         return redirect()->back();
     }

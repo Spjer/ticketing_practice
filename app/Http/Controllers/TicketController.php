@@ -25,6 +25,9 @@ class TicketController extends Controller
 
     public function createTicketUser($id){
         $user = User::find($id);
+        if(Auth::user()->id != $id){
+            return redirect()->route('user.home');
+        }
         return view('user.create_ticket_user') -> with('user', $user);
     }
 
@@ -35,22 +38,27 @@ class TicketController extends Controller
             'tic_name' => ['required', 'max:40'],
             'details' => ['required', 'max:400'],
         ]);
-        if(Auth::guard('web')->check()){
+
+        //// TREBA RAZRADIT DA NISU NAMJESTENI BROJEVI////////////////////////////////
+        /*if(Auth::guard('web')->check()){
             
             $client_id = 1;
             $user_id = $request->input('user_id');
         }else{
-            $client_id = $request->input('client_id');
+            client_id = $request->input('client_id');
             $user_id = 1;
             
             
-        }
-       
+        }*/
+        //$status_id = 1;
+
+        Ticket::query()->create($request->all());
+        /*
         $tic_name = $request->input('tic_name');
         $details = $request->input('details');
 
-        $status_id = 1;
-       // $user_id = 1;        
+       
+              
 
         $ticket = new Ticket();
         $ticket->client_id = $client_id;
@@ -61,10 +69,11 @@ class TicketController extends Controller
         $ticket->user_id = $user_id;
         $ticket->created_at = now();
 
-        $ticket->save();
+        $ticket->save();*/
         if(Auth::guard('web')->check()){
-            return redirect()->route('user.my_tickets', $user_id);
+            return redirect()->route('user.my_tickets', Auth::user()->id);
         }
+        $client_id = $request->input('client_id');
         return redirect()->route('client_ticket', $client_id);
 
     }
@@ -86,6 +95,10 @@ class TicketController extends Controller
     }
     // drop/release ticket -> ticket goes to all_tickets
     public function dropTicket($id){
+        $tmp= Ticket::find($id);
+        if(Auth::user()->id != $tmp->user_id){
+            return redirect()->route('user.home');
+        }
         Ticket::where('id', $id)->update(['user_id'=> 1]);
         return redirect()->back();
     }
@@ -95,6 +108,9 @@ class TicketController extends Controller
     public function pickClient($id){
         $ticket = Ticket::find($id);
         $client = Client::all();
+        if(Auth::user()->id != $ticket->user_id){
+            return redirect()->route('user.home');
+        }
 
         return view('user.pick_client') -> with('client', $client) ->with('ticket', $ticket);
 

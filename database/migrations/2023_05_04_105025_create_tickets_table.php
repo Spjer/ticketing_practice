@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id')->unsigned;
             $table->string('tic_name', 50);
             $table->string('details', 255);
-            
             $table->unsignedBigInteger('user_id')->unsigned;
             $table->unsignedBigInteger('status_id')->unsigned;
             $table->timestamps();

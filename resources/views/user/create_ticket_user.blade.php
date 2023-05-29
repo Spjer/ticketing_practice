@@ -23,7 +23,9 @@
 
             @csrf
             <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-            
+            <input type="hidden" id="client_id" name="client_id" value="1">
+            <input type="hidden" id="status_id" name="status_id" value="1">
+
             <div>
                 <label for="tic_name">Naziv</label>
                 <input type="text" id="tic_name" name="tic_name" placeholder="Upišite naziv">

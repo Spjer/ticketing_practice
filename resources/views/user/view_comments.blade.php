@@ -5,7 +5,9 @@
 @yield('navbar')
 
 @section('content')
+<main>
 @if(count($ticket->comments))
+
 <table class="table" border=1>
                 <thead>
                   <tr>
@@ -27,7 +29,7 @@
                       <td>
                        <!-- delete comment -->
                        <a href="{{ route('delete_comment', [$comment->id]) }}">
-                          <button type="button">Izbiši komentar</button>
+                          <button type="button">Izbriši komentar</button>
                         </a>
                       </td>
                     </tr>
@@ -37,4 +39,5 @@
 @else
   <p>Nema komentara</p>
 @endif
+</main>
 @stop

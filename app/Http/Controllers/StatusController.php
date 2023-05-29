@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
@@ -12,6 +13,9 @@ class StatusController extends Controller
      // switch status -> probat nac ljepsi nacin
     public function editStatus($id){
         $ticket = Ticket::find($id);
+        if(Auth::user()->id != $ticket->user_id){
+            return redirect()->route('user.home');
+        }
 
         return view('user.edit_status') -> with('ticket', $ticket);
     }

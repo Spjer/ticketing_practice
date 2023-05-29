@@ -71,7 +71,9 @@ class ClientAuthController extends Controller
             'password' => ['required','min:6'],
 
         ]);
-           
+        //$password = $request->input('password');
+        //$client->password = Hash::make($password);
+        //Client::query()->create($request->only(['name', 'email', 'phone_number' ]));
         
         $name = $request->input('name');
         $email = $request->input('email');

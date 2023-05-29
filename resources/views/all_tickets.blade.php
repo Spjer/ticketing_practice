@@ -1,3 +1,4 @@
+
 @extends('layout.master')
  
 @section('title', 'Ticket list')
@@ -6,92 +7,71 @@
 
 @section('content')
 <main>
-  <table class="table" border=1>
-    <thead>
-      <tr>
-        <th scope="col">Id ticketa</th>
-        <th scope="col"> Id klijenta</th>
-        <th scope="col"> Naziv</th>
-        <th scope="col">Detaljnije</th>
-        <th scope="col">Status</th>
-        <th scope="col">Datum</th>                    
-        <th scope="col">Klijent</th>
-        @if(Auth::user()->role == 'admin')
-          <th scope="col">Agent</th>
+ 
+
+@if(Auth::user()->role == 'admin')
+  @foreach($ticket as $ticket)
+  
+    <div class='card'>
+      
+      <div class='card-text'>
+        <p>{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+      </div>
+      <div class='card-text'>
+        <p>{{$ticket->client->name}} <span style="color:grey">#{{$ticket->client_id}}</span></p>
+      </div>
+      <div class='card-text' style="text-align:center">
+        <p><span class='status-span' id=statusId>{{$ticket->status->status}}</span></p>
+      </div>
+      <div class='card-text'>
+        <p>{{$ticket->created_at}}</p>
+      </div>
+      <div class='gumbi'>
+       
+        @if($ticket->status_id == '3' && Auth::user()->role == 'admin') 
+          <p><a href="{{ route('delete_ticket', [$ticket->id]) }}">
+            <button type="button" class="take-btn">Završi</button>
+          </a></p>
+            
         @endif
-        <th scope="col">Završi</th>
-      </tr>
-    </thead>
-    <tbody>
-    @if(Auth::user()->role == 'admin')
-      @foreach($ticket as $ticket) 
-        
-          <tr align="right">
-            <td>{{$ticket->id}}</td>
-            <td>{{$ticket->client_id}}</td>
-            <td>{{$ticket->tic_name}}</td>
-            <td>{{$ticket->details}}</td>
-            <td>{{$ticket->status->status}}</td>
-            <td>{{$ticket->created_at}}</td>
-            <td>
-              <div>
-                @if(isset($ticket->client))
-                  {{$ticket->client->name}}
-                @else
-                  Nema
-                @endif
-              </div>
-            </td>
-            <td>
-              <div>
-                @if(isset($ticket->user))
-                  {{$ticket->user->name}}
-                @else
-                  Nema
-                @endif
-              </div>
-            </td>
-            @if($ticket->status_id == '3') 
-            <td>
-              <a href="{{ route('delete_ticket', [$ticket->id]) }}">
-                <button type="button">Potvrdite izvršenje</button>
-              </a>
-            </td>
-            @endif
-          </tr>
-        
-      @endforeach
-    @else
-      @foreach($ticket as $ticket) 
-        @if($ticket->user_id == 1)
-          <tr align="right">
-            <td>{{$ticket->id}}</td>
-            <td>{{$ticket->client_id}}</td>
-            <td>{{$ticket->tic_name}}</td>
-            <td>{{$ticket->details}}</td>
-            <td>{{$ticket->status->status}}</td>
-            <td>{{$ticket->created_at}}</td>
-            <td>
-              <div>
-                @if(isset($ticket->client))
-                  {{$ticket->client->name}}
-                @else
-                  Nema
-                @endif
-              </div>
-            </td>
-            <td>
-              @if( Auth::user()->role != 'admin')
-              <a href="{{ route('take_ticket', [$ticket->id]) }}">
-                <button type="button">Preuzmi</button>
-              </a>
-              @endif
-            </td>
-          </tr>
+      </div>
+      
+    </div>
+    @endforeach
+
+@else
+  @foreach($ticket as $ticket)
+  @if($ticket->user_id == 1) 
+    <div class='card'>
+      <div class='card-text'>
+        <p>{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+      </div>
+      <div class='card-text'>
+        <p>{{$ticket->client->name}} <span style="color:grey">#{{$ticket->client_id}}</span></p>
+      </div>
+      <div class='card-text' style="text-align:center">
+        <p><span class='status-span'>{{$ticket->status->status}}</span></p>
+      </div>
+      <div class='card-text'>
+        <p>{{$ticket->created_at}}</p>
+      </div>
+      <div class='gumbi'>
+        @if($ticket->user_id == 1 && Auth::user()->role != 'admin')
+          <p><a href="{{ route('take_ticket', [$ticket->id]) }}">
+            <button type="button" class="take-btn">Preuzmi</button>
+          </a></p>
         @endif
-      @endforeach
-    @endif
-    </tbody>
-  </table>
+       
+        
+        
+      </div>
+
+    </div>
+  @endif
+  @endforeach
+@endif
 </main>
 @stop
+
+
+
