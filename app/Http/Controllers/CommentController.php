@@ -14,7 +14,7 @@ class CommentController extends Controller
     //- 
     // Functions relating to comments 
     // view comments
-    public function viewComments($id){
+    public function show($id){
         
         $ticket = Ticket::find($id);
         if(Auth::user()->id == $ticket->user_id){
@@ -34,7 +34,7 @@ class CommentController extends Controller
         return redirect()->route('user.home');
     }
 
-    public function storeComment(Request $request)
+    public function store(Request $request)
     {
         /// SJETI se napravit validaciju
         $validateData = $request->validate([
@@ -44,11 +44,12 @@ class CommentController extends Controller
 
         comment::query()->create($request->all());
         
-        return redirect()->route('user.my_tickets', [Auth::user()->id]); // vrati na my_tickets
+        return redirect()->back(); //redirect()->route('user.my_tickets', [Auth::user()->id]); // vrati na my_tickets
 
     }
 
     public function deleteComment($id){
+       
         $comment = comment::find($id);
         $ticket = $comment->all_tickets;
         $comment->delete();

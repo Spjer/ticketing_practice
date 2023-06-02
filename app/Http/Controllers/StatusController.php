@@ -11,7 +11,7 @@ class StatusController extends Controller
 {
     //
      // switch status -> probat nac ljepsi nacin
-    public function editStatus($id){
+    public function edit($id){
         $ticket = Ticket::find($id);
         if(Auth::user()->id != $ticket->user_id){
             return redirect()->route('user.home');
@@ -21,12 +21,12 @@ class StatusController extends Controller
     }
 
     // store status funkcija
-    public function storeStatus(Request $request){
+    public function store(Request $request){
         $ticket_id = $request->input('ticket_id');
         $new_status_id = $request->input('new_status_id');
 
         Ticket::where('id', $ticket_id)->update(['status_id'=> $new_status_id]);
 
-        return view('user.home');
+        return redirect()->route('tickets.show', Auth::user()->id);
     }
 }

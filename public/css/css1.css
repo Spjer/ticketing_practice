@@ -3,7 +3,7 @@ body{
     margin: 0;
 }
 
-div.navbar{
+div.navbar1{
     background-color: rgb(17, 27, 27);
     position: fixed;
     top: 0;
@@ -12,7 +12,7 @@ div.navbar{
     margin: 0;
     padding-left: 0;
 }
-ul.navbar{
+ul.navbar1{
     background-color: darkslategray;
     list-style-type: none;
     width: 100%;
@@ -20,10 +20,10 @@ ul.navbar{
    
     
 }
-li.navbar{
+li.navbar1{
     float: left;
 }
-li.navbar a{
+li.navbar1 a{
     display: block;
     text-align: center;
     text-decoration: none;
@@ -34,6 +34,7 @@ li.navbar a{
 
 li a:hover {
     background-color: #333333;
+    height: 50px;
   }
 
 div.container{
@@ -74,44 +75,37 @@ main{
 
 
 
-.card{
+.card1{
     display: flex;
     flex-direction: row;
     border-radius: 5px;
     background-color: rgba(207, 230, 238, 0.822);
     padding: 5px;
     margin-bottom: 5px;
+    box-shadow: 5px 5px 5px grey;
+
 
 }
 
-.card-image{
-    width: 25%;
-    
-   
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
 
-.card-image img{
-    
-    
-    min-height: 100%;
-    max-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
 
-.card-text{
+.card1-text{
     margin-left: 7px;
     width: 20%;
+    margin: auto;
     
+
+    
+    
+    
+}
+p {
+    margin: 10px;
     
 }
 
 
-.card-text2{
+.card1-text2{
   
   width: 75%;
   
@@ -125,6 +119,12 @@ main{
     width: 60px;
     padding: 4px;
     border-radius: 5px;
+}
+.status-a{
+    
+    
+    color: white;
+    text-decoration: none;
 }
 
 .gumbi{
@@ -144,7 +144,56 @@ main{
 }
 
 .take-btn{
-    width: 80px;}
+    width: 80px;
+}
+
+.side-pnl{
+    margin-top: 70px;
+    margin-right: 8px;
+    height: 85%; /* Full-height: remove this if you want "auto" height */
+    width: 370px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    
+    top: 0; /* Stay at the top */
+    right: 0;
+    background-color: rgb(236, 233, 233); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding: 10px;
+
+    flex-shrink: 0;
+    display: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px grey;
+
+}
+.sp1{
+    overflow: auto;
+}
+.sp2{
+    border-radius: 5px;
+    background-color: rgba(207, 230, 238, 0.822);
+    padding-right: 3px;
+    padding-left: 3px;
+
+
+}
+
+.btn-primary{
+    padding: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    background-color: rgb(59, 65, 255);
+    color: white;
+    border: 0;
+}
+.btn-primary:hover{
+   
+    background-color: rgb(113, 169, 253);
+
+}
+
+
 
 
 

@@ -5,6 +5,7 @@
 @yield('navbar')
 
 @section('content')
+<main>
 <table class="table" border=1>
 <thead>
                   <tr>
@@ -26,7 +27,9 @@
                       <td>{{$ticket->client_id}}</td>
                       <td>{{$ticket->tic_name}}</td>
                       <td>{{$ticket->details}}</td>
-                      <td>{{$ticket->status->status}}</td>
+                      <td><span class='status-span' id=statusId  @if($ticket->status_id == '1') style="background-color: blue;" 
+                          @elseif($ticket->status_id == '2') style="background-color: green;" @else style="background-color: red;" @endif >{{$ticket->status->status}}</span></p>
+                      </td>
                       <td>{{$ticket->created_at}}</td>
                       <td>
                         @if($ticket->status_id == '3')
@@ -40,4 +43,10 @@
                   @endforeach
 </tbody>
 </table>
+</main>
 @stop
+
+
+
+
+  

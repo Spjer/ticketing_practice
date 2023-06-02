@@ -8,7 +8,7 @@
 <main>
     <h2>Dodavanje komentara</h2>
         <br>
-        <form action="{{route('store_comment')}}" method="POST" >
+        <form action="{{route('comments.store')}}" method="POST" >
             @if ($errors->any())
             <div>
                 <ul>

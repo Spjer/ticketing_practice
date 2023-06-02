@@ -8,7 +8,7 @@
 @section('content')
 <h2>Slanje ticketa</h2>
         <br>
-        <form action="{{route('store_ticket')}}" method="POST" >
+        <form action="{{route('tickets.store')}}" method="POST" >
             @if ($errors->any())
             <div>
                 <ul>

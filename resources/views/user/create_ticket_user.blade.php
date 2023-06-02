@@ -7,9 +7,10 @@
 
 @section('content')
 <main>
+<div>
 <h2>Slanje ticketa</h2>
         <br>
-        <form action="{{route('store_ticket')}}" method="POST" >
+        <form action="{{route('tickets.store')}}" method="POST" >
             @if ($errors->any())
             <div>
                 <ul>
@@ -23,8 +24,7 @@
 
             @csrf
             <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-            <input type="hidden" id="client_id" name="client_id" value="1">
-            <input type="hidden" id="status_id" name="status_id" value="1">
+            
 
             <div>
                 <label for="tic_name">Naziv</label>
@@ -32,8 +32,8 @@
             </div>
             <br>
             <div>
-                <label for="details">Detaljnije</label>
-                <input type="text"  id="details" name="details"  placeholder="Opišite problem">
+                <label for="details">Detaljnije</label><br>
+                <textarea rows="4" cols="50"  id="details" name="details"  placeholder="Opišite problem"></textarea>
             </div>
 
             <br>
@@ -45,5 +45,6 @@
 
             <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
         </form>
+</div>
 </main>
         @stop

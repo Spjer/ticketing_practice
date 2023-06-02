@@ -180,3 +180,87 @@
           document.getElementById('statusId').style.background-color = 'blue';
         }
       </script>
+
+
+
+
+
+
+
+
+
+
+
+
+///////client ticket
+<main>
+<table class="table" border=1>
+<thead>
+                  <tr>
+                    <th scope="col">Id ticketa</th>
+                    <th scope="col">Moj id</th>
+                    <th scope="col">Naziv</th>
+                    <th scope="col">Detaljnije</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Datum</th>
+                    <th scope="col">Potvrda</th>
+                    
+                    
+                  </tr>
+                </thead>
+<tbody>
+                  @foreach($client->tickets as $ticket) 
+                    <tr align="right">
+                      <td>{{$ticket->id}}</td>
+                      <td>{{$ticket->client_id}}</td>
+                      <td>{{$ticket->tic_name}}</td>
+                      <td>{{$ticket->details}}</td>
+                      <td>{{$ticket->status->status}}</td>
+                      <td>{{$ticket->created_at}}</td>
+                      <td>
+                        @if($ticket->status_id == '3')
+                          <a href="{{ route('delete_ticket', [$ticket->id]) }}">
+                            <button type="button">Potvrdite izvršenje</button>
+                          </a>
+                        @endif
+                      </td>
+                      
+                    </tr>
+                  @endforeach
+</tbody>
+</table>
+</main>
+
+
+
+<main>
+<div>
+  @foreach($client->tickets as $ticket)
+      <div>
+        <div class='card1'>
+          <div class='card1-text'>
+            <p class='basic'>{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+          </div>
+          <div class='card1-text'>
+         
+                  <p>{{$ticket->details}}</p>
+            
+          </div>
+          <div class='card1-text' style="text-align:center">
+            <p><span class='status-span' id=statusId  @if($ticket->status_id == '1') style="background-color: blue;" 
+            @elseif($ticket->status_id == '2') style="background-color: green;" @else style="background-color: red;" @endif >{{$ticket->status->status}}</span></p>
+          </div>
+          <div class='card1-text'>
+            
+
+          </div>
+          <div class='gumbi'>
+             
+           
+              
+          </div>
+        </div>
+      </div>
+      @endforeach
+</div>
+</main>
