@@ -8,19 +8,40 @@
 <main>
 
   <div>
+    <div>
+      <div class='card0'>
+          
+        <div class='card1-text'>
+          
+          Ticket 
+        </div>
+        <div class='card1-text' >
+          Klijent
+        </div>
+        <div class='card1-text'>
+          Status
+        </div>
+        <div class='card1-text'>
+          Datum
+        </div>
+        <div class='card1-text'>
+          Više
+        </div>
+      </div>
+    </div>
     @if(count($user->tickets))
       @foreach($user->tickets as $ticket)
       <div>
         <div class='card1'>
           <div class='card1-text'>
-            <p class='basic'>{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+            <p class='basic' style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
           </div>
           <div class='card1-text'>
           @if(isset($ticket->client))
                 @if($ticket->client_id != '1')
                   <p class='basic'>{{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span></p>
                 @else
-                  <p class='basic'><a href="{{ route('pick_client', [$ticket->id]) }}">
+                  <p class='basic'><a href="{{ route('clients.edit', [$ticket->id]) }}">
                     <button type="button">Odaberi korisnika</button>
                   </a></p>
                 @endif
@@ -64,7 +85,7 @@
                 EMAIL: {{$ticket->client->email}}<br>
                 BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
               @else
-                <a href="{{ route('pick_client', [$ticket->id]) }}">
+                <a href="{{ route('clients.edit', [$ticket->id]) }}">
                   <button type="button">Odaberi korisnika</button>
                 </a>
             @endif
@@ -114,7 +135,7 @@
             
             <div>
                 <label for="comm">Komentar:</label><br>
-                <input type="text" id="comm" name="comm" placeholder="Upišite komentar" width=500 col="10" row="10">
+                <textarea rows="4" cols="40"  id="comm" name="comm"  placeholder="Upišite komentar"></textarea>
             </div>
             <br>
             

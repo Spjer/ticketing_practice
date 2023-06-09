@@ -9,13 +9,35 @@
 <main>
  
 
+  <div>
+    <div class='card0'>
+          
+      <div class='card1-text'>
+          
+        Ticket
+      </div>
+      <div class='card1-text' >
+        Klijent
+      </div>
+      <div class='card1-text'>
+        Status
+      </div>
+      <div class='card1-text'>
+        Datum
+      </div>
+      <div class='card1-text'>
+        Više
+      </div>
+    </div>
+  </div>
+
 @if(Auth::user()->role == 'admin')
   @foreach($ticket as $ticket)
   
     <div class='card1'>
       
       <div class='card1-text'>
-        <p>{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+        <p style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
       </div>
       <div class='card1-text'>
         <p>{{$ticket->client->name}} <span style="color:grey">#{{$ticket->client_id}}</span></p>
@@ -40,7 +62,7 @@
                 EMAIL: {{$ticket->client->email}}<br>
                 BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
               @else
-                <a href="{{ route('pick_client', [$ticket->id]) }}">
+                <a href="{{ route('clients.edit', [$ticket->id]) }}">
                   <button type="button">Odaberi korisnika</button>
                 </a>
             @endif
@@ -68,10 +90,10 @@
 
 
         <div class ='sp1'> 
-          <a href="{{ route('pick_client', [$ticket->id]) }}">
+          <a href="{{ route('clients.edit', [$ticket->id]) }}">
             <button type="button">Promijeni korisnika</button>
           </a>
-          <a href="{{ route('pick_user', [$ticket->id]) }}">
+          <a href="{{ route('users.edit', [$ticket->id]) }}">
             <button type="button">Promijeni agenta</button>
           </a>
 
@@ -80,12 +102,7 @@
         <div class='sp1'>
            <!-- Napravit da se moze promijenit status i otpustit ticket -->
             <!-- drop ticket = otpusti ticket -->
-            @if($ticket->status_id == '3' && Auth::user()->role == 'admin') 
-            <p><a href="{{ route('delete_ticket', [$ticket->id]) }}">
-              <button type="button" class="take-btn">Završi</button>
-            </a></p>
             
-        @endif
             
         </div>
 
@@ -162,7 +179,7 @@
                 EMAIL: {{$ticket->client->email}}<br>
                 BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
               @else
-                <a href="{{ route('pick_client', [$ticket->id]) }}">
+                <a href="{{ route('clients.edit', [$ticket->id]) }}">
                   <button type="button">Odaberi korisnika</button>
                 </a>
             @endif

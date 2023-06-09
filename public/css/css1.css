@@ -73,7 +73,17 @@ main{
     background-color: #333333;
 }
 
+.card0{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    background-color: rgb(17, 27, 27);
+    padding: 10px;
+    margin-bottom: 5px;
+    box-shadow: 2px 2px 2px grey;
+    text-align: left;
 
+}
 
 .card1{
     display: flex;
@@ -82,7 +92,7 @@ main{
     background-color: rgba(207, 230, 238, 0.822);
     padding: 5px;
     margin-bottom: 5px;
-    box-shadow: 5px 5px 5px grey;
+    box-shadow: 2px 2px 2px grey;
 
 
 }
@@ -93,6 +103,19 @@ main{
     margin-left: 7px;
     width: 20%;
     margin: auto;
+    
+    
+    
+
+    
+    
+    
+}
+.card0 card1-text{
+    margin-left: 10px;
+    width: 20%;
+    text-align: left;
+    color: white;
     
 
     
@@ -133,7 +156,7 @@ p {
     
     align-items: center;
     text-align: center;   
-    background-color: rgb(159, 205, 221);
+    /*background-color: rgb(159, 205, 221);*/
     border-radius: 5px;
 }
 .gumbi p{

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class UserAuthController extends Controller
 {
     //
+    //  user main page
     public function index()
     {
         return view('user.home');
@@ -82,40 +83,5 @@ class UserAuthController extends Controller
         return Redirect()->route('user.login');
     }
 
-    /*public function create(array $data)
-    {
-      return User::create([
-        'name' => $data['name'],
-        'password' => Hash::make($data['password'])
-      ]);
-    }*/
-
-    //mozda premhestit
-    public function myTickets($id){
-        if(Auth::user()->id != $id){
-            return redirect()->route('user.home');
-        }else{
-            $user = User::find($id);
-        return view('user.my_tickets')->with('user', $user);
-        }
-        
-    }
-
-        // Skratit i mozda premjestit
-    public function viewUser(){
-        if(Auth::check()){
-            if(Auth::user()->role == 'admin'){
-                $user= User::all();
-                return view('user.view_users')->with('user', $user);
-            }
-            else{
-                return view('user.home');
-            }
-        }
-        else{
-            return view('opening');
-        }
-    
-    }
 
 }

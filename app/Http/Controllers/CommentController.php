@@ -24,16 +24,7 @@ class CommentController extends Controller
         return redirect()->route('user.home');
     }
 
-    public function createComment($id){
-        $ticket = Ticket::find($id);
-
-        if(Auth::user()->id == $ticket->user_id){
-            return view('user.create_comment')->with('ticket', $ticket);
-        }
-
-        return redirect()->route('user.home');
-    }
-
+    // Store comment //create comment removed
     public function store(Request $request)
     {
         /// SJETI se napravit validaciju
@@ -48,7 +39,7 @@ class CommentController extends Controller
 
     }
 
-    public function deleteComment($id){
+    public function destroy($id){ //deleteComment
        
         $comment = comment::find($id);
         $ticket = $comment->all_tickets;
@@ -57,4 +48,17 @@ class CommentController extends Controller
 
         return redirect()->back();
     }
+
+
+
+
+    /*public function createComment($id){
+        $ticket = Ticket::find($id);
+
+        if(Auth::user()->id == $ticket->user_id){
+            return view('user.create_comment')->with('ticket', $ticket);
+        }
+
+        return redirect()->route('user.home');
+    }*/
 }

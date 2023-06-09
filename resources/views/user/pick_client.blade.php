@@ -10,8 +10,11 @@
 
 @section('content')
 <main>
-    <form action="{{ route('update_pick') }}" method="POST" >
+    <form action="{{ route('clients.update', [$ticket->id]) }}" method="POST" >
     @csrf
+    @method('PUT')
+
+    
         <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
         <select name="new_client_id" id="new_client_id">
             @foreach($client as $client)

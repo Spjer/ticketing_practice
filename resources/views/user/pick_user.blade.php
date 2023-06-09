@@ -10,8 +10,9 @@
 
 @section('content')
 <main>
-    <form action="{{ route('update_user') }}" method="POST" >
+    <form action="{{ route('users.update', [$ticket->id]) }}" method="POST" >
     @csrf
+    @method('PUT')
         <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
         <select name="new_user_id" id="new_user_id">
             @foreach($user as $user)

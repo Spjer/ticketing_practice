@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests;
 
 use Illuminate\Http\Request;
 use App\Models\Ticket;
@@ -9,7 +10,9 @@ use App\Models\comment;
 use App\Models\Client;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
+
 use DB;
+
 
 class TicketController extends Controller
 {
@@ -35,6 +38,8 @@ class TicketController extends Controller
         return view('user.create_ticket_user') -> with('user', $user);
     }
 
+
+    
     public function store(Request $request)
     {
         /// SJETI se napravit validaciju
@@ -55,16 +60,14 @@ class TicketController extends Controller
             
         }
         $ticket->status_id = Status::select('id')->where('status','Open')->limit(1)->first()->id;
-
         //Ticket::query()->create($request->all());
-        
         $ticket->tic_name = $request->input('tic_name');
         $ticket->details = $request->input('details');
         $ticket->save();
        
         
         if(Auth::guard('web')->check()){
-            return redirect()->route('pick_client', $ticket->id);
+            return redirect()->route('users.edit', $ticket->id);
         }
         $client_id = $request->input('client_id');
         return redirect()->route('client_ticket', $client_id);
@@ -72,8 +75,8 @@ class TicketController extends Controller
     }
 
 
-    // delete ticket after status set to closed   // deleteTicket
-    public function deleteTicket($id){ //osigurat///////////////////////////////////////////
+    // delete ticket after status set to closed   // Nije koristeno
+    /*public function delete($id){ //osigurat/////////////////////////////////////////// /////deleteTicket
         if(Auth::guard('webclient')->check() || Auth::guard('web')->check()){
             Ticket::find($id)->delete();
             return redirect()->back();
@@ -81,7 +84,7 @@ class TicketController extends Controller
 
         }
         return redirect()->route('opening');
-    }
+    }*/
 
         // My_Tickets
     public function show($id){
@@ -95,64 +98,20 @@ class TicketController extends Controller
     }
     
     // take on ticket -> ticket goes to my_tickets
-    public function takeTicket($id){
+    public function takeTicket($id){    
         Ticket::where('id', $id)->update(['user_id'=> Auth::user()->id]);
         return redirect()->route('tickets.index');
     }
+
     // drop/release ticket -> ticket goes to all_tickets/tickets.index
     public function dropTicket($id){
         $tmp= Ticket::find($id);
+        $admin_id = User::select('id')->where('role','admin')->limit(1)->first()->id;
         if(Auth::user()->id != $tmp->user_id){
             return redirect()->route('user.home');
         }
-        Ticket::where('id', $id)->update(['user_id'=> 1]);
+        Ticket::where('id', $id)->update(['user_id'=> $admin_id]);
         return redirect()->back();
     }
-
-    //nova verzija
-
-    public function pickClient($id){
-        $ticket = Ticket::find($id);
-        $client = Client::all();
-        if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
-            return view('user.pick_client') -> with('client', $client) ->with('ticket', $ticket);
-
-        }
-        return redirect()->route('user.home');
-
-    }
-    public function updatePick(Request $request){
-        $ticket_id = $request->input('ticket_id');
-        $new_client_id = $request->input('new_client_id');
     
-        Ticket::where('id', $ticket_id)->update(['client_id'=> $new_client_id]);
-    
-        return view('user.home');
-        
-    }
-
-    public function pickUser($id){
-        $ticket = Ticket::find($id);
-        $user = User::all();
-        if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
-            return view('user.pick_user') -> with('user', $user) ->with('ticket', $ticket);
-
-        }
-        return redirect()->route('user.home');
-
-    }
-
-    public function updateUser(Request $request){
-        $ticket_id = $request->input('ticket_id');
-        $new_user_id = $request->input('new_user_id');
-    
-        Ticket::where('id', $ticket_id)->update(['user_id'=> $new_user_id]);
-        $ticket = Ticket::all();
-        return view('all_tickets')->with('ticket', $ticket);
-        
-    }
-   
-    
-   
-
 }

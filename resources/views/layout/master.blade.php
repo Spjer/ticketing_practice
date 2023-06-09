@@ -31,7 +31,7 @@
 <div class='sidebar'>     
         @auth
         <a href="{{ route('tickets.index') }}">
-            Svi ticketi
+            Ticketi
         </a>
         <br>
         <a href="{{ route('tickets.show', [Auth::user()->id]) }}">
@@ -39,7 +39,7 @@
         </a>
         <br>
         @if(auth()->user()->role == 'admin')
-        <a href="{{ route('user.view_users') }}">
+        <a href="{{ route('users.index') }}">
            Pregled agenata
         </a>
         <br>

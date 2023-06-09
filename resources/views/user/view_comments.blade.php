@@ -28,9 +28,11 @@
                       <td>{{$comment->created_at}}</td>
                       <td>
                        <!-- delete comment -->
-                       <a href="{{ route('delete_comment', [$comment->id]) }}">
-                          <button type="button">Izbriši komentar</button>
-                        </a>
+                        <form action="{{ route('comments.destroy', [$comment->id]) }}" method="POST">
+                        @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">Izbriši komentar</button>
+                        </form>
                       </td>
                     </tr>
                   @endforeach
