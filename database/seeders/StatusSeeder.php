@@ -16,15 +16,15 @@ class StatusSeeder extends Seeder
         //
         $status = Status::create([
             
-            'status' => 'Open',
+            'name' => 'Open',
         ]);
         $status = Status::create([
             
-            'status' => 'In Progress',
+            'name' => 'In Progress',
         ]);
         $status = Status::create([
 
-            'status' => 'Closed',
+            'name' => 'Closed',
         ]);
     }
 }

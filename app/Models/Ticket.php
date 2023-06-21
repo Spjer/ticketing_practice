@@ -33,7 +33,7 @@ class Ticket extends Model
 
     //poveznica s comment -> 1 ticket many comments
     public function comments(){
-        return $this->hasMany(comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function status(){

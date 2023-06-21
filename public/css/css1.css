@@ -173,14 +173,14 @@ p {
 .side-pnl{
     margin-top: 70px;
     margin-right: 8px;
-    height: 85%; /* Full-height: remove this if you want "auto" height */
-    width: 370px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    height: 85%; 
+    width: 370px; 
+    position: fixed; 
     
-    top: 0; /* Stay at the top */
+    top: 0; 
     right: 0;
-    background-color: rgb(236, 233, 233); /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: rgb(236, 233, 233); 
+    overflow-x: hidden; 
     padding: 10px;
 
     flex-shrink: 0;
@@ -213,6 +213,23 @@ p {
 .btn-primary:hover{
    
     background-color: rgb(113, 169, 253);
+
+}
+
+div.forms{
+    margin-top: 70px;
+    margin: 7px;
+     
+    
+    display: inline-block;
+    background-color: rgb(236, 233, 233); 
+    
+    padding: 10px;
+
+    flex-shrink: 0;
+    
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px grey;
 
 }
 

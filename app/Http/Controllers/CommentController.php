@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\comment;
+use App\Models\Comment;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -33,15 +33,15 @@ class CommentController extends Controller
             'comm' =>  ['required', 'max:400'],
         ]);
 
-        comment::query()->create($request->all());
+        Comment::query()->create($request->all());
         
         return redirect()->back(); //redirect()->route('user.my_tickets', [Auth::user()->id]); // vrati na my_tickets
 
     }
 
-    public function destroy($id){ //deleteComment
+    public function destroy(Comment $comment){ //deleteComment
        
-        $comment = comment::find($id);
+        //$comment = comment::find($id);
         $ticket = $comment->all_tickets;
         $comment->delete();
         

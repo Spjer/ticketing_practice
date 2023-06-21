@@ -10,6 +10,7 @@
 
 @section('content')
 <main>
+    <div class="forms">
     <form action="{{ route('clients.update', [$ticket->id]) }}" method="POST" >
     @csrf
     @method('PUT')
@@ -17,11 +18,11 @@
     
         <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
         <select name="new_client_id" id="new_client_id">
-            @foreach($client as $client)
+            @foreach($clients as $client)
             <option value="{{$client->id}}">{{$client->name}} - {{$client->email}}</option>
             @endforeach
             
-        </select>
+        </select><br>
         <button type="submit" class="btn btn-primary mt-3">Promijeni Klijenta</button>
     </form>
     
@@ -56,9 +57,10 @@
         </div>
     
         <div>
-            <button type="submit">Dodaj novog klijenta</button>
+            <button type="submit" class="btn btn-primary mt-3">Dodaj novog klijenta</button>
         </div>
     </form>
+    </div>
     
 </main>
 

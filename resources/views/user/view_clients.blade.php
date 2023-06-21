@@ -21,7 +21,7 @@
             </tr>
         </thead>
             <tbody>
-                @foreach($client as $client) 
+                @foreach($clients as $client) 
                 
                 <tr align="right">
                     <td>{{$client->id}}</td>

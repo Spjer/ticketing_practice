@@ -53,7 +53,7 @@
               @elseif($ticket->status_id == '2') style="background-color: green;" 
               @else style="background-color: red;" @endif 
               ><a href="{{ route('statuses.edit', [$ticket->id]) }}" class='status-a'>
-                {{$ticket->status->status}}
+                {{$ticket->status->name}}
               </a></span>
             </p>
           </div>
@@ -153,7 +153,7 @@
             </a>
             @if(Auth::user()->role != 'admin')
             <a href="{{ route('drop_ticket', [$ticket->id]) }}">
-              <button type="button">Odbaci</button>
+              <button type="button">Otpusti</button>
             </a>
             @endif
                      

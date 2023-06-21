@@ -15,8 +15,8 @@ class ClientController extends Controller
     public function index(){
         if(Auth::check()){
             if(Auth::user()->role == 'admin'){
-                $client= Client::all();
-                return view('user.view_clients')->with('client', $client);
+                $clients= Client::all();
+                return view('user.view_clients')->with('clients', $clients);
             }
             else{
                 return view('user.home');
@@ -46,9 +46,9 @@ class ClientController extends Controller
     // Choose a client for a created ticket 
     public function edit($id){ //pickClient
         $ticket = Ticket::find($id);
-        $client = Client::all();
+        $clients = Client::all();
         if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
-            return view('user.pick_client') -> with('client', $client) ->with('ticket', $ticket);
+            return view('user.pick_client')->with('clients', $clients)->with('ticket', $ticket);
 
         }
         return redirect()->route('user.home');
@@ -61,7 +61,7 @@ class ClientController extends Controller
     
         Ticket::where('id', $ticket_id)->update(['client_id'=> $new_client_id]);
     
-        return view('user.home');
+        return redirect()->route('tickets.show', [Auth::user()->id]);//view('user.home');
         
     }
 }

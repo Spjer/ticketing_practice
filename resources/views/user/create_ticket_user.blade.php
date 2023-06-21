@@ -7,9 +7,10 @@
 
 @section('content')
 <main>
-<div>
+<div class = "forms">
 <h2>Slanje ticketa</h2>
         <br>
+        
         <form action="{{route('tickets.store')}}" method="POST" >
             @if ($errors->any())
             <div>
@@ -45,6 +46,7 @@
 
             <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
         </form>
+        
 </div>
 </main>
         @stop

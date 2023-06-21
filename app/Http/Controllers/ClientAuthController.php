@@ -9,6 +9,10 @@ use Session;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Notification;
+use App\Notifications\MailNotification;
+use App\Models\Announcement;
+use Illuminate\Support\Facades\Route;
 
 class ClientAuthController extends Controller
 {
@@ -85,8 +89,19 @@ class ClientAuthController extends Controller
         $client->phone_number = $phone_number;
         $client->password = Hash::make($password);
         $client->save();
-         
+        //Notification::send($client, new MailNotification($order));
+        //$annoncement = Announcement::create();
+        $data =[
+            'subject' => 'TestNotif'
+        ];
+        $client->notify((new MailNotification($data)));
+
+        //Route::get('send', [NotifyController::class, 'send']);
+
+        
+
         return Redirect()->route('client.login');
+        //return Redirect()->route('send');
     }
     
 
@@ -101,6 +116,27 @@ class ClientAuthController extends Controller
         }
         
     }
+
+
+
+   /* public function send() 
+    {
+    	$client = Client::first();
+  
+        $project = [
+            'greeting' => 'Hi '.$client->name.',',
+            'body' => 'This is the project assigned to you.',
+            'thanks' => 'Thank you this is from codeanddeploy.com',
+            'actionText' => 'View Project',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+        Notification::send($client, new MailNotification($invoice));
+  
+        Notification::send($user, new EmailNotification($project));
+   
+        dd('Notification sent!');
+    }*/
     
     
 }

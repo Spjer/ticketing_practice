@@ -28,11 +28,11 @@ class UserController extends Controller
     
     }
     // As admin assign ticket to agent(user)
-    public function edit($id){ ///pickUser
-        $ticket = Ticket::find($id);
+    public function edit(Ticket $ticket){ ///pickUser
+        //$ticket = Ticket::find($id);
         $user = User::all();
         if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
-            return view('user.pick_user') -> with('user', $user) ->with('ticket', $ticket);
+            return view('user.pick_user')->with('user', $user)->with('ticket', $ticket);
 
         }
         return redirect()->route('user.home');
@@ -44,8 +44,8 @@ class UserController extends Controller
         $new_user_id = $request->input('new_user_id');
     
         Ticket::where('id', $ticket_id)->update(['user_id'=> $new_user_id]);
-        $ticket = Ticket::all();
-        return view('all_tickets')->with('ticket', $ticket);
+        $tickets = Ticket::all();
+        return view('all_tickets')->with('tickets', $tickets);
     }
         
     

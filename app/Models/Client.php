@@ -12,6 +12,13 @@ class Client extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function routeNotificationForMail($notification)
+    {
+   // Return email address only
+    return $this->email_address;
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

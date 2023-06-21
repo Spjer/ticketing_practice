@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTicket;
 use App\Models\Ticket;
 use App\Models\User;
-use App\Models\comment;
+use App\Models\Comment;
 use App\Models\Client;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,16 @@ class TicketController extends Controller
 {
     // all_tickets
     public function index(){
-        $ticket = Ticket::all();
-        $user = User::all();
+        $tickets = Ticket::all();
+        $users = User::all();
         
-        return view('all_tickets')->with('user', $user)->with('ticket', $ticket);
+        return view('all_tickets')->with('users', $users)->withDetails($tickets)->withQuery ( " " );;   //->with('tickets', $tickets)
 
     }
 
     public function createTicket($id){
         $client = Client::find($id);
-        return view('client.create_ticket') -> with('client', $client);
+        return view('client.create_ticket')->with('client', $client);
     }
 
     public function createTicketUser($id){
@@ -35,20 +36,19 @@ class TicketController extends Controller
         if(Auth::user()->id != $id){
             return redirect()->route('user.home');
         }
-        return view('user.create_ticket_user') -> with('user', $user);
+        return view('user.create_ticket_user')->with('user', $user);
     }
 
 
     
-    public function store(Request $request)
+    public function store(StoreTicket $request)
     {
         /// SJETI se napravit validaciju
-        $validateData = $request->validate([
-            'tic_name' => ['required', 'max:40'],
-            'details' => ['required', 'max:400'],
-        ]);
+        //$validateData = $request->validate([
+        //    'tic_name' => ['required', 'max:40'],
+        //    'details' => ['required', 'max:400'],
+        //]);
         $ticket = new Ticket();
-        //// TREBA RAZRADIT DA NISU NAMJESTENI BROJEVI////////////////////////////////
         if(Auth::guard('web')->check()){
             
             $ticket->client_id = Client::select('id')->where('email','temp.tmp@mail.com')->limit(1)->first()->id;
@@ -59,7 +59,7 @@ class TicketController extends Controller
             
             
         }
-        $ticket->status_id = Status::select('id')->where('status','Open')->limit(1)->first()->id;
+        $ticket->status_id = Status::select('id')->where('name','Open')->limit(1)->first()->id;
         //Ticket::query()->create($request->all());
         $ticket->tic_name = $request->input('tic_name');
         $ticket->details = $request->input('details');
@@ -92,7 +92,7 @@ class TicketController extends Controller
             return redirect()->route('user.home');
         }else{
             $user = User::find($id);
-        return view('user.my_tickets')->with('user', $user);
+            return view('user.my_tickets')->with('user', $user);
         }
         
     }
@@ -112,6 +112,16 @@ class TicketController extends Controller
         }
         Ticket::where('id', $id)->update(['user_id'=> $admin_id]);
         return redirect()->back();
+    }
+
+    public function search(Request $request){
+        $q = $request->input( 'q' );
+        
+        //$new_client_id = $request->input('new_client_id')
+        $ticket = Ticket::where('tic_name','LIKE','%'.$q.'%')->get(); //->orWhere('client','LIKE','%'.$q.'%')
+        if(count($ticket) > 0)
+            return view('all_tickets')->withDetails($ticket)->withQuery ( $q );
+        else return view ('all_tickets');
     }
     
 }
