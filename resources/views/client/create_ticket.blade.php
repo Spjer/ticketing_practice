@@ -22,13 +22,14 @@
 
             @csrf
             <input type="hidden" id="client_id" name="client_id" value="{{$client->id}}">
-            <input type="hidden" id="user_id" name="user_id" value="1">
-            <input type="hidden" id="status_id" name="status_id" value="1">
+            <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
+
+            <input type="hidden" id="status_id" name="status_id" value="{{\App\Models\Status::where('name', 'Open')->first()->id}}">
 
 
             <div>
-                <label for="tic_name">Naziv</label>
-                <input type="text" id="tic_name" name="tic_name" placeholder="Upišite naziv">
+                <label for="name">Naziv</label>
+                <input type="text" id="name" name="name" placeholder="Upišite naziv">
             </div>
             <br>
             <div>
@@ -37,7 +38,6 @@
             </div>
 
             <br>
-            <!--<input type="hidden" id="status" name="status" value=open>-->
             <br>
 
             

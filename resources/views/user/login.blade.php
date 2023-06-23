@@ -7,7 +7,7 @@
 @section('content')
 <main>
     <h3>Log In</h3>
-    <form method="POST" action="{{ route('user.customLogin') }}">
+    <form method="POST" action="{{ route('user.custom_login') }}">
         @csrf
         <div >
             <label for="name">Ime:</label><br>

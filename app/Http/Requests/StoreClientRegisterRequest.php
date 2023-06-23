@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTicketVal extends FormRequest
+class StoreClientRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class StoreTicketVal extends FormRequest
     {
         return [
             //
-            'tic_name' => 'required|max:40',
-            'details' => 'required|max:400',
+            'name' => ['required', 'max:30'],
+            'email' => ['required', 'email', 'max:40', 'unique:clients,email'],
+            'phone_number' =>  ['required', 'min:11', 'max:12', 'regex:/^([0-9]){3}-([0-9]){3}-([0-9])/'],
+            'password' => ['required','min:6'],
         ];
     }
 }

@@ -24,6 +24,7 @@ class OpeningSeeder extends Seeder
         ]);
         $user = User::create([
             'name' => 'admin',
+            'email' => 'admin.admin@mail.com',
             'password' => bcrypt("Password"), // password
             'role' => 'admin',
             'remember_token' => '123',

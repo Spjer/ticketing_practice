@@ -8,7 +8,7 @@
 <main>
     <h3>Registracija Korisnika</h3>
     <div>
-        <form action="{{ route('client.customRegistration') }}" method="POST">
+        <form action="{{ route('client.custom_registration') }}" method="POST">
             @csrf
             <div>
                 <label for="name">Ime:</label><br>

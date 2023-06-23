@@ -11,13 +11,13 @@ class StatusController extends Controller
 {
     //
      // switch status page -> unnecessary
-    public function edit($id){
-        $ticket = Ticket::find($id);
-        if(Auth::user()->id != $ticket->user_id){
+    public function edit(Ticket $param){ // param => ticket
+   
+        if(Auth::user()->id != $param->user_id){
             return redirect()->route('user.home');
         }
 
-        return view('user.edit_status') -> with('ticket', $ticket);
+        return view('user.edit_status') -> with('ticket', $param);
     }
 
     // store status function

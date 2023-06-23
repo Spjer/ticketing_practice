@@ -8,7 +8,7 @@
 
 
 <main>
-<form action="{{ route('client.customLogin') }}" method="POST">
+<form action="{{ route('client.custom_login') }}" method="POST">
     @csrf
     <div>
         <label for="email">Email:</label><br>

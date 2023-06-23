@@ -25,7 +25,7 @@
                     <tr align="right">
                       <td>{{$ticket->id}}</td>
                       <td>{{$ticket->client_id}}</td>
-                      <td>{{$ticket->tic_name}}</td>
+                      <td>{{$ticket->name}}</td>
                       <td>{{$ticket->details}}</td>
                       <td><span class='status-span' id=statusId  @if($ticket->status_id == '1') style="background-color: blue;" 
                           @elseif($ticket->status_id == '2') style="background-color: green;" @else style="background-color: red;" @endif >{{$ticket->status->name}}</span></p>

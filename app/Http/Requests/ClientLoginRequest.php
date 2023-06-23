@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTicket extends FormRequest
+class ClientLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class StoreTicket extends FormRequest
     {
         return [
             //
-            'tic_name' => 'required|max:40',
-            'details' => 'required|max:400'
+            'email' => ['required', 'email', 'max:40'],
+            'password' => ['required','min:6'],
         ];
     }
 }

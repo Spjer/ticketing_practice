@@ -24,7 +24,7 @@ class TicketFactory extends Factory
             //
 
             'client_id' => Client::inRandomOrder()->first()->id,
-            'tic_name' => $this->faker->text(20),
+            'name' => $this->faker->text(20),
             'details' => $this->faker->text(200),
             'user_id' => User::inRandomOrder()->first()->id,
             'status_id' => Status::inRandomOrder()->first()->id,

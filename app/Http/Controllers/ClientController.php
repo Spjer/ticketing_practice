@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Http\Requests\StoreClientByAgentRequest;
 use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
@@ -29,14 +30,8 @@ class ClientController extends Controller
     }
 
     //  Store client created by agent
-    public function store(Request $request)
+    public function store(StoreClientByAgentRequest $request)
     {  
-        $request->validate([
-            'name' => ['required', 'max:30'],
-            'email' => ['required', 'email', 'max:40', 'unique:clients,email'],
-            'phone_number' =>  ['required', 'min:11', 'max:12', 'regex:/^([0-9]){3}-([0-9]){3}-([0-9])/'],
-
-        ]);
            
         Client::query()->create($request->all());
          
@@ -44,8 +39,8 @@ class ClientController extends Controller
     }
 
     // Choose a client for a created ticket 
-    public function edit($id){ //pickClient
-        $ticket = Ticket::find($id);
+    public function edit(Ticket $ticket){ //pickClient
+       // $ticket = Ticket::findOrFail($id);
         $clients = Client::all();
         if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
             return view('user.pick_client')->with('clients', $clients)->with('ticket', $ticket);

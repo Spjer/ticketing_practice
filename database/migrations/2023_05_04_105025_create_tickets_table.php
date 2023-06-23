@@ -13,21 +13,15 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('client_id')->unsigned;
-            $table->string('tic_name', 50);
+            $table->foreignId('client_id');
+            $table->string('name', 50);
             $table->string('details', 255);
-            $table->unsignedBigInteger('user_id')->unsigned;
-            $table->unsignedBigInteger('status_id')->unsigned;
+            $table->foreignId('user_id');
+            $table->foreignId('status_id');
+            
             $table->timestamps();
         });
 
-        Schema::table('tickets', function ($table){
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-            
-
-        });
     }
 
     /**

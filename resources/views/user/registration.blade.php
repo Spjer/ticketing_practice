@@ -9,13 +9,21 @@
 <main>
     <h3>Registracija Korisnika</h3>
     <div>
-        <form action="{{ route('user.customRegistration') }}" method="POST">
+        <form action="{{ route('user.custom_registration') }}" method="POST">
             @csrf
             <div>
                 <label for="name">Ime:</label><br>
                 <input type="text" placeholder="Name" id="name" name="name" required autofocus>
                     @if ($errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
+            </div>
+
+            <div>
+                <label for="email">Email:</label><br>
+                <input type="text" placeholder="email" id="email" name="email" required autofocus>
+                    @if ($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
                     @endif
             </div>
                            

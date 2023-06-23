@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreTicketRequest;
+use App\Http\Requests\StoreTicket;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\Comment;
@@ -22,16 +22,17 @@ class TicketController extends Controller
         $tickets = Ticket::all();
         $users = User::all();
         
-        return view('all_tickets')->with('users', $users)->withDetails($tickets);   
+        return view('all_tickets')->with('users', $users)->withDetails($tickets)->withQuery ( " " );   
 
     }
 
     public function createTicket(Client $client){ 
-        
+        //$client = Client::findOrFail($id);
         return view('client.create_ticket')->with('client', $client);
     }
 
     public function createTicketUser(User $user){ 
+        //$user = User::findOrFail($id);
         if(Auth::user()->id != $user->id){
             return redirect()->route('user.home');
         }
@@ -40,31 +41,41 @@ class TicketController extends Controller
 
 
     
-    public function store(StoreTicketRequest $request)
+    public function store(StoreTicket $request)
     {
-        $ticket = Ticket::query()->create($request->all());
-        //$ticket = new Ticket();
-        //$ticket->client_id = $request->input('client_id');
-        //$ticket->user_id = $request->input('user_id');
 
-        //$ticket->status_id = Status::select('id')->where('name','Open')->limit(1)->first()->id;
-        //Ticket::query()->create($request->all());
-        //$ticket->name = $request->input('name');
-        //$ticket->details = $request->input('details');
-        //$ticket->save();
+        Ticket::query()->create($request->validated());
+        $ticket = new Ticket();
+        
+        $ticket->status_id = Status::query()->where('name','Open')->get()->id;
+        
        
         if(Auth::guard('web')->check()){
             return redirect()->route('clients.edit', $ticket->id);
         }
-        return redirect()->route('client_ticket', $ticket->client_id);
+        $client_id = $request->input('client_id');
+        return redirect()->route('client_ticket', $client_id);
 
     }
+
+
+    // delete ticket after status set to closed   // Nije koristeno
+    /*public function delete($id){ //osigurat/////////////////////////////////////////// /////deleteTicket
+        if(Auth::guard('webclient')->check() || Auth::guard('web')->check()){
+            Ticket::find($id)->delete();
+            return redirect()->back();
+            
+
+        }
+        return redirect()->route('opening');
+    }*/
 
         // My_Tickets
     public function show(User $user){ 
         if(Auth::user()->id != $user->id){
             return redirect()->route('user.home');
         }else{
+            //$user = User::findOrFail($id);
             return view('user.my_tickets')->with('user', $user);
         }
         
@@ -88,19 +99,18 @@ class TicketController extends Controller
     }
 
     public function search(Request $request){
-        $name = $request->input( 'name' );
+        $name = $request->input('name'); 
         
-        $ticket = Ticket::where('name','LIKE','%'.$name.'%')->get(); 
-        if(count($ticket) > 0)
-            return view('all_tickets')->withDetails($ticket);
-        else return view ('all_tickets');
+        $tickets = Ticket::where('name','LIKE','%'.$name.'%')->get(); //->orWhere('client','LIKE','%'.$q.'%')
+        
+        return view('all_tickets', $tickets);
     }
 
-    public function getTicket(Client $client){
-        if(Auth::user()->id != $client->id){
+    public function getTicket($id){
+        if(Auth::user()->id != $id){
             return redirect()->route('client.home');
         }else{
-            //$client = Client::findOrFail($id);
+            $client = Client::findOrFail($id);
             return view('client.client_ticket') -> with('client', $client);
         }
         

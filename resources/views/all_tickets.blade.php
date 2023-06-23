@@ -10,7 +10,7 @@
   <form action="{{ route('search')}}" method="POST" role="search">
     @csrf
     <div class="input-group">
-        <input type="text" class="form-control" name="q"
+        <input type="text" class="form-control" name="name"
             placeholder="Search tickets" default=" "> <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span>
@@ -49,7 +49,7 @@
             <div class='card1'>
       
               <div class='card1-text'>
-                <p style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+                <p style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->name}} <span style="color:grey">#{{$ticket->id}}</span></p>
               </div>
               <div class='card1-text'>
                 <p>{{$ticket->client->name}} <span style="color:grey">#{{$ticket->client_id}}</span></p>

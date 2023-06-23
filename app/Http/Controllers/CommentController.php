@@ -8,30 +8,27 @@ use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 
 class CommentController extends Controller
 {
     //- 
     // Functions relating to comments 
     // view comments
-    public function show($id){
+    public function show(Ticket $param){ // param ==> ticket u ovom slucaju, zbog resourcea
         
-        $ticket = Ticket::find($id);
-        if(Auth::user()->id == $ticket->user_id){
-            return view('user.view_comments')->with('ticket', $ticket);
+        //$ticket = Ticket::findOrFail($id);
+        if(Auth::user()->id == $param->user_id){
+            return view('user.view_comments')->with('ticket', $param);
         }
 
         return redirect()->route('user.home');
     }
-
+    
     // Store comment //create comment removed
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
         /// SJETI se napravit validaciju
-        $validateData = $request->validate([
-            'ticket_id' => ['required', 'numeric'],
-            'comm' =>  ['required', 'max:400'],
-        ]);
 
         Comment::query()->create($request->all());
         
@@ -39,18 +36,27 @@ class CommentController extends Controller
 
     }
 
-    public function destroy(Comment $comment){ //deleteComment
+    public function destroy(Comment $param){ //deleteComment // param => comment
        
         //$comment = comment::find($id);
-        $ticket = $comment->all_tickets;
-        $comment->delete();
+        $ticket = $param->all_tickets;
+        $param->delete();
         
 
         return redirect()->back();
     }
 
+    /*
+     public function show($id){
+        
+        $ticket = Ticket::findOrFail($id);
+        if(Auth::user()->id == $ticket->user_id){
+            return view('user.view_comments')->with('ticket', $ticket);
+        }
 
-
+        return redirect()->route('user.home');
+    }
+    */
 
     /*public function createComment($id){
         $ticket = Ticket::find($id);

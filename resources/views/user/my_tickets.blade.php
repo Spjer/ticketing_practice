@@ -34,7 +34,7 @@
       <div>
         <div class='card1'>
           <div class='card1-text'>
-            <p class='basic' style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->tic_name}} <span style="color:grey">#{{$ticket->id}}</span></p>
+            <p class='basic' style="white-space: nowrap; text-overflow: ellipsis">{{$ticket->name}} <span style="color:grey">#{{$ticket->id}}</span></p>
           </div>
           <div class='card1-text'>
           @if(isset($ticket->client))

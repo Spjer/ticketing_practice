@@ -4,28 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\User;
+
 use Notification;
 use App\Notifications\MailNotification;
 use Illuminate\Notifications\Notifiable;
 
 class NotifyController extends Controller
 {
-    public function store(Request $request){
+    Public function sendClientWelcome(){
 
     }
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function index()
-    {
-        $client->notify(new MailNotification($announcement));
-    }
-    public function send(){
-        $client = Client::first();
-        $data =[
-            'subject' => 'TestNotif'
-        ];
-        $client->notify( new MailNotification($data));
+
+    Public function sendUserWelcome(){
+        
     }
 }

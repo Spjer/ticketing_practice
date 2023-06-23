@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Announcement;
+//use App\Models\Announcement;
 
 class MailNotification extends Notification
 {
@@ -41,8 +41,8 @@ class MailNotification extends Notification
     {
         return (new MailMessage)
                     ->subject($this->data['subject'])
-                    ->from('karlo.paic102002@gmail.com')
-                    ->line('The introduction to the notification.')
+                    ->from('ticket.laravel@mail.com')
+                    ->line($this->data['body'])
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }

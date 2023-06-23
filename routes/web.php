@@ -27,41 +27,40 @@ use App\Http\Controllers\NotifyController;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-Route::get('/', [Controller::class, 'index'])
-    ->name('opening');
+Route::get('/', [Controller::class, 'index'])->name('opening');
 
 //User(agent) auth
 Route::get('user/', [UserAuthController::class, 'index'])->name('user.home')->middleware('auth:web');
 Route::get('/login', [UserAuthController::class, 'login'])->name('user.login');
-Route::post('/login', [UserAuthController::class, 'customLogin'])->name('user.customLogin');
+Route::post('/login', [UserAuthController::class, 'customLogin'])->name('user.custom_login');
 Route::get('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
 Route::get('/registration', [UserAuthController::class, 'registration'])->name('user.register');
-Route::post('/customRegistration', [UserAuthController::class, 'customRegistration'])->name('user.customRegistration');
+Route::post('/custom_registration', [UserAuthController::class, 'customRegistration'])->name('user.custom_registration');
     
 //Client auth
 Route::get('client/', [ClientAuthController::class, 'index'])->name('client.home')->middleware('auth:webclient');
 Route::get('client/login', [ClientAuthController::class, 'login'])->name('client.login');
-Route::post('client/login', [ClientAuthController::class, 'customLogin'])->name('client.customLogin');
+Route::post('client/login', [ClientAuthController::class, 'customLogin'])->name('client.custom_login');
 Route::get('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
 Route::get('client/registration', [ClientAuthController::class, 'registration'])->name('client.register');
-Route::post('client/customRegistration', [ClientAuthController::class, 'customRegistration'])->name('client.customRegistration');
+Route::post('client/custom_registration', [ClientAuthController::class, 'customRegistration'])->name('client.custom_registration');
 
     
-Route::get('/client_ticket/{id}', [ClientAuthController::class, 'getTicket'])->name('client_ticket')->middleware('auth:webclient'); //ticket per client
+Route::get('/client_ticket/{client}', [TicketController::class, 'getTicket'])->name('client_ticket')->middleware('auth:webclient'); //ticket per client
 
-Route::get('/create_ticket/{id}', [TicketController::class, 'createTicket'])->name('create_ticket'); //client creates ticket
-Route::get('/create_ticket_user/{id}', [TicketController::class, 'createTicketUser']) ->name('create_ticket_user')->middleware('auth:web');//client creates ticket
+Route::get('/create_ticket/{client}', [TicketController::class, 'createTicket'])->name('create_ticket'); //client creates ticket
+Route::get('/create_ticket_user/{user}', [TicketController::class, 'createTicketUser']) ->name('create_ticket_user')->middleware('auth:web');//client creates ticket
 Route::get('/take_ticket/{id}', [TicketController::class, 'takeTicket'])->name('take_ticket')->middleware('auth:web'); // user takes on ticket
-Route::get('/drop_ticket/{id}', [TicketController::class, 'dropTicket'])->name('drop_ticket')->middleware('auth:web'); // user releases ticket
-Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update','edit',  'create', 'destroy' /*nije koristeno trenutno */]); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
+Route::get('/drop_ticket/{ticket}', [TicketController::class, 'dropTicket'])->name('drop_ticket')->middleware('auth:web'); // user releases ticket
+Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update','edit',  'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'user']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
 
-Route::resource('users', 'App\Http\Controllers\UserController')->except(['show', 'destroy', 'create'])->middleware('auth:web');
+Route::resource('users', 'App\Http\Controllers\UserController')->except(['show', 'destroy', 'create'])->parameters(['users' => 'ticket'])->middleware('auth:web');
 
-Route::resource('comments', 'App\Http\Controllers\CommentController')->only(['store', 'show', 'destroy'])->middleware('auth:web'); //view_comments, store_comments, delete_comments
+Route::resource('comments', 'App\Http\Controllers\CommentController')->only(['store', 'show', 'destroy'])->parameters(['comments' => 'param'])->middleware('auth:web'); //view_comments, store_comments, delete_comments
 
-Route::resource('statuses', 'App\Http\Controllers\StatusController')->only(['store', 'edit'])->middleware('auth:web'); // edit_status, store_status
+Route::resource('statuses', 'App\Http\Controllers\StatusController')->only(['store', 'edit'])->parameters(['statuses' => 'param'])->middleware('auth:web'); // edit_status, store_status
 
-Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['show', 'destroy', 'create'])->middleware('auth:web'); //add client/store  view_clients/index
+Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['show', 'destroy', 'create'])->parameters(['clients' => 'ticket'])->middleware('auth:web'); //add client/store  view_clients/index
 
 //Route::any('/search',function(){
   //  $q = Request::get ( 'q' );
@@ -73,10 +72,20 @@ Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['sh
   //  else return view ('all_tickets')->withMessage('No Details found. Try to search again !');
 //});
 Route::post('search', [TicketController::class, 'search'])->name('search');
-Route::get('send', [NotifyController::class, 'send'])->name('send');
-Route::get('mail', function () {
-    $order = App\Order::find(1);
-    return (new App\Notifications\MailNotification($order))
-                ->toMail($order->user);
-});
+
+
+
+
+
+
+
+
+
+
+//Route::get('send', [NotifyController::class, 'send'])->name('send');
+//Route::get('mail', function () {
+//    $order = App\Order::find(1);
+//    return (new App\Notifications\MailNotification($order))
+//                ->toMail($order->user);
+//});
 //Route::get('/send', ClientAuthController::class, 'send')->name('client.send');
