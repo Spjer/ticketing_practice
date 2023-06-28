@@ -16,13 +16,13 @@ class CommentController extends Controller
     // Functions relating to comments 
     // view comments
     public function show(Ticket $param){ // param ==> ticket u ovom slucaju, zbog resourcea
-        
+        $this->authorize('view', $param);
         //$ticket = Ticket::findOrFail($id);
-        if(Auth::user()->id == $param->user_id){
-            return view('user.view_comments')->with('ticket', $param);
-        }
+        //if(Auth::user()->id == $param->user_id){
+        return view('user.view_comments')->with('ticket', $param);
+        //}
 
-        return redirect()->route('user.home');
+        //return redirect()->route('user.home');
     }
     
     // Store comment //create comment removed

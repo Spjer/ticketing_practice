@@ -27,7 +27,7 @@ class StoreTicketRequest extends FormRequest
             'details' => 'required|max:400',
             'client_id' => 'required|numeric',
             'user_id' => 'required|numeric',
-            'status_id' => 'required|numeric'
+            //'status_id' => 'required|numeric'
         ];
     }
 }

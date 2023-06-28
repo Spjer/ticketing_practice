@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('details', 255);
             $table->foreignId('user_id');
-            $table->foreignId('status_id');
+            $table->foreignId('status_id')->default('1');
             
             $table->timestamps();
         });

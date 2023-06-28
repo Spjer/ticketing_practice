@@ -24,7 +24,7 @@
             <input type="hidden" id="client_id" name="client_id" value="{{$client->id}}">
             <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
 
-            <input type="hidden" id="status_id" name="status_id" value="{{\App\Models\Status::where('name', 'Open')->first()->id}}">
+            <!--<input type="hidden" id="status_id" name="status_id" value="{{\App\Models\Status::where('name', 'Open')->first()->id}}">-->
 
 
             <div>

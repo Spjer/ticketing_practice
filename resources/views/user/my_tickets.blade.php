@@ -62,10 +62,10 @@
           </div>
           <div class='gumbi'>
              <!-- Napravit da se moze promijenit status i otpustit ticket -->
-            <!-- drop ticket = otpusti ticket -->
+            <!-- release ticket = otpusti ticket -->
             <p >
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('drop_ticket', [$ticket->id]) }}">
+            <a href="{{ route('release_ticket', [$ticket->id]) }}">
               <button type="button" class="btn btn-danger">Odbaci</button>
             </a>
             @endif
@@ -146,13 +146,13 @@
         </div>
         <div class='sp1'>
            <!-- Napravit da se moze promijenit status i otpustit ticket -->
-            <!-- drop ticket = otpusti ticket -->
+            <!-- release ticket = otpusti ticket -->
              <!-- view comments, add comments-->
              <a href="{{ route('comments.show', [$ticket->id]) }}">
               <button type="button">Komentari</button>
             </a>
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('drop_ticket', [$ticket->id]) }}">
+            <a href="{{ route('release_ticket', [$ticket->id]) }}">
               <button type="button">Otpusti</button>
             </a>
             @endif

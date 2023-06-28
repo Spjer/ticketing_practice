@@ -79,31 +79,17 @@ class ClientAuthController extends Controller
         $client->password = Hash::make($password);
         $client->save();
 
-        $data =[
-            'subject' => 'TestNotifClient',
-            'body' => $client->name,
-        ];
+        //$data =[
+        //    'subject' => 'TestNotifClient',
+        //    'body' => $client->name,
+        //];
         
         //$client->notify( new MailNotification($data));
-        Notification::route('mail', $client->email)->notify(new MailNotification($data));
+        //Notification::route('mail', $client->email)->notify(new MailNotification($data));
 
         
 
         return Redirect()->route('client.login');
     }
-    
-
-
-    // premjestit
-    public function getTicket($id){
-        if(Auth::user()->id != $id){
-            return redirect()->route('client.home');
-        }else{
-            $client = Client::findOrFail($id);
-            return view('client.client_ticket') -> with('client', $client);
-        }
-        
-    }
-    
     
 }

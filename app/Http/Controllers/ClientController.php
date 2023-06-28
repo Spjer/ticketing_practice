@@ -14,18 +14,19 @@ class ClientController extends Controller
     //
     // List of clients
     public function index(){
-        if(Auth::check()){
-            if(Auth::user()->role == 'admin'){
-                $clients= Client::all();
-                return view('user.view_clients')->with('clients', $clients);
-            }
-            else{
-                return view('user.home');
-            }
-        }
-        else{
-            return view('opening');
-        }
+        //if(Auth::check()){
+           // if(Auth::user()->role == 'admin'){
+        $this->authorize('viewAny', Ticket::class);
+        $clients= Client::all();
+        return view('user.view_clients')->with('clients', $clients);
+           // }
+           // else{
+           //     return view('user.home');
+           // }
+       // }
+       // else{
+       //     return view('opening');
+       // }
 
     }
 

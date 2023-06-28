@@ -77,11 +77,11 @@ class UserAuthController extends Controller
         $user->role = 'agent';
         $user->save();
 
-        $data =[
-            'subject' => 'TestNotif',
-            'body' => 'Your registranion was completed successfully.'
-        ];
-        $user->notify( new MailNotification($data));
+        //$data =[
+        //    'subject' => 'TestNotif',
+        //    'body' => 'Your registranion was completed successfully.'
+        //];
+        //$user->notify( new MailNotification($data));
 
         //Notification::send($user, new MailNotification($data));
          

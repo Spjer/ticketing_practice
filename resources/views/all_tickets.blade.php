@@ -7,7 +7,7 @@
 
 @section('content')
 <main>
-  <form action="{{ route('search')}}" method="POST" role="search">
+  <form action="#" method="GET" role="search">
     @csrf
     <div class="input-group">
         <input type="text" class="form-control" name="name"
@@ -16,6 +16,7 @@
                 <span class="glyphicon glyphicon-search"></span>
             </button>
         </span>
+</input>
     </div>
   </form>
   <div>
@@ -42,9 +43,9 @@
 
 
   <div>
-    @if(isset($details))
+   
     
-            @foreach($details as $ticket)
+            @foreach($tickets as $ticket)
             @if($ticket->user_id == 1 || Auth::user()->role == 'admin' )
             <div class='card1'>
       
@@ -108,7 +109,7 @@
                       <button type="button">Promijeni agenta</button>
                     </a>
                     @elseif($ticket->user_id == 1)
-                      <p><a href="{{ route('take_ticket', [$ticket->id]) }}">
+                      <p><a href="{{ route('assign_ticket', [$ticket->id]) }}">
                           <button type="button" class="take-btn">Preuzmi</button>
                         </a></p>
                     @endif
@@ -116,8 +117,6 @@
           
                 </div>
                 <div class='sp1'>
-           <!-- Napravit da se moze promijenit status i otpustit ticket -->
-            <!-- drop ticket = otpusti ticket -->
             
             
                 </div>
@@ -143,7 +142,7 @@
       @endif
     @endforeach
         
-    @endif
+    
 </div>
     
 

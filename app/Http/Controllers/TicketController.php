@@ -19,10 +19,17 @@ class TicketController extends Controller
 {
     // all_tickets
     public function index(){
+        //dd(request('name'));
         $tickets = Ticket::all();
-        $users = User::all();
-        
-        return view('all_tickets')->with('users', $users)->withDetails($tickets);   
+        //$users = User::all();
+        if(request('name')){
+            
+            $tickets = Ticket::where('name','LIKE','%'. request('name') .'%')->get();
+           // return view('all_tickets')->with('tickets', $tickets);
+
+        }
+        //return view('all_tickets', ['tickets' => Ticket::latest()->filter(request(['name']))->get()]);
+        return view('all_tickets')->with('tickets', $tickets);/*->withDetails($tickets)*/;   
 
     }
 
@@ -62,39 +69,36 @@ class TicketController extends Controller
 
         // My_Tickets
     public function show(User $user){ 
-        if(Auth::user()->id != $user->id){
-            return redirect()->route('user.home');
-        }else{
+       // if(Auth::user()->id != $user->id){
+         //   return redirect()->route('user.home');
+        //}else{
+            //$this->authorize('view', Ticket::class);
             return view('user.my_tickets')->with('user', $user);
-        }
+        //}
         
     }
     
     // take on ticket -> ticket goes to my_tickets
-    public function takeTicket($id){    
-        Ticket::where('id', $id)->update(['user_id'=> Auth::user()->id]);
+    public function assignTicket(Ticket $ticket){    
+        $ticket->update(['user_id'=> Auth::user()->id]);
         return redirect()->route('tickets.index');
     }
 
     // drop/release ticket -> ticket goes to all_tickets/tickets.index
-    public function dropTicket(Ticket $ticket){ 
-        
+    public function releaseTicket(Ticket $ticket){ 
+        $this->authorize('update', $ticket);
         $admin_id = User::select('id')->where('role','admin')->limit(1)->first()->id;
-        if(Auth::user()->id != $ticket->user_id){
-            return redirect()->route('user.home');
-        }
         Ticket::where('id', $ticket->id)->update(['user_id'=> $admin_id]);
         return redirect()->back();
     }
 
-    public function search(Request $request){
+    /*public function search(){
         $name = $request->input( 'name' );
-        
-        $ticket = Ticket::where('name','LIKE','%'.$name.'%')->get(); 
-        if(count($ticket) > 0)
-            return view('all_tickets')->withDetails($ticket);
+        $tickets = Ticket::where('name','LIKE','%'.$name.'%')->get(); 
+        if($name != ' ')
+            return view('all_tickets')->with('tickets', $tickets);
         else return view ('all_tickets');
-    }
+    }*/
 
     public function getTicket(Client $client){
         if(Auth::user()->id != $client->id){
