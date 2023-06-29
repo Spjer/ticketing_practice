@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\ClientS;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class TicketPolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->role == 'admin';
+        return $user->role === 'admin';
     }
 
     /**
@@ -33,6 +34,7 @@ class TicketPolicy
     public function create(User $user): bool
     {
         //
+        return $user->role === 'agent';
     }
 
     /**
@@ -69,5 +71,15 @@ class TicketPolicy
     {
         //
         return $user->role == 'admin';
+    }
+
+    public function assigned(User $user, $amogus): bool
+    {
+        //
+        return $user->id === $amogus;
+        
+    }
+    public function owned(User $user, Client $client): bool{
+        return $user->id === $client->id;
     }
 }

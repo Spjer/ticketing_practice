@@ -24,7 +24,7 @@
                     <tr align="right">
                       <td>{{$ticket->id}}</td>
                       <td>{{$comment->id}}</td>
-                      <td>{{$comment->comm}}</td>
+                      <td>{{$comment->body}}</td>
                       <td>{{$comment->created_at}}</td>
                       <td>
                        <!-- delete comment -->

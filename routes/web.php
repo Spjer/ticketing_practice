@@ -44,13 +44,15 @@ Route::get('client/registration', [ClientAuthController::class, 'registration'])
 Route::post('client/custom_registration', [ClientAuthController::class, 'customRegistration'])->name('client.custom_registration');
 
     
-Route::get('/client_ticket/{client}', [TicketController::class, 'getTicket'])->name('client_ticket')->middleware('auth:webclient'); //ticket per client
+Route::get('/client-ticket/{client}', [TicketController::class, 'ownedTickets'])->name('client-ticket')->middleware('auth:webclient'); //ticket per client
 
-Route::get('/create_ticket/{client}', [TicketController::class, 'createTicket'])->name('create_ticket'); //client creates ticket
-Route::get('/create_ticket_user/{user}', [TicketController::class, 'createTicketUser']) ->name('create_ticket_user')->middleware('auth:web');//client creates ticket
-Route::get('/assign_ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign_ticket')->middleware('auth:web'); // user takes on ticket
-Route::get('/release_ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release_ticket')->middleware('auth:web'); // user releases ticket
-Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update','edit',  'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'user']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
+Route::get('/create-ticket/{client}', [TicketController::class, 'createTicket'])->name('create-ticket')->middleware('auth:webclient'); //client creates ticket
+Route::get('tickets/create/{user}', [TicketController::class, 'create']) ->name('tickets.create')->middleware('auth:web');//client creates ticket
+//Route::get('tickets/create/{id}', [TicketController::class, 'create']) ->name('tickets.create')->middleware('auth:web');//client creates ticket
+
+Route::get('/assign-ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign-ticket')->middleware('webclient', 'web'); // user takes on ticket
+Route::get('/release-ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release-ticket')->middleware('auth:web'); // user releases ticket
+Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update','edit', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'user']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
 
 Route::resource('users', 'App\Http\Controllers\UserController')->except(['show', 'destroy', 'create'])->parameters(['users' => 'ticket'])->middleware('auth:web');
 
@@ -69,7 +71,7 @@ Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['sh
   //      return view('all_tickets')->withDetails($ticket)->withQuery ( $q );
   //  else return view ('all_tickets')->withMessage('No Details found. Try to search again !');
 //});
-Route::post('search', [TicketController::class, 'search'])->name('search');
+//Route::post('search', [TicketController::class, 'search'])->name('search');
 
 
 

@@ -23,7 +23,7 @@ class ClientObserver
             'body' => $client->name,
         ];
         //Notification::send($client, new MailNotification($data));
-        Notification::route('mail', $client->email)->notify(new MailNotification($data));
+        //Notification::route('mail', $client->email)->notify(new MailNotification($data));
         //$client->notify( new MailNotification($data));
     }
 

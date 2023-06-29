@@ -24,8 +24,8 @@
             <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
             
             <div>
-                <label for="comm">Komentar:</label>
-                <input type="text" id="comm" name="comm" placeholder="Upišite komentar" width=500 col="10" row="10">
+                <label for="body">Komentar:</label>
+                <input type="text" id="body" name="body" placeholder="Upišite komentar" width=500 col="10" row="10">
             </div>
             <br>
             

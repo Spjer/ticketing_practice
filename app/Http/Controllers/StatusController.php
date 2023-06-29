@@ -13,9 +13,6 @@ class StatusController extends Controller
      // switch status page -> unnecessary
     public function edit(Ticket $ticket){ // param => ticket
    
-        //if(Auth::user()->id != $param->user_id){
-            //return redirect()->route('user.home');
-        //}
         $this->authorize('update', $ticket);
         return view('user.edit_status') -> with('ticket', $ticket);
     }

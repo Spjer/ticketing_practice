@@ -65,7 +65,7 @@
             <!-- release ticket = otpusti ticket -->
             <p >
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('release_ticket', [$ticket->id]) }}">
+            <a href="{{ route('release-ticket', [$ticket->id]) }}">
               <button type="button" class="btn btn-danger">Odbaci</button>
             </a>
             @endif
@@ -111,7 +111,7 @@
           @foreach($ticket->comments as $comment)
           <div class='sp2'>
           <span style="color:grey">#{{$comment->id}}</span> {{$comment->created_at}}
-          <p class='basic'>{{$comment->comm}}</p>
+          <p class='basic'>{{$comment->body}}</p>
 
           </div>
           @endforeach
@@ -134,8 +134,8 @@
             <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
             
             <div>
-                <label for="comm">Komentar:</label><br>
-                <textarea rows="4" cols="40"  id="comm" name="comm"  placeholder="Upišite komentar"></textarea>
+                <label for="body">Komentar:</label><br>
+                <textarea rows="4" cols="40"  id="body" name="body"  placeholder="Upišite komentar"></textarea>
             </div>
             <br>
             
@@ -152,7 +152,7 @@
               <button type="button">Komentari</button>
             </a>
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('release_ticket', [$ticket->id]) }}">
+            <a href="{{ route('release-ticket', [$ticket->id]) }}">
               <button type="button">Otpusti</button>
             </a>
             @endif

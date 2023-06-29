@@ -17,32 +17,25 @@ class CommentController extends Controller
     // view comments
     public function show(Ticket $param){ // param ==> ticket u ovom slucaju, zbog resourcea
         $this->authorize('view', $param);
-        //$ticket = Ticket::findOrFail($id);
-        //if(Auth::user()->id == $param->user_id){
         return view('user.view_comments')->with('ticket', $param);
-        //}
-
-        //return redirect()->route('user.home');
+        
     }
     
     // Store comment //create comment removed
     public function store(StoreCommentRequest $request)
     {
-        /// SJETI se napravit validaciju
 
         Comment::query()->create($request->all());
         
-        return redirect()->back(); //redirect()->route('user.my_tickets', [Auth::user()->id]); // vrati na my_tickets
+        return redirect()->back();  // vrati na my_tickets
 
     }
 
     public function destroy(Comment $param){ //deleteComment // param => comment
        
-        //$comment = comment::find($id);
         $ticket = $param->all_tickets;
         $param->delete();
         
-
         return redirect()->back();
     }
 

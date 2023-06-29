@@ -189,6 +189,25 @@ p {
     box-shadow: 5px 5px 5px grey;
 
 }
+.side-pnl2{
+    margin-top: 70px;
+    margin-left: 470px;
+    
+    
+    position: fixed; 
+    
+    top: 0; 
+    
+    background-color: rgb(236, 233, 233); 
+    overflow-x: hidden; 
+    padding: 10px;
+
+    flex-shrink: 0;
+    display: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px grey;
+
+}
 .sp1{
     overflow: auto;
 }
@@ -219,7 +238,7 @@ p {
 div.forms{
     margin-top: 70px;
     margin: 7px;
-     
+    
     
     display: inline-block;
     background-color: rgb(236, 233, 233); 
@@ -232,8 +251,4 @@ div.forms{
     box-shadow: 5px 5px 5px grey;
 
 }
-
-
-
-
 

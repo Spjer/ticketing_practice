@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
 <tbody>
-                  @foreach($client->tickets as $ticket) 
+                  @foreach($tickets as $ticket) 
                     <tr align="right">
                       <td>{{$ticket->id}}</td>
                       <td>{{$ticket->client_id}}</td>

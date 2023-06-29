@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id');
+            $table->foreignId('client_id')->default('1');;
             $table->string('name', 50);
             $table->string('details', 255);
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->default('1');;
             $table->foreignId('status_id')->default('1');
             
             $table->timestamps();

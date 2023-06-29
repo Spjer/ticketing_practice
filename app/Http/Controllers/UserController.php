@@ -13,20 +13,11 @@ class UserController extends Controller
     //
     //l List of users
     public function index(){  ///viewUser
-        //if(Auth::check()){
-            //if(Auth::user()->role == 'admin'){
+        
         $this->authorize('viewAny', Ticket::class);
         $user= User::all();
         return view('user.view_users')->with('user', $user);
-            //}
-            //else{
-            //    return view('user.home');
-            //}
-        //}
-        //else{
-        //    return view('opening');
-        //}
-    
+           
     }
     // As admin assign ticket to agent(user)
     public function edit(Ticket $ticket){ ///pickUser

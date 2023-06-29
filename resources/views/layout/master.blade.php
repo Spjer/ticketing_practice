@@ -49,10 +49,11 @@
         <br>
         @endif
         
-        <a href="{{ route('create_ticket_user', [Auth::user()->id]) }}">
+        <a href="{{ route('tickets.create', [Auth::user()->id]) }}">
             Otvori ticket
         </a>
         <br>
+        
         
     
         <!--<br>

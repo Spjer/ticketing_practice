@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'comm',
+        'body',
         'ticket_id',
     ];
     protected $casts = [

@@ -13,7 +13,6 @@ class TicketObserver
     public function created(Ticket $ticket): void
     {
         //
-        //$status = Status::where('name', 'In Progress')->get()->id;
         $status_id = Status::select('id')->where('name','Open')->first()->id;
         $ticket->update(['status_id'=> $status_id]);
     }

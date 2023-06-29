@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\comment;
+use App\Models\Comment;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +21,7 @@ class CommentFactory extends Factory
         return [
             //
 
-            'comm' => $this->faker->text(400),
+            'body' => $this->faker->text(400),
             'ticket_id' =>  Ticket::inRandomOrder()->first()->id,
             'created_at' => now(),
         ];

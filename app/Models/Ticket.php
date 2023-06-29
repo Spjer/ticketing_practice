@@ -41,10 +41,8 @@ class Ticket extends Model
     }
 
     public function scopeFilter($query, array $filters){
-        if(isset($filters['name'] )){
-            $query->where('name','LIKE','%'. request('name') .'%');
-
+        if(isset($filters['name']) ){
+            $query->where('name','LIKE','%'. request('name') .'%')->get();
         }
-
     }
 }

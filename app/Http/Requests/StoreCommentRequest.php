@@ -24,7 +24,7 @@ class StoreCommentRequest extends FormRequest
         return [
             //
             'ticket_id' => ['required', 'numeric'],
-            'comm' =>  ['required', 'min:5', 'max:400'],
+            'body' =>  ['required', 'min:5', 'max:400'],
         ];
     }
 }

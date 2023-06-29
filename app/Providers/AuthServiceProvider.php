@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 use App\Models\Ticket;
+use App\Models\User;
 use App\Policies\TicketPolicy;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,5 +28,18 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Gate::define('show-assigned', function (User $user, $user_id) {
+            return $user->id === $user_id;
+        });
+        Gate::define('create-by-user', function (User $user, $user_id) {
+            return $user->id === $user_id && ($user->role == 'agent' || $user->role == 'admin');
+        });
+        Gate::define('create-by-client', function ($client, $client_id) {
+            return $client->id === $client_id;
+        });
+        Gate::define('show-owned', function ($client, $client_id) {
+            return $client->id === $client_id;
+        });
+       
     }
 }

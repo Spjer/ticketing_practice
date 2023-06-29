@@ -92,7 +92,7 @@
                   @foreach($ticket->comments as $comment)
                   <div class='sp2'>
                     <span style="color:grey">#{{$comment->id}}</span> {{$comment->created_at}}
-                    <p>{{$comment->comm}}</p>
+                    <p>{{$comment->body}}</p>
 
                   </div>
                   @endforeach
@@ -109,7 +109,7 @@
                       <button type="button">Promijeni agenta</button>
                     </a>
                     @elseif($ticket->user_id == 1)
-                      <p><a href="{{ route('assign_ticket', [$ticket->id]) }}">
+                      <p><a href="{{ route('assign-ticket', [$ticket->id]) }}">
                           <button type="button" class="take-btn">Preuzmi</button>
                         </a></p>
                     @endif
