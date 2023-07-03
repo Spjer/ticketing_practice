@@ -75,7 +75,7 @@
                         EMAIL: {{$ticket->client->email}}<br>
                         BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
                     @else
-                      <a href="{{ route('clients.edit', [$ticket->id]) }}">
+                      <a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
                         <button type="button">Odaberi korisnika</button>
                       </a>
                     @endif
@@ -85,7 +85,7 @@
                     <p>{{$ticket->user->name}}</p>
           
                 </div>
-                <div class ='sp1'> Opis:
+                <div class ='sp2'> Opis:
                   <p>{{$ticket->details}}</p>
                 </div>
                 <div class ='sp1'> Komentari:
@@ -102,16 +102,19 @@
 
                 <div class ='sp1'>
                   @if(Auth::user()->role == 'admin') 
-                    <a href="{{ route('clients.edit', [$ticket->id]) }}">
-                      <button type="button">Promijeni korisnika</button>
+                    <a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
+                      <button type="button">Promijeni klijenta</button>
                     </a>
-                    <a href="{{ route('users.edit', [$ticket->id]) }}">
+                    <a href="{{ route('ticket-users.edit', [$ticket->id]) }}">
                       <button type="button">Promijeni agenta</button>
                     </a>
-                    @elseif($ticket->user_id == 1)
-                      <p><a href="{{ route('assign-ticket', [$ticket->id]) }}">
-                          <button type="button" class="take-btn">Preuzmi</button>
-                        </a></p>
+                    @elseif($ticket->user->role == 'admin')
+                      <form action="{{ route('ticket-users.update', [$ticket->id]) }}" method="POST" >
+                        @csrf
+                        @method('put')
+                        <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
+                        <button type="submit" class="btn btn-primary mt-3">Preuzmi</button>
+                      </form>
                     @endif
 
           

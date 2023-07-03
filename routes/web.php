@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TicketClientController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ClientController;
@@ -44,36 +45,32 @@ Route::get('client/registration', [ClientAuthController::class, 'registration'])
 Route::post('client/custom_registration', [ClientAuthController::class, 'customRegistration'])->name('client.custom_registration');
 
     
-Route::get('/client-ticket/{client}', [TicketController::class, 'ownedTickets'])->name('client-ticket')->middleware('auth:webclient'); //ticket per client
+//Route::get('/client-ticket', [TicketController::class, 'getTickets'])->name('client-ticket')->middleware('auth:webclient');
+//Route::get('/create-ticket/{client}', [TicketController::class, 'sendTicket'])->name('create-ticket')->middleware('auth:webclient'); //client creates ticket
 
-Route::get('/create-ticket/{client}', [TicketController::class, 'createTicket'])->name('create-ticket')->middleware('auth:webclient'); //client creates ticket
-Route::get('tickets/create/{user}', [TicketController::class, 'create']) ->name('tickets.create')->middleware('auth:web');//client creates ticket
-//Route::get('tickets/create/{id}', [TicketController::class, 'create']) ->name('tickets.create')->middleware('auth:web');//client creates ticket
+Route::middleware(['web'])->group(function () {
+  
+  Route::get('tickets/create', [TicketController::class, 'create']) ->name('tickets.create');//client creates ticket
+  Route::get('/assign-ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign-ticket'); // user takes on ticket
+  Route::get('/release-ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release-ticket'); // user releases ticket
+  Route::resource('comments', 'App\Http\Controllers\CommentController')->only(['store', 'show', 'destroy'])->parameters(['comments' => 'param']); //view_comments, store_comments, delete_comments
+  Route::resource('statuses', 'App\Http\Controllers\StatusController')->only(['store', 'edit'])->parameters(['statuses' => 'ticket']); // edit_status, store_status
+  Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['show', 'destroy', 'create', 'edit', 'update'])->parameters(['clients' => 'ticket']); //add client/store  view_clients/index
+  Route::resource('users', 'App\Http\Controllers\UserController')->only(['index'])->middleware('auth:web');
+  Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only(['edit', 'update'])->parameters(['ticket-clients' => 'param']); //add client/store  view_clients/index
+  Route::resource('ticket-users', 'App\Http\Controllers\TicketUserController')->only(['edit', 'update'])->parameters(['ticket-users' => 'ticket']); //add client/store  view_clients/index
 
-Route::get('/assign-ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign-ticket')->middleware('webclient', 'web'); // user takes on ticket
-Route::get('/release-ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release-ticket')->middleware('auth:web'); // user releases ticket
-Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update','edit', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'user']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
+  
+});
+Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only([ 'show', 'create'])->parameters(['ticket-clients' => 'client'])->middleware('auth:webclient'); //add client/store  view_clients/index
 
-Route::resource('users', 'App\Http\Controllers\UserController')->except(['show', 'destroy', 'create'])->parameters(['users' => 'ticket'])->middleware('auth:web');
+Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'param']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
 
-Route::resource('comments', 'App\Http\Controllers\CommentController')->only(['store', 'show', 'destroy'])->parameters(['comments' => 'param'])->middleware('auth:web'); //view_comments, store_comments, delete_comments
-
-Route::resource('statuses', 'App\Http\Controllers\StatusController')->only(['store', 'edit'])->parameters(['statuses' => 'ticket'])->middleware('auth:web'); // edit_status, store_status
-
-Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['show', 'destroy', 'create'])->parameters(['clients' => 'ticket'])->middleware('auth:web'); //add client/store  view_clients/index
-
-//Route::any('/search',function(){
-  //  $q = Request::get ( 'q' );
-    
-    //$new_client_id = $request->input('new_client_id')
-  //  $ticket = Ticket::where('tic_name','LIKE','%'.$q.'%')->get(); //->orWhere('client','LIKE','%'.$q.'%')
-  //  if(count($ticket) > 0)
-  //      return view('all_tickets')->withDetails($ticket)->withQuery ( $q );
-  //  else return view ('all_tickets')->withMessage('No Details found. Try to search again !');
-//});
 //Route::post('search', [TicketController::class, 'search'])->name('search');
 
 
+//Route::get('/client-ticket/{client}', [TicketController::class, 'getTickets'])->name('client-ticket')->middleware('auth:webclient'); //ticket per client
+//Route::get('tickets/create/{user}', [TicketController::class, 'create']) ->name('tickets.create')->middleware('auth:web');//client creates ticket
 
 
 

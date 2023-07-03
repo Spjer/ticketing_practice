@@ -41,7 +41,7 @@
                 @if($ticket->client_id != '1')
                   <p class='basic'>{{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span></p>
                 @else
-                  <p class='basic'><a href="{{ route('clients.edit', [$ticket->id]) }}">
+                  <p class='basic'><a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
                     <button type="button">Odaberi korisnika</button>
                   </a></p>
                 @endif
@@ -65,9 +65,13 @@
             <!-- release ticket = otpusti ticket -->
             <p >
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('release-ticket', [$ticket->id]) }}">
-              <button type="button" class="btn btn-danger">Odbaci</button>
-            </a>
+              <form action="{{ route('ticket-users.update', [$ticket->id]) }}" method="POST" >
+                        @csrf
+                        @method('put')
+                        <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
+                        <button type="submit" class="btn btn-danger">Otpusti</button>
+                      </form>
+            
             @endif
                      
               
@@ -85,13 +89,13 @@
                 EMAIL: {{$ticket->client->email}}<br>
                 BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
               @else
-                <a href="{{ route('clients.edit', [$ticket->id]) }}">
+                <a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
                   <button type="button">Odaberi korisnika</button>
                 </a>
             @endif
           @endif
         </div>
-        <div class ='sp1'> Opis:
+        <div class ='sp2'> Opis:
           <p class='basic'>{{$ticket->details}}</p>
         </div>
         <div class='sp1'>
@@ -107,7 +111,9 @@
           </form></p>
 
         </div>
+      
         <div class ='sp1'> Komentari:
+          
           @foreach($ticket->comments as $comment)
           <div class='sp2'>
           <span style="color:grey">#{{$comment->id}}</span> {{$comment->created_at}}
@@ -116,6 +122,7 @@
           </div>
           @endforeach
         </div>
+      
         
         <div class='sp1'>
           <form action="{{route('comments.store')}}" method="POST" >
@@ -137,7 +144,7 @@
                 <label for="body">Komentar:</label><br>
                 <textarea rows="4" cols="40"  id="body" name="body"  placeholder="Upišite komentar"></textarea>
             </div>
-            <br>
+            
             
 
 
@@ -152,10 +159,15 @@
               <button type="button">Komentari</button>
             </a>
             @if(Auth::user()->role != 'admin')
-            <a href="{{ route('release-ticket', [$ticket->id]) }}">
-              <button type="button">Otpusti</button>
-            </a>
+            <br>
+            <form action="{{ route('ticket-users.update', [$ticket->id]) }}" method="POST" >
+                        @csrf
+                        @method('put')
+                        <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
+                        <button type="submit" class="btn btn-warning mt-3">Otpusti</button>
+                      </form>
             @endif
+            
                      
              
             

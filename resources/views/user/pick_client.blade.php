@@ -11,7 +11,7 @@
 @section('content')
 <main>
     <div class="forms">
-    <form action="{{ route('clients.update', [$ticket->id]) }}" method="POST" >
+    <form action="{{ route('ticket-clients.update', [$ticket->id]) }}" method="POST" >
     @csrf
     @method('PUT')
 

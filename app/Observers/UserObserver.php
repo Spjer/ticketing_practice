@@ -18,7 +18,7 @@ class UserObserver
             'subject' => 'TestNotifAgent',
             'body' => 'Your registranion was completed successfully.',
         ];
-        //$user->notify( new MailNotification($data));
+        $user->notify( new MailNotification($data));
     }
 
     /**

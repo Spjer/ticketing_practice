@@ -16,13 +16,11 @@ class ClientObserver
     public function created(Client $client): void
     {
         //
-        //$this->sendMailable($client, MailNotification::class);
-
         $data =[
             'subject' => 'TestNotifClient',
             'body' => $client->name,
         ];
-        //Notification::send($client, new MailNotification($data));
+        Notification::send($client, new MailNotification($data));
         //Notification::route('mail', $client->email)->notify(new MailNotification($data));
         //$client->notify( new MailNotification($data));
     }
@@ -33,6 +31,12 @@ class ClientObserver
     public function updated(Client $client): void
     {
         //
+        //$data =[
+        //    'subject' => 'AssignedNotif',
+        //    'body' => 'You were assigned to ticket: ',
+        //];
+        //Notification::route('mail', $client->email)->notify(new MailNotification($data));
+
     }
 
     /**

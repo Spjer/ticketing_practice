@@ -4,17 +4,19 @@ namespace App\Observers;
 
 use App\Models\Ticket;
 use App\Models\Status;
+use App\Notifications\MailNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TicketObserver
 {
     /**
      * Handle the Ticket "created" event.
      */
-    public function created(Ticket $ticket): void
+    public function creating(Ticket $ticket): void
     {
         //
         $status_id = Status::select('id')->where('name','Open')->first()->id;
-        $ticket->update(['status_id'=> $status_id]);
+        $ticket->status_id = $status_id;
     }
 
     /**
@@ -23,6 +25,13 @@ class TicketObserver
     public function updated(Ticket $ticket): void
     {
         //
+        $data =[
+            'subject' => 'AssignedNotif',
+            'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
+        ];
+        $ticket->user->notify( new MailNotification($data));
+        
+
     }
 
     /**

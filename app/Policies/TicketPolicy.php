@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Ticket;
 use App\Models\User;
-use App\Models\ClientS;
+use App\Models\Client;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +43,12 @@ class TicketPolicy
     public function update(User $user, Ticket $ticket): bool
     {
         //
-        return $user->id === $ticket->user_id;
+        return $user->id === $ticket->user_id || $user->role == 'admin';
+    }
+    public function updateUser(User $user): bool
+    {
+        //
+        return $user->id === $user->id || $user->role == 'admin';
     }
 
     /**

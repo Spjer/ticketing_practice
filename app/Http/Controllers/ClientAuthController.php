@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreClientRegisterRequest;
+use App\Http\Requests\ClientRegisterRequest;
 use App\Http\Requests\ClientLoginRequest;
 use Hash;
 use Session;
@@ -61,12 +61,8 @@ class ClientAuthController extends Controller
         return view('client.registration');
     }
       
-    public function customRegistration(StoreClientRegisterRequest $request)
+    public function customRegistration(ClientRegisterRequest $request)
     {  
-        
-        //$password = $request->input('password');
-        //$client->password = Hash::make($password);
-        //Client::query()->create($request->only(['name', 'email', 'phone_number' ]));
         
         $name = $request->input('name');
         $email = $request->input('email');

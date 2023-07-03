@@ -23,7 +23,7 @@ class StatusController extends Controller
         $new_status_id = $request->input('new_status_id');
 
         Ticket::where('id', $ticket_id)->update(['status_id'=> $new_status_id]);
-
+        //return back();
         return redirect()->route('tickets.show', Auth::user()->id);
     }
 }

@@ -20,25 +20,25 @@ class UserController extends Controller
            
     }
     // As admin assign ticket to agent(user)
-    public function edit(Ticket $ticket){ ///pickUser
+    //public function edit(Ticket $ticket){ ///pickUser
+    //    $this->authorize('update', Ticket::class);
+    //    $users = User::all();
+    //    //if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
+    //    return view('user.pick_user')->with('users', $users)->with('ticket', $ticket);
 
-        $users = User::all();
-        if(Auth::user()->id == $ticket->user_id || Auth::user()->role == 'admin'){
-            return view('user.pick_user')->with('users', $users)->with('ticket', $ticket);
+        //}
+        //return redirect()->route('user.home');
 
-        }
-        return redirect()->route('user.home');
-
-    }
+    //}
     //  Store user assigned to ticket (by admin)
-    public function update(Request $request, $ticket_id){  //updateUser
-        $new_user_id = $request->input('new_user_id');
+    //public function update(Request $request, $ticket_id){  //updateUser
+    //    $new_user_id = $request->input('new_user_id');
     
-        Ticket::where('id', $ticket_id)->update(['user_id'=> $new_user_id]);
-        $tickets = Ticket::all();
-        //return view('all_tickets')->with('tickets', $tickets);
-        return redirect()->route('tickets.index');
-    }
+    //    Ticket::where('id', $ticket_id)->update(['user_id'=> $new_user_id]);
+    //    $tickets = Ticket::all();
+    //    //return view('all_tickets')->with('tickets', $tickets);
+    //    return redirect()->route('tickets.index');
+    //}
         
     
 }

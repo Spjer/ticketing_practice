@@ -59,7 +59,7 @@
         </form>
     </div>
     <!--SIDE PANNEL-->
-    <div class='side-pnl2' id='sd_pnl'>
+    <div class='side-pnl' id='sd_pnl'>
         <form action="{{ route('clients.store') }}" method="POST" >
             @csrf
             <input type="hidden" id="password" name="password" value=" ">
