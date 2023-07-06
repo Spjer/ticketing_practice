@@ -21,7 +21,6 @@ class TicketController extends Controller
     // all_tickets
     public function index(){
         
-       
         return view('all_tickets')->with('tickets', Ticket::latest()->filter(request(['name']))->get());   
 
     }
@@ -51,17 +50,17 @@ class TicketController extends Controller
         return view('user.my_tickets')->with('user', $param);
     }
 
-    public function edit(Ticket $param){ ///pickUser
-        $this->authorize('update', $param);
+    //public function edit(Ticket $param){ ///pickUser
+    //    $this->authorize('update', $param);
 
-        $users = User::all();
-        return view('user.pick_user')->with('users', $users)->with('ticket', $param);
+    //    $users = User::all();
+    //    return view('user.pick_user')->with('users', $users)->with('ticket', $param);
 
        
-    }
+    //}
     
     // take on ticket -> ticket goes to my_tickets
-    public function assignTicket(Request $request, Ticket $ticket){    
+    /*public function assignTicket(Request $request, Ticket $ticket){    
         $this->authorize('update', $ticket);
 
         $user_id = $request->input('user_id');
@@ -77,7 +76,7 @@ class TicketController extends Controller
         $admin_id = User::select('id')->where('role','admin')->limit(1)->first()->id;
         Ticket::where('id', $ticket->id)->update(['user_id'=> $admin_id]);
         return redirect()->back();
-    }
+    }*/
 
 
    

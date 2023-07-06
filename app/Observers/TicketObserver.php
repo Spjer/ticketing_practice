@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Ticket;
 use App\Models\Status;
 use App\Notifications\MailNotification;
+use App\Notifications\AssignedNotification;
 use Illuminate\Support\Facades\Notification;
 
 class TicketObserver
@@ -26,10 +27,12 @@ class TicketObserver
     {
         //
         $data =[
-            'subject' => 'AssignedNotif',
+            'name' => $ticket->name,
+            'subject' => 'AssignedNotif - '. $ticket->name,
             'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
         ];
         $ticket->user->notify( new MailNotification($data));
+        $ticket->user->notify( new AssignedNotification($data));
         
 
     }

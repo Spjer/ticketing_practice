@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 //use Illuminate\Support\Facades\Request;
 //use App\Models\Ticket;
 /*
@@ -51,20 +52,24 @@ Route::post('client/custom_registration', [ClientAuthController::class, 'customR
 Route::middleware(['web'])->group(function () {
   
   Route::get('tickets/create', [TicketController::class, 'create']) ->name('tickets.create');//client creates ticket
-  Route::get('/assign-ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign-ticket'); // user takes on ticket
-  Route::get('/release-ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release-ticket'); // user releases ticket
+  //Route::get('/assign-ticket/{ticket}', [TicketController::class, 'assignTicket'])->name('assign-ticket'); // user takes on ticket
+  //Route::get('/release-ticket/{ticket}', [TicketController::class, 'releaseTicket'])->name('release-ticket'); // user releases ticket
   Route::resource('comments', 'App\Http\Controllers\CommentController')->only(['store', 'show', 'destroy'])->parameters(['comments' => 'param']); //view_comments, store_comments, delete_comments
   Route::resource('statuses', 'App\Http\Controllers\StatusController')->only(['store', 'edit'])->parameters(['statuses' => 'ticket']); // edit_status, store_status
   Route::resource('clients', 'App\Http\Controllers\ClientController')->except(['show', 'destroy', 'create', 'edit', 'update'])->parameters(['clients' => 'ticket']); //add client/store  view_clients/index
   Route::resource('users', 'App\Http\Controllers\UserController')->only(['index'])->middleware('auth:web');
   Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only(['edit', 'update'])->parameters(['ticket-clients' => 'param']); //add client/store  view_clients/index
   Route::resource('ticket-users', 'App\Http\Controllers\TicketUserController')->only(['edit', 'update'])->parameters(['ticket-users' => 'ticket']); //add client/store  view_clients/index
+  Route::resource('notifications', 'App\Http\Controllers\NotificationController')->only(['index', 'show'])->parameters(['notifications' => 'id']);
+  Route::get('notifications/destroy/{id}', [NotificationController::class, 'destroy']) ->name('notifications.destroy');//client creates ticket
 
   
 });
 Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only([ 'show', 'create'])->parameters(['ticket-clients' => 'client'])->middleware('auth:webclient'); //add client/store  view_clients/index
 
 Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'param']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
+
+Route::get('/mark-as-read', [NotificationController::class,'markAsRead'])->name('mark-as-read');
 
 //Route::post('search', [TicketController::class, 'search'])->name('search');
 

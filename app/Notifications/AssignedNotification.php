@@ -6,21 +6,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-//use App\Models\Announcement;
 
-class MailNotification extends Notification
+class AssignedNotification extends Notification
 {
     use Queueable;
 
-    //private Announcement $announcement;
-    private $data;
     /**
      * Create a new notification instance.
      */
     public function __construct($data)
     {
         //
-        //$this->announcement = $announcement;
         $this->data = $data;
     }
 
@@ -31,7 +27,7 @@ class MailNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -40,9 +36,7 @@ class MailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject($this->data['subject'])
-                    ->from('ticket.laravel@mail.com')
-                    ->line($this->data['body'])
+                    ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
@@ -62,7 +56,7 @@ class MailNotification extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title' => 'New assignment -'. $this->data['name'],
+            'title' => 'New assignment - '. $this->data['name'],
             'body' => $this->data['body'],
         ];
     }
