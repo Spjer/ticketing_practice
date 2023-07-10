@@ -11,14 +11,14 @@
 <form action="{{ route('client.custom_login') }}" method="POST">
     @csrf
     <div>
-        <label for="email">Email:</label><br>
+        <label for="email" class="form-label">Email:</label><br>
         <input type="text"  placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" required/>
         @if ($errors->has('email'))
             <span>{{ $errors->first('email') }}</span>
         @endif
     </div>
     <div>
-        <label for="password">Lozinka:</label><br>
+        <label for="password" class="form-label">Lozinka:</label><br>
         <input type="password" name="password" name="id" placeholder="********" required/>
         @if ($errors->has('password'))
             <span>{{ $errors->first('password') }}</span>

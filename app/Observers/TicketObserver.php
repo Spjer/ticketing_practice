@@ -26,14 +26,17 @@ class TicketObserver
     public function updated(Ticket $ticket): void
     {
         //
-        $data =[
-            'name' => $ticket->name,
-            'subject' => 'AssignedNotif - '. $ticket->name,
-            'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
-        ];
-        $ticket->user->notify( new MailNotification($data));
-        $ticket->user->notify( new AssignedNotification($data));
-        
+       /*
+        if($ticket->wasChanged('user_id')){
+            $data =[
+                'name' => $ticket->name,
+                'subject' => 'AssignedNotif - '. $ticket->name,
+                'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
+            ];
+            //$ticket->user->notify(( new MailNotification($data))->delay($delay));
+            $ticket->user->notify( new AssignedNotification($data));
+          }*/
+          
 
     }
 

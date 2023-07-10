@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Notifications\AssignedNotification;
+
 use Illuminate\Http\Request;
 
 class TicketUserController extends Controller
@@ -26,6 +28,15 @@ class TicketUserController extends Controller
 
         $user_id = $request->input('user_id');
         $ticket->update(['user_id'=> $user_id]);
+
+        $data =[
+            'name' => $ticket->name,
+            'subject' => 'AssignedNotif - '. $ticket->name,
+            'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
+        ];
+        //$ticket->user->notify(( new MailNotification($data))->delay($delay));
+        $ticket->user->notify( new AssignedNotification($data));
+
         return redirect()->route('tickets.index');
         
     }

@@ -27,7 +27,7 @@ class AssignedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -36,7 +36,8 @@ class AssignedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
+                    ->subject($this->data['subject'])
+                    ->line($this->data['body'])
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }

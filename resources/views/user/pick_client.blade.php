@@ -33,7 +33,7 @@
         <input type="hidden" id="password" name="password" value=" ">
         <div>
             
-            <label for="name">Ime:</label><br>
+            <label for="name" class="form-label">Ime:</label><br>
             <input type="text" placeholder="Name" id="name" name="name" value="{{ old('name')}}" required autofocus>
                 @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -41,7 +41,7 @@
         </div>
             
         <div>
-            <label for="email">Email:</label><br>
+            <label for="email" class="form-label">Email:</label><br>
             <input type="text" placeholder="email" id="email" name="email" value="{{ old('email')}}" required autofocus>
                 @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -49,7 +49,7 @@
         </div>
             
         <div>
-            <label for="phone_number">Broj telefona:</label><br>
+            <label for="phone_number" class="form-label">Broj telefona:</label><br>
             <input type="tel" placeholder="xxx-xxx-xxxx" id="phone_number" name="phone_number" value="{{ old('phone_number')}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3-4}" required autofocus>
                 @if ($errors->has('phone_number'))
                 <span class="text-danger">{{ $errors->first('phone_number') }}</span>

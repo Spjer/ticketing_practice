@@ -29,13 +29,13 @@
 
 
         <div>
-            <label for="name">Naziv</label>
-            <input type="text" id="name" name="name" placeholder="Upišite naziv">
+            <label for="name" class="form-label">Naziv</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Upišite naziv">
         </div>
         <br>
         <div>
-            <label for="details">Detaljnije</label><br>
-            <textarea rows="4" cols="50"  id="details" name="details"  placeholder="Opišite problem"></textarea>
+            <label for="details" class="form-label">Detaljnije</label><br>
+            <textarea rows="4" cols="50"  id="details" name="details" class="form-control" placeholder="Opišite problem"></textarea>
         </div>
 
         <br>

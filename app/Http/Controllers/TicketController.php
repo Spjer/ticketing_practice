@@ -20,8 +20,12 @@ class TicketController extends Controller
 {
     // all_tickets
     public function index(){
-        
-        return view('all_tickets')->with('tickets', Ticket::latest()->filter(request(['name']))->get());   
+        //if(Auth::user()->role == 'admin')
+        return view('all_tickets')->with('tickets', Ticket::latest()->filter(request(['name']))->paginate(15));
+        //else
+        //    return view('all_tickets')->with('tickets', Ticket::latest()->filter(request(['name'])));
+
+       
 
     }
 
@@ -47,7 +51,7 @@ class TicketController extends Controller
         if (! Gate::allows('show-assigned', $param->id)) {
             abort(403);
         }
-        return view('user.my_tickets')->with('user', $param);
+        return view('user.my_tickets')->with('tickets', Ticket::where('user_id', $param->id)->paginate(9))/*->with('user', $param)*/;
     }
 
     //public function edit(Ticket $param){ ///pickUser

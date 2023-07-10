@@ -17,24 +17,29 @@
     <div class='navbar1'>
         <ul class='navbar1'>
             <li class='navbar1'><a href="{{ route('opening') }}">Opening Page</a></li>
-            <li class='navbar1'><a href="{{ route('user.home') }}">Home</a></li>
+            <li class='navbar1'><a href="{{ route('user.home') }}"><i class="fa-solid fa-house-user"></i> Home</a></li>
             @auth
-                <li class='navbar1'><a href="{{ route('user.logout') }}">Logout</a></li>
+                <li class='navbar1'><a href="{{ route('user.logout') }}"><i class="fa-solid fa-power-off"></i> Logout</a></li>
                 @else
                 <li class='navbar1'><a href="{{ route('user.login') }}">Login</a></li>
                 <li class='navbar1'><a href="{{ route('user.register') }}">Register</a></li>
             @endauth
         </ul>
+        
         @auth
-        <div class="dropdown">
+        <div class="dropdown-left" style="display: inline-block; z-index: 999;">
             <a href="#"onclick="myFunction()" class="dropbtn">
-                <i class="fa fa-bell" onclick="myFunction()" style="z-index: 999">amogus</i>
+                <i class="fa fa-bell" onclick="myFunction()" style="z-index: 999"></i>
+
+                @if(auth()->user()->unreadNotifications->count() != '0')
                 <span class="badge badge-light bg-success badge-xs" onclick="myFunction()">{{auth()->user()->unreadNotifications->count()}}</span>
+                @endif
             </a>
             
-            <div id="myDropdown" class="dropdown-content" style="font-size:12px">
+            <!--<div id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px">-->
+            <ul id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px; max-height: 550px; overflow: auto;">
                 @foreach (auth()->user()->unreadNotifications as $notification)
-                <a href="#" > {{$notification->data['title']}} - {{$notification->created_at}}</li></a>
+                <li><a href="{{ route('notifications.show', [$notification->id]) }}" class="dropdown-item"> {{$notification->data['title']}} - {{  $notification->created_at->diffForHumans()}}</li></a>
                 @endforeach
 
                 
@@ -44,8 +49,8 @@
                     <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">Mark All as Read</a>
                     @endif
                 </li>
+            </ul>
                 
-
                 
             </div>
         </div>
@@ -57,26 +62,26 @@
 <div class='sidebar'>     
         @auth
         <a href="{{ route('tickets.index') }}">
-            Ticketi
+        <i class="fa-solid fa-ticket"></i> Tickets
         </a>
         <br>
         <a href="{{ route('tickets.show', [Auth::user()->id]) }}">
-            Peuzeti ticketi
+            <i class="fa fa-clipboard-list"></i> Working On
         </a>
         <br>
         @if(auth()->user()->role == 'admin')
         <a href="{{ route('users.index') }}">
-           Pregled agenata
+            <i class="fa-solid fa-helmet-safety"></i> Agents
         </a>
         <br>
         <a href="{{ route('clients.index') }}">
-            Pregled klijenata
+            <i class="fa-solid fa-user"></i> Clients
         </a>
         <br>
         @endif
         
         <a href="{{ route('tickets.create') }}">
-            Otvori ticket
+            <i class="fa fa-circle-plus"></i> New Ticket
         </a>
         <br>
         
@@ -84,7 +89,7 @@
     
         <!--<br>
         <a href="{{ route('user.logout') }}">Logout</a>-->
-        &nbsp<span style='color: gray'>{{ Auth::user()->name }}</span>
+        &nbsp<span style='color: gray; margin-left: 5px;'> {{ Auth::user()->name }}</span>
         @endauth
 </div>
 @show
@@ -93,8 +98,7 @@
     </div>
 
 <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
+
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -102,7 +106,7 @@ function myFunction() {
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];

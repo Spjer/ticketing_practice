@@ -92,11 +92,3 @@ class UserAuthController extends Controller
 }
 
 
-/*
-use Notification;
-use App\Notifications\MailNotification;
-//use App\Models\Announcement;
-use Illuminate\Support\Facades\Route;*/
- //Notification::send($client, new MailNotification($order));
-
-        //Route::get('send', [NotifyController::class, 'send']);

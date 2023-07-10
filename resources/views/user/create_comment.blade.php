@@ -21,11 +21,11 @@
 
 
             @csrf
-            <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
+            <input type="hidden" id="ticket_id" name="ticket_id" class="form-label" value="{{$ticket->id}}">
             
             <div>
                 <label for="body">Komentar:</label>
-                <input type="text" id="body" name="body" placeholder="Upišite komentar" width=500 col="10" row="10">
+                <input type="text" id="body" name="body" placeholder="Upišite komentar" class="form-control" width=500 col="10" row="10">
             </div>
             <br>
             

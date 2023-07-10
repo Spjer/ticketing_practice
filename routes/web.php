@@ -60,8 +60,11 @@ Route::middleware(['web'])->group(function () {
   Route::resource('users', 'App\Http\Controllers\UserController')->only(['index'])->middleware('auth:web');
   Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only(['edit', 'update'])->parameters(['ticket-clients' => 'param']); //add client/store  view_clients/index
   Route::resource('ticket-users', 'App\Http\Controllers\TicketUserController')->only(['edit', 'update'])->parameters(['ticket-users' => 'ticket']); //add client/store  view_clients/index
+  Route::get('notifications/index-unread', [NotificationController::class, 'indexUnread']) ->name('notifications.index-unread');
+
   Route::resource('notifications', 'App\Http\Controllers\NotificationController')->only(['index', 'show'])->parameters(['notifications' => 'id']);
-  Route::get('notifications/destroy/{id}', [NotificationController::class, 'destroy']) ->name('notifications.destroy');//client creates ticket
+  Route::get('notifications/destroy/{id}', [NotificationController::class, 'destroy']) ->name('notifications.destroy');
+
 
   
 });

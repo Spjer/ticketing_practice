@@ -15,9 +15,9 @@
     <div class='navbar1'>
         <ul class='navbar1'>
             <li class='navbar1'><a href="{{ route('opening') }}">Opening Page</a></li>
-            <li class='navbar1'><a href="{{ route('client.home') }}">Home</a></li>
+            <li class='navbar1'><a href="{{ route('client.home') }}"><i class="fa-solid fa-house-user"> Home</a></li>
             @if(Auth::guard('webclient')->check())
-                <li class='navbar1'><a href="{{ route('client.logout') }}">Logout</a></li>
+                <li class='navbar1'><a href="{{ route('client.logout') }}"><i class="fa-solid fa-power-off"></i> Logout</a></li>
                 @else
                 <li class='navbar1'><a href="{{ route('client.login') }}">Login</a></li>
                 <li class='navbar1'><a href="{{ route('client.register') }}">Register</a></li>

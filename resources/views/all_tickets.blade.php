@@ -11,12 +11,13 @@
     @csrf
     <div class="input-group">
         <input type="text" class="form-control" name="name"
-            placeholder="Search tickets" default=" "> <span class="input-group-btn">
+            placeholder="Search tickets" default=" " style="width: 100%"> 
+          <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
-        </span>
-</input>
+          </span>
+        </input>
     </div>
   </form>
   <div>
@@ -63,7 +64,7 @@
                 <p>{{$ticket->created_at}}</p>
               </div>
               <div class='gumbi'>
-                <p><button type="button" class="btn btn-primary" onclick="show('{{$ticket->id}}')">Više</button></p>
+                <p><button type="button" class="btn btn-primary" onclick="show('{{$ticket->id}}')" title="view more"><i class="fa-sharp fa-solid fa-eye"></i></button></p>
 
               </div>
               <!--SIDE PANNEL-->
@@ -144,7 +145,8 @@
       </div>
       @endif
     @endforeach
-        
+
+  
     
 </div>
     

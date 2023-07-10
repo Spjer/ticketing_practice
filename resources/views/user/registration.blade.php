@@ -12,7 +12,7 @@
         <form action="{{ route('user.custom_registration') }}" method="POST">
             @csrf
             <div>
-                <label for="name">Ime:</label><br>
+                <label for="name" class="form-label">Ime:</label><br>
                 <input type="text" placeholder="Name" id="name" name="name" required autofocus>
                     @if ($errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -20,7 +20,7 @@
             </div>
 
             <div>
-                <label for="email">Email:</label><br>
+                <label for="email" class="form-label">Email:</label><br>
                 <input type="text" placeholder="email" id="email" name="email" required autofocus>
                     @if ($errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -28,7 +28,7 @@
             </div>
                            
             <div>
-                <label for="password">Lozinka:</label><br>
+                <label for="password" class="form-label">Lozinka:</label><br>
                 <input type="password" placeholder="Password" id="password" name="password" required autofocus>
                 @if ($errors->has('password'))
                     <span class="text-danger">{{ $errors->first('password') }}</span>

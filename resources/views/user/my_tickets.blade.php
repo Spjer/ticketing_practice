@@ -29,8 +29,8 @@
         </div>
       </div>
     </div>
-    @if(count($user->tickets))
-      @foreach($user->tickets as $ticket)
+    @if(count($tickets))
+      @foreach($tickets as $ticket)
       <div>
         <div class='card1'>
           <div class='card1-text'>
@@ -49,39 +49,46 @@
             
           </div>
           <div class='card1-text' style="text-align:center">
-            <p class='basic'><span class='status-span' @if($ticket->status_id == '1') style="background-color: blue;" 
+            <!--<p class='basic'><span class='status-span' @if($ticket->status_id == '1') style="background-color: blue;" 
               @elseif($ticket->status_id == '2') style="background-color: green;" 
-              @else style="background-color: red;" @endif 
-              ><a href="{{ route('statuses.edit', [$ticket->id]) }}" class='status-a'>
+              @else style="background-color: red;" @endif >
+              <a href="{{ route('statuses.edit', [$ticket->id]) }}" class='status-a'>
                 {{$ticket->status->name}}
               </a></span>
-            </p>
+            </p>-->
+
+              <div class="progress" role="progressbar" aria-label="ProgressBar" width="80%" aria-label="Example 20px high"
+                @if($ticket->status_id == '1') aria-valuenow="10"
+                @elseif($ticket->status_id == '2') aria-valuenow="50"
+                @else aria-valuenow="100" @endif aria-valuemin="0" aria-valuemax="100"> 
+                <div @if($ticket->status_id == '1') class="progress-bar progress-bar-striped overflow-visible text-dark" style="width: 10%""
+                  @elseif($ticket->status_id == '2') class="progress-bar progress-bar-striped bg-success overflow-visible text-dark" style="width: 50%""
+                  @else aria-valuenow="100" @endif class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: 100%">
+                  @if($ticket->status->name == "Closed")
+                  <a href="{{ route('statuses.edit', [$ticket->id]) }}" class='status-a'>
+                    {{$ticket->status->name}}
+                  </a>
+                  @endif
+                </div>
+                @if($ticket->status->name != "Closed")
+                <a href="{{ route('statuses.edit', [$ticket->id]) }}" class='status-a'>
+                    {{$ticket->status->name}}
+                </a>
+                @endif
+              </div>
           </div>
           <div class='card1-text'>
             <p class='basic'>{{$ticket->created_at}}</p>
           </div>
           <div class='gumbi'>
-             <!-- Napravit da se moze promijenit status i otpustit ticket -->
-            <!-- release ticket = otpusti ticket -->
-            <p >
-            @if(Auth::user()->role != 'admin')
-              <form action="{{ route('ticket-users.update', [$ticket->id]) }}" method="POST" >
-                        @csrf
-                        @method('put')
-                        <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
-                        <button type="submit" class="btn btn-danger">Otpusti</button>
-                      </form>
-            
-            @endif
-                     
-              
-            <button type="button" class="btn btn-primary"  onclick="show('{{$ticket->id}}')">Više</button></p>
+            <p><button type="button" class="btn btn-primary"  onclick="show('{{$ticket->id}}')" title="view more"><i class="fa-sharp fa-solid fa-eye"></i></button></p>
           </div>
         </div>
       </div>
 
       <!--SIDE PANNEL-->
       <div class='side-pnl' id='{{$ticket->id}}'>
+        
         <div class ='sp1'> Klijent:
           @if(isset($ticket->client))
             @if($ticket->client_id != '1')
@@ -102,7 +109,7 @@
           <p><form action="{{ route('statuses.store') }}" method="POST" >
           @csrf
             <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
-            <select name="new_status_id" id="new_status_id">
+            <select name="new_status_id" id="new_status_id" class="form-select">
               <option value="1" @if($ticket->status_id == '1') {{'selected'}} @endif >Open</option>
               <option value="2" @if($ticket->status_id == '2') {{'selected'}} @endif >In progress</option>
               <option value="3" @if($ticket->status_id == '3') {{'selected'}} @endif >Closed</option>
@@ -141,8 +148,8 @@
             <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
             
             <div>
-                <label for="body">Komentar:</label><br>
-                <textarea rows="4" cols="40"  id="body" name="body"  placeholder="Upišite komentar"></textarea>
+                <label for="body" class="form-label">Komentar:</label><br>
+                <textarea rows="4" cols="40"  id="body" name="body" class="form-control" placeholder="Upišite komentar"></textarea>
             </div>
             
             
@@ -163,8 +170,8 @@
             <form action="{{ route('ticket-users.update', [$ticket->id]) }}" method="POST" >
                         @csrf
                         @method('put')
-                        <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}">
-                        <button type="submit" class="btn btn-warning mt-3">Otpusti</button>
+                        <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}"></input>
+                        <button type="submit" class="btn btn-danger mt-3">Otpusti</button>
                       </form>
             @endif
             
@@ -191,6 +198,8 @@
       </script>
       @endforeach
       @endif
+
+    {{$tickets->links('pagination::bootstrap-5')}}
       
   </div>
 </main>

@@ -13,11 +13,11 @@ class Client extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function routeNotificationForMail($notification)
-    {
+    //public function routeNotificationForMail($notification)
+    //{
    // Return email address only
-    return $this->email_address;
-    }
+    //return $this->email_address;
+    //}
 
 
     /**

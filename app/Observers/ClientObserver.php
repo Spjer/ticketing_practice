@@ -6,6 +6,7 @@ use App\Models\Client;
 
 use App\Notifications\MailNotification;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
 
 
 class ClientObserver
@@ -20,9 +21,8 @@ class ClientObserver
             'subject' => 'TestNotifClient',
             'body' => $client->name,
         ];
-        Notification::send($client, new MailNotification($data));
-        //Notification::route('mail', $client->email)->notify(new MailNotification($data));
-        //$client->notify( new MailNotification($data));
+        //Notification::send($client, new MailNotification($data));
+        $client->notify( new MailNotification($data));
     }
 
     /**

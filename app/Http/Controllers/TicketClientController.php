@@ -15,7 +15,7 @@ class TicketClientController extends Controller
      // Choose a client for a created ticket 
      public function edit(Ticket $param){ //pickClient
         $this->authorize('update', $param);
-        
+
         $clients = Client::all();
         return view('user.pick_client')->with('clients', $clients)->with('ticket', $param);
     }
@@ -37,13 +37,7 @@ class TicketClientController extends Controller
     }
 
     public function show(Client $client){
-       // if (! Gate::allows('show-owned', $client->id)) {
-       //     abort(403);
-       // }
-        //if(Auth::user()->id != $client->id){
-        //    return redirect()->route('client.home');
-        //}else{
-        //$tickets = Ticket::where('client_id', $client->id)->get();
+  
         $tickets = Ticket::where('client_id', Auth::user()->id)->get();
         return view('client.client_ticket') ->with('tickets', $tickets);
         //}
