@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Ticket;
 use App\Models\Status;
+use App\Events\TicketAssignedUser;
 use App\Notifications\MailNotification;
 use App\Notifications\AssignedNotification;
 use Illuminate\Support\Facades\Notification;
@@ -26,7 +27,7 @@ class TicketObserver
     public function updated(Ticket $ticket): void
     {
         //
-       /*
+       
         if($ticket->wasChanged('user_id')){
             $data =[
                 'name' => $ticket->name,
@@ -35,7 +36,8 @@ class TicketObserver
             ];
             //$ticket->user->notify(( new MailNotification($data))->delay($delay));
             $ticket->user->notify( new AssignedNotification($data));
-          }*/
+            event(new TicketAssignedUser($ticket->name));
+          }
           
 
     }

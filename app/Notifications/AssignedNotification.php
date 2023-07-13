@@ -6,8 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class AssignedNotification extends Notification
+class AssignedNotification extends Notification //Simplements ShouldQueue
 {
     use Queueable;
 
@@ -27,7 +28,7 @@ class AssignedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return [/*'mail',*/ 'database', 'broadcast'];
     }
 
     /**
@@ -61,4 +62,20 @@ class AssignedNotification extends Notification
             'body' => $this->data['body'],
         ];
     }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage([
+            'title' => 'New assignment - '. $this->data['name'],
+            'body' => $this->data['body'],
+    ]);
+    }
+
+    /**
+ * Get the type of the notification being broadcast.
+ */
+public function broadcastType(): string
+{
+    return 'broadcast.message';
+}
 }

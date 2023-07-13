@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="forms">
-<h2>Slanje ticketa</h2>
+<h2>Send Ticket</h2>
     <br>
     <form action="{{route('tickets.store')}}" method="POST" >
         @if ($errors->any())
@@ -29,12 +29,12 @@
 
 
         <div>
-            <label for="name" class="form-label">Naziv</label>
+            <label for="name" class="form-label">Ticket Name</label>
             <input type="text" id="name" name="name" class="form-control" placeholder="Upišite naziv">
         </div>
         <br>
         <div>
-            <label for="details" class="form-label">Detaljnije</label><br>
+            <label for="details" class="form-label">Description</label><br>
             <textarea rows="4" cols="50"  id="details" name="details" class="form-control" placeholder="Opišite problem"></textarea>
         </div>
 
@@ -44,7 +44,7 @@
             
 
 
-        <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
+        <button type="submit" class="btn btn-primary mt-3">Send Ticket</button>
     </form>
 </div>
 @stop

@@ -12,13 +12,13 @@
         Ticket 
       </div>
       <div class='card1-text' >
-        Klijent
+        Client
       </div>
       <div class='card1-text'>
         Status
       </div>
       <div class='card1-text'>
-        Datum
+        Date
       </div>
     </div>
 

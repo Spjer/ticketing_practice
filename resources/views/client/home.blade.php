@@ -5,6 +5,15 @@
 @yield('navbar')
 
 @section('content')
+
+@if ( Session::has('flash_message') )
+
+        <span class="alert alert-success alert-block" style="left: 50%">
+            {{ Session::get('flash_message') }}
+        </span>
+
+@endif
+
 <h1>Hello Client</h1>
 @auth
 @if (auth()->guard('webclient'))

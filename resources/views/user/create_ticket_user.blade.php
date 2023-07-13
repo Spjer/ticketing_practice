@@ -8,7 +8,7 @@
 @section('content')
 <main>
 <div class = "forms">
-<h2>Slanje ticketa</h2>
+<h2>Open a Ticket</h2>
         <br>
         
         <form action="{{route('tickets.store')}}" method="POST" >
@@ -30,12 +30,12 @@
             
 
             <div>
-                <label for="name" class="form-label">Naziv</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Upišite naziv">
             </div>
             <br>
             <div>
-                <label for="details" class="form-label">Detaljnije</label><br>
+                <label for="details" class="form-label">Description</label><br>
                 <textarea rows="4" cols="50"  id="details" name="details" class="form-control" placeholder="Opišite problem"></textarea>
             </div>
 
@@ -47,7 +47,7 @@
                     @endforeach
                 </select><br>
 
-                <button type="button" class="btn btn-primary mt-3" onclick="show()">Dodaj novog klijenta</button>
+                <button type="button" class="btn btn-dark btn-block" onclick="show()">Add new client</button>
             <br><br>
             </div>
             <br>
@@ -55,7 +55,7 @@
             
 
 
-            <button type="submit" class="btn btn-primary mt-3">Pošalji ticket</button>
+            <button type="submit" class="btn btn-primary mt-3">Send</button>
         </form>
     </div>
     <!--SIDE PANNEL-->
@@ -65,7 +65,7 @@
             <input type="hidden" id="password" name="password" value=" ">
             <div>
             
-                <label for="name" class="form-label">Ime:</label><br>
+                <label for="name" class="form-label">Name:</label><br>
                 <input type="text" placeholder="Name" id="name" name="name" class="form-control" value="{{ old('name')}}" required autofocus>
                 @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -81,7 +81,7 @@
             </div>
             
             <div>
-                <label for="phone_number" class="form-label">Broj telefona:</label><br>
+                <label for="phone_number" class="form-label">Phone number:</label><br>
                 <input type="tel" placeholder="xxx-xxx-xxxx" id="phone_number" name="phone_number" class="form-control" value="{{ old('phone_number')}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3-4}" required autofocus>
                 @if ($errors->has('phone_number'))
                 <span class="text-danger">{{ $errors->first('phone_number') }}</span>
@@ -89,7 +89,7 @@
             </div>
     
             <div>
-                <button type="submit" class="btn btn-primary mt-3">Dodaj novog klijenta</button>
+                <button type="submit" class="btn btn-primary mt-3">Add client</button>
             </div>
         </form>
     </div>

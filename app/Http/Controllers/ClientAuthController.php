@@ -39,13 +39,16 @@ class ClientAuthController extends Controller
             'password' => 'required', 'min:6',
         ]);
 
+        
+
         if(Auth::guard('webclient')
             ->attempt($request->only(['email', 'password'])))
         {
-            return redirect()->route('client.home');
+            return redirect()->route('client.home')->with('flash_message', 'Successfully logged in')
+            ->with('flash_type', 'alert-success');
         }
 
-        return redirect()->back();
+        return redirect()->back()->withErrors(['msg' => 'Unsuccessful login attempt']);
            
     }
 

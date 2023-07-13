@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="<?php echo asset('css/css1.css')?>" type="text/css"> 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>@yield('title')</title>
 </head>
 <body>
@@ -15,9 +17,9 @@
     <div class='navbar1'>
         <ul class='navbar1'>
             <li class='navbar1'><a href="{{ route('opening') }}">Opening Page</a></li>
-            <li class='navbar1'><a href="{{ route('client.home') }}"><i class="fa-solid fa-house-user"> Home</a></li>
+            <li class='navbar1'><a href="{{ route('client.home') }}"><i class="fa-solid fa-house-user"></i> <i>Home</i></a></li>
             @if(Auth::guard('webclient')->check())
-                <li class='navbar1'><a href="{{ route('client.logout') }}"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+                <li class='navbar1'><a href="{{ route('client.logout') }}"><i class="fa-solid fa-power-off"></i> <i>Logout</i></a></li>
                 @else
                 <li class='navbar1'><a href="{{ route('client.login') }}">Login</a></li>
                 <li class='navbar1'><a href="{{ route('client.register') }}">Register</a></li>
