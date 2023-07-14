@@ -67,6 +67,7 @@ main{
     background-color: rgb(17, 27, 27); /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
+    z-index: 999;
 }
 .sidebar a{
     margin-left: 5px;

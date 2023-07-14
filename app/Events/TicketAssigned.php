@@ -9,43 +9,38 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Ticket;
 use App\Models\User;
 
-class TicketAssignedUser implements ShouldBroadcast
+class TicketAssigned implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user_id;
+
+
+    public $ticket;
     /**
      * Create a new event instance.
      */
-    public function __construct($user_id)
+    public function __construct($ticket)
     {
         //
-        $this->user_id = $user_id;
+        //dd($ticket->user_id);
+        $this->ticket = $ticket;
+        
+        
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return  \Illuminate\Broadcasting\PrivateChannel
+     * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array
     {
         return [
-        //new Channel('TicketMessage'/*.$this->ticket_id*/),
-        new PrivateChannel('TicketMessage.'.$this->$user_id),
+            //new PrivateChannel('channel-name'),
+            
+            new PrivateChannel('assignement.'.$this->ticket->user_id),
         ];
-    }
-
-    /**
-     * Broadcast event ticket assigned to user.
-     *
-     * @return void
-     */
-    public function broadcastAs()
-    {
-        return 'assigned-ticket';
     }
 }

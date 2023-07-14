@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+ 
+    @vite(['resources/css/app.css', 'resources/js/app.js']) 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     
@@ -21,25 +24,36 @@
     <script src="toastr.js"></script>-->
 
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    @auth()
     <script>
+     
+        var userId = {{ auth()->user()->id }} ?? 0;
 
+
+        
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
         var pusher = new Pusher('e9e597dc697d1a7af7b2', {
-            cluster: 'eu'
+            cluster: 'eu',
+            authEndpoint: '/broadcast/auth',
         });
 
-        var channel = pusher.subscribe('TicketMessage');
-        channel.bind('assigned-ticket', function(data) {
-            //toastr.success(JSON.stringify(data).name + 'was assigned to you');
-            //toastr.info('Are you the 6 fingered man?');
-            $('#notif-dropdown').load(document.URL +  ' #notif-dropdown');
-            //alert('You were assigned ' + JSON.stringify(data.name));
-            
-        });
+    // var channelName = 'private-assigned.2';
+    // var privateChannel = pusher.subscribe('assignement.1');
+    // privateChannel.bind('TicketAssigned', function(data) {
+    // alert(JSON.stringify(data));
+    // });
+
+
+ 
+        
+        
+        
+
+        
   </script>
-  
+  @endauth
 
 
     <title>@yield('title')</title>
@@ -78,7 +92,7 @@
                 <li class="d-flex justify-content-end mx-1 my-2">
                     <a href="{{route('notifications.index')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">All notifications</a> &nbsp
                     @if (auth()->user()->unreadNotifications)
-                    <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">Mark All as Read</a>
+                    <a href="{{route('notifications.update')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">Mark All as Read</a>
                     @endif
                 </li>
             </ul>
@@ -131,23 +145,23 @@
 
 <script>
 
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-menu");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+    function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
     }
-  }
-}
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-menu");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>

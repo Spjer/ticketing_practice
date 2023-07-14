@@ -61,6 +61,7 @@ Route::middleware(['web'])->group(function () {
   Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only(['edit', 'update'])->parameters(['ticket-clients' => 'param']); //add client/store  view_clients/index
   Route::resource('ticket-users', 'App\Http\Controllers\TicketUserController')->only(['edit', 'update'])->parameters(['ticket-users' => 'ticket']); //add client/store  view_clients/index
   Route::get('notifications/index-unread', [NotificationController::class, 'indexUnread']) ->name('notifications.index-unread');
+  Route::get('notifications/update', [NotificationController::class,'update'])->name('notifications.update'); //mark as read
 
   Route::resource('notifications', 'App\Http\Controllers\NotificationController')->only(['index', 'show'])->parameters(['notifications' => 'id']);
   Route::get('notifications/destroy/{id}', [NotificationController::class, 'destroy']) ->name('notifications.destroy');
@@ -72,7 +73,6 @@ Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')
 
 Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'param']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
 
-Route::get('/mark-as-read', [NotificationController::class,'markAsRead'])->name('mark-as-read');
 
 //Route::post('search', [TicketController::class, 'search'])->name('search');
 
@@ -84,7 +84,9 @@ Route::get('/mark-as-read', [NotificationController::class,'markAsRead'])->name(
 
 
 
-
+Route::post('/broadcasting/auth', function () {
+  return Auth::user();
+});
 
 
 //Route::get('send', [NotifyController::class, 'send'])->name('send');

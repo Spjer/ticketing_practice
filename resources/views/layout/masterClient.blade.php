@@ -21,8 +21,8 @@
             @if(Auth::guard('webclient')->check())
                 <li class='navbar1'><a href="{{ route('client.logout') }}"><i class="fa-solid fa-power-off"></i> <i>Logout</i></a></li>
                 @else
-                <li class='navbar1'><a href="{{ route('client.login') }}">Login</a></li>
-                <li class='navbar1'><a href="{{ route('client.register') }}">Register</a></li>
+                <li class='navbar1'><a href="{{ route('client.login') }}"><i>Login</i></a></li>
+                <li class='navbar1'><a href="{{ route('client.register') }}"><i>Register</i></a></li>
             @endauth
         </ul>
     </div>

@@ -17,35 +17,11 @@ use Illuminate\Support\Facades\Auth;
 class UserAuthController extends Controller
 {
     //
-    //  user main page
-    public function index()
-    {
-        $tickets = Ticket::where('user_id', Auth::user()->id)->get();
-        $open = 0; $inProgress = 0; $closed = 0;
-        //dd($tickets->status->name);
-        foreach($tickets as $ticket){
-            if($ticket->status->name == 'Open'){
-                $open += 1;
-            } else if($ticket->status->name == 'In Progress'){
-                $inProgress += 1;
-            } else{
-                $closed += 1;
-            }
-        }
-        //dd($open);
-        //$open = $tickets->statuses()->where('name', 'Open')->count();
-        //$inProgress = $tickets->statuses()->where('name', 'In Progress')->count();
-        //$closed = $tickets->statuses()->where('name', 'Closed')->count();
-
-
-        return view('user.home',compact('open', 'inProgress', 'closed'))->with('tickets', $tickets);
-    } 
 
     public function login()
     {
         return view('user.login');
     } 
-
 
     public function customLogin(UserLoginRequest $request)
     {
@@ -61,7 +37,7 @@ class UserAuthController extends Controller
         {
            
             return redirect()->route('user.home')->with('flash_message', 'Successfully logged in')
-            ->with('flash_type', 'alert-success');;
+            ->with('flash_type', 'alert-success');
         }
 
         return redirect()->back()->withErrors(['msg' => 'Unsuccessful login attempt']);
@@ -110,6 +86,45 @@ class UserAuthController extends Controller
          
         return Redirect()->route('user.login');
     }
+
+    //  user main page
+    public function index()
+    {
+        $tickets = Ticket::where('user_id', Auth::user()->id)->get();
+        $open = 0; $inProgress = 0; $closed = 0;
+        //dd($tickets->status->name);
+        foreach($tickets as $ticket){
+            if($ticket->status->name == 'Open'){
+                $open += 1;
+            } else if($ticket->status->name == 'In Progress'){
+                $inProgress += 1;
+            } else{
+                $closed += 1;
+            }
+        }
+        $all_tickets = Ticket::all()->count();
+        $all_open = 0; $all_inProgress = 0; $all_closed = 0;
+        foreach(Ticket::all() as $ticket){
+            if($ticket->status->name == 'Open'){
+                $all_open += 1;
+            } else if($ticket->status->name == 'In Progress'){
+                $all_inProgress += 1;
+            } else{
+                $all_closed += 1;
+            }
+        }
+        $all_tickets = $all_tickets / User::all()->count();
+        $all_open = $all_open / User::all()->count();
+        $all_inProgress = $all_inProgress / User::all()->count();
+        $all_closed = $all_closed / User::all()->count();
+        
+
+
+        return view('user.home',compact('open', 'inProgress', 'closed', 'all_tickets', 'all_open', 'all_inProgress', 'all_closed'))
+            ->with('tickets', $tickets);
+    } 
+
+    
 
 
 }

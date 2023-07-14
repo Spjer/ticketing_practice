@@ -24,20 +24,19 @@
     <div class='card0'>
           
       <div class='card1-text'>
-          
         Ticket
       </div>
       <div class='card1-text' >
-        Klijent
+        Client
       </div>
       <div class='card1-text'>
         Status
       </div>
       <div class='card1-text'>
-        Datum
+        Date
       </div>
       <div class='card1-text'>
-        Više
+        More
       </div>
     </div>
   </div>
@@ -69,15 +68,17 @@
               </div>
               <!--SIDE PANNEL-->
               <div class='side-pnl' id='{{$ticket->id}}'>
-                <div class ='sp1'> Klijent:
+                <button type="button" class="btn-close"  onclick="show('{{$ticket->id}}')" title="close" style="float: right"></button>
+
+                <div class ='sp1'> Client:
                   @if(isset($ticket->client))
                     @if($ticket->client_id != '1')
-                      <p>IME: {{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span><br>
+                      <p>NAME: {{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span><br>
                         EMAIL: {{$ticket->client->email}}<br>
-                        BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
+                        PHONE NUMBER: {{$ticket->client->phone_number}}</p>
                     @else
                       <a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
-                        <button type="button">Odaberi korisnika</button>
+                        <button type="button" class="btn btn-dark btn-block">Assign client</button>
                       </a>
                     @endif
                   @endif
@@ -86,10 +87,10 @@
                     <p>{{$ticket->user->name}}</p>
           
                 </div>
-                <div class ='sp2'> Opis:
+                <div class ='sp2'> Description:
                   <p>{{$ticket->details}}</p>
                 </div>
-                <div class ='sp1'> Komentari:
+                <div class ='sp1'> Comments:
                   @foreach($ticket->comments as $comment)
                   <div class='sp2'>
                     <span style="color:grey">#{{$comment->id}}</span> {{$comment->created_at}}

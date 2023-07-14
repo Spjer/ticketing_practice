@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class AssignedNotification extends Notification //Simplements ShouldQueue
+class AssignedNotification extends Notification //implements ShouldQueue
 {
     use Queueable;
 
@@ -71,11 +71,4 @@ class AssignedNotification extends Notification //Simplements ShouldQueue
     ]);
     }
 
-    /**
- * Get the type of the notification being broadcast.
- */
-public function broadcastType(): string
-{
-    return 'broadcast.message';
-}
 }

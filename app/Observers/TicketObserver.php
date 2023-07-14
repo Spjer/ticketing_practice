@@ -2,9 +2,11 @@
 
 namespace App\Observers;
 
-use App\Models\Ticket;
+use App\Models\Ticket; 
 use App\Models\Status;
+use App\Models\User;
 use App\Events\TicketAssignedUser;
+use App\Events\TicketAssigned;
 use App\Notifications\MailNotification;
 use App\Notifications\AssignedNotification;
 use Illuminate\Support\Facades\Notification;
@@ -34,9 +36,14 @@ class TicketObserver
                 'subject' => 'AssignedNotif - '. $ticket->name,
                 'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
             ];
-            //$ticket->user->notify(( new MailNotification($data))->delay($delay));
             $ticket->user->notify( new AssignedNotification($data));
-            event(new TicketAssignedUser($ticket->name));
+            //$ticket->user->notify( new MailNotification($data));
+            //event(new TicketAssignedUser($ticket->user_id));
+            //$user = User::where('id', $ticket->user_id)->first();
+
+            //dd($user);
+            
+            event(new TicketAssigned($ticket));
           }
           
 

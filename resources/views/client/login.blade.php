@@ -9,10 +9,10 @@
 
 <main>
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 24rem; left:40%;">
         <div class="card-header">
-            Log In
-        </div>
+            <h4>Log In</h4>
+        </div><br>
         <div class="card-body" >
             <h5 class="card-title">Input your information</h5><br>
             <div class="text-danger">
@@ -24,21 +24,21 @@
             @csrf
                 <div>
                     <label for="email" class="form-label">Email:</label><br>
-                    <input type="text" class="form-control" placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" required/>
+                    <input type="text" class="form-control form-control-lg" placeholder="aaaa.aaaaaa@email.aa" id="email" name="email" required/>
                     @if ($errors->has('email'))
                         <span>{{ $errors->first('email') }}</span>
                     @endif
                 </div>
                 <div>
                     <label for="password" class="form-label">Password:</label><br>
-                    <input type="password" class="form-control" name="password" name="id" placeholder="********" required/>
+                    <input type="password" class="form-control form-control-lg" name="password" name="id" placeholder="********" required/>
                     @if ($errors->has('password'))
                         <span>{{ $errors->first('password') }}</span>
                     @endif
                 </div>
                 <br>            
                 <div>
-                    <button type="submit" class="btn btn-dark btn-block">Log In</button>
+                    <button type="submit" class="btn btn-lg btn-dark btn-block">Log In</button>
                 </div>
             </form>
                 

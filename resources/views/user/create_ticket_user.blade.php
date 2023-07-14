@@ -8,7 +8,7 @@
 @section('content')
 <main>
 <div class = "forms">
-<h2>Open a Ticket</h2>
+    <h2>Open a Ticket</h2>
         <br>
         
         <form action="{{route('tickets.store')}}" method="POST" >
@@ -93,17 +93,17 @@
             </div>
         </form>
     </div>
-      <script>
-        function show() {
-          if (sd_pnl.style.display === "none") {
-            sd_pnl.style.display = "block";
-          } else {
-            sd_pnl.style.display = "none";
-          }
-          }
-      </script>
-      
-      </div>
+        <script>
+            function show() {
+                if (sd_pnl.style.display === "none") {
+                    sd_pnl.style.display = "block";
+                } else {
+                    sd_pnl.style.display = "none";
+                }
+            }
+        </script>
+
+    </div>
 
 </main>
         @stop

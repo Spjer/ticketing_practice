@@ -20,6 +20,18 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 
-Broadcast::channel('privateTicket.{id}', function ($user, $ticket_id) {
-    return $user->id === Ticket::findOrFail($ticket_id)->user_id;
+Broadcast::channel('TicketMessage.{$user_id}', function ($user, $user_id) {
+    return $user->id === $user_id;
+});
+
+Broadcast::channel('users.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+    //return true;
+    //return (int) $user->id;
+});
+
+Broadcast::channel('assignement.{id}', function ($user, $userId) {
+    //return (int) $user->id === (int) $id;
+    //return (int) $user->id === (int) $userId;
+    return true;
 });

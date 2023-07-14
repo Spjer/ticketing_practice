@@ -16,16 +16,16 @@
           Ticket 
         </div>
         <div class='card1-text' >
-          Klijent
+          Client
         </div>
         <div class='card1-text'>
           Status
         </div>
         <div class='card1-text'>
-          Datum
+          Date
         </div>
         <div class='card1-text'>
-          Više
+          More
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
                   <p class='basic'>{{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span></p>
                 @else
                   <p class='basic'><a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
-                    <button type="button">Odaberi korisnika</button>
+                    <button type="button" class="btn btn-dark btn-block">Assign client</button>
                   </a></p>
                 @endif
               @endif
@@ -88,21 +88,22 @@
 
       <!--SIDE PANNEL-->
       <div class='side-pnl' id='{{$ticket->id}}'>
-        
-        <div class ='sp1'> Klijent:
+        <button type="button" class="btn-close"  onclick="show('{{$ticket->id}}')" title="close" style="float: right"></button>
+
+        <div class ='sp1'> Client:
           @if(isset($ticket->client))
             @if($ticket->client_id != '1')
-              <p class='basic'>IME: {{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span><br>
+              <p class='basic'>NAME: {{$ticket->client->name}}<span style="color:grey">#{{$ticket->client_id}}</span><br>
                 EMAIL: {{$ticket->client->email}}<br>
-                BROJ TELEFONA: {{$ticket->client->phone_number}}</p>
+                PHONE NUMBER: {{$ticket->client->phone_number}}</p>
               @else
                 <a href="{{ route('ticket-clients.edit', [$ticket->id]) }}">
-                  <button type="button">Odaberi korisnika</button>
+                  <button type="button" class="btn btn-dark btn-block">Assign client</button>
                 </a>
             @endif
           @endif
         </div>
-        <div class ='sp2'> Opis:
+        <div class ='sp2'> Description:
           <p class='basic'>{{$ticket->details}}</p>
         </div>
         <div class='sp1'>
@@ -114,12 +115,12 @@
               <option value="2" @if($ticket->status_id == '2') {{'selected'}} @endif >In progress</option>
               <option value="3" @if($ticket->status_id == '3') {{'selected'}} @endif >Closed</option>
             </select>
-            <button type="submit" class="btn btn-primary mt-3">Promijeni status</button>
+            <button type="submit" id="gumbic" class="btn btn-primary mt-3">Update status</button>
           </form></p>
 
         </div>
       
-        <div class ='sp1'> Komentari:
+        <div class ='sp1'> Comments:
           
           @foreach($ticket->comments as $comment)
           <div class='sp2'>
@@ -148,14 +149,11 @@
             <input type="hidden" id="ticket_id" name="ticket_id" value="{{$ticket->id}}">
             
             <div>
-                <label for="body" class="form-label">Komentar:</label><br>
+                <label for="body" class="form-label">Write a comment:</label><br>
                 <textarea rows="4" cols="40"  id="body" name="body" class="form-control" placeholder="Upišite komentar"></textarea>
             </div>
             
-            
-
-
-            <button type="submit">Dodaj komentar</button>
+            <button type="submit" class="btn btn-dark btn-block">Add comment</button>
           </form>
         </div>
         <div class='sp1'>
@@ -163,7 +161,7 @@
             <!-- release ticket = otpusti ticket -->
              <!-- view comments, add comments-->
              <a href="{{ route('comments.show', [$ticket->id]) }}">
-              <button type="button">Komentari</button>
+              <button type="button" class="btn btn-dark btn-block">Comments</button>
             </a>
             @if(Auth::user()->role != 'admin')
             <br>
@@ -191,16 +189,20 @@
           //}
           if (x.style.display === "none") {
             x.style.display = "block";
-          } else {
+          } else{
             x.style.display = "none";
           }
-          }
+        }
+
       </script>
+
+      
       @endforeach
       @endif
 
     {{$tickets->links('pagination::bootstrap-5')}}
       
   </div>
+
 </main>
 @stop

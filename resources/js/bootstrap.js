@@ -22,14 +22,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
  window.Echo = new Echo({
      broadcaster: 'pusher',
-     key: import.meta.env.VITE_PUSHER_APP_KEY,
-     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
+     key: 'e9e597dc697d1a7af7b2',
+     cluster: 'eu',
      wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
      wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
      wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
      forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
      enabledTransports: ['ws', 'wss'],
+     
  });
+
+ /*window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'e9e597dc697d1a7af7b2',
+    cluster: 'eu',
+    //authEndpoint: '/custom/endpoint/auth'
+});*/
+
 
 
  

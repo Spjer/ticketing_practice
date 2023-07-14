@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 class NotificationController extends Controller
 {
     //
-    public function markAsRead(){
+    public function update(){
         Auth::user()->unreadNotifications->markAsRead();
         return redirect()->back();
     }
