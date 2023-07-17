@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\Ticket;
+use App\Notifications\StatusNotification;
 use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
@@ -24,6 +25,26 @@ class StatusController extends Controller
 
         Ticket::where('id', $ticket_id)->update(['status_id'=> $new_status_id]);
         //return back();
+        $ticket = Ticket::where('id', $ticket_id)->first();
+        $status = Status::where('id', $new_status_id)->first();
+       // dd($status->name);
+    
+        if($status->name  == 'Closed'){
+
+            
+            $data =[
+                'name' => $ticket->name,
+                'subject' => 'StatusNotif - '. $ticket->name,
+                'body' => 'The ticket you sent: #'.$ticket->id. '-'. $ticket->name.', was closed.',
+            ];
+            //$client = Client::where('id', $ticket->client_id);
+            $ticket->client->notify( new StatusNotification($data));
+            //$ticket->user->notify( new MailNotification($data));
+                
+                
+                //event(new TicketAssigned($ticket));
+        }
+        
         return redirect()->route('tickets.show', Auth::user()->id);
     }
 }

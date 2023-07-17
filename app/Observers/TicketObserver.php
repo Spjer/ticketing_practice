@@ -39,11 +39,11 @@ class TicketObserver
             $ticket->user->notify( new AssignedNotification($data));
             //$ticket->user->notify( new MailNotification($data));
             //event(new TicketAssignedUser($ticket->user_id));
-            //$user = User::where('id', $ticket->user_id)->first();
+            $user = User::where('id', $ticket->user_id)->first();
 
             //dd($user);
             
-            event(new TicketAssigned($ticket));
+            event(new TicketAssigned($user));
           }
           
 

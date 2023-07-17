@@ -55,5 +55,7 @@ class Client extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+   
+
     
 }

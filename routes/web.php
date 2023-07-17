@@ -11,6 +11,8 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ClientNotificationController;
+
 //use Illuminate\Support\Facades\Request;
 //use App\Models\Ticket;
 /*
@@ -73,6 +75,10 @@ Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')
 
 Route::resource('tickets', 'App\Http\Controllers\TicketController')->except(['update', 'create', 'destroy' /*nije koristeno trenutno */])->parameters(['tickets' => 'param']); //namjestit middleware //storeTickets/store, My_tickets/show, All_Tickets/index,     dodat delete mozda i update pick ili tade ticket/drop_ticket
 
+Route::get('client-notifications/index-unread', [ClientNotificationController::class, 'indexUnread']) ->name('client-notifications.index-unread')->middleware('auth:webclient');
+Route::get('client-notifications/update', [ClientNotificationController::class,'update'])->name('client-notifications.update')->middleware('auth:webclient'); //mark as read
+Route::resource('client-notifications', 'App\Http\Controllers\ClientNotificationController')->only(['index', 'show'])->parameters(['client-notifications' => 'id'])->middleware('auth:webclient');
+Route::get('client-notifications/destroy/{id}', [ClientNotificationController::class, 'destroy']) ->name('client-notifications.destroy')->middleware('auth:webclient');
 
 //Route::post('search', [TicketController::class, 'search'])->name('search');
 

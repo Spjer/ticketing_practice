@@ -28,6 +28,7 @@
     <script>
      
         var userId = {{ auth()->user()->id }} ?? 0;
+        var clientId = 0;
 
 
         
@@ -45,13 +46,6 @@
     // alert(JSON.stringify(data));
     // });
 
-
- 
-        
-        
-        
-
-        
   </script>
   @endauth
 
@@ -78,7 +72,7 @@
                 <i class="fa fa-bell" onclick="myFunction()" style="z-index: 999"></i>
 
                 @if(auth()->user()->unreadNotifications->count() != '0')
-                <span class="badge badge-light bg-success badge-xs" onclick="myFunction()">{{auth()->user()->unreadNotifications->count()}}</span>
+                <span class="badge badge-light bg-success badge-xs" id="js-count" onclick="myFunction()">{{auth()->user()->unreadNotifications->count()}}</span>
                 @endif
             </a>
             
