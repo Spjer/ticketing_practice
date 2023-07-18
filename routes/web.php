@@ -90,9 +90,9 @@ Route::get('client-notifications/destroy/{id}', [ClientNotificationController::c
 
 
 
-Route::post('/broadcasting/auth', function () {
-  return Auth::user();
-});
+//Route::post('/broadcasting/auth', function () {
+//  return Auth::user();
+//});
 
 
 //Route::get('send', [NotifyController::class, 'send'])->name('send');

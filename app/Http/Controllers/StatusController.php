@@ -30,19 +30,14 @@ class StatusController extends Controller
        // dd($status->name);
     
         if($status->name  == 'Closed'){
-
-            
             $data =[
                 'name' => $ticket->name,
                 'subject' => 'StatusNotif - '. $ticket->name,
                 'body' => 'The ticket you sent: #'.$ticket->id. '-'. $ticket->name.', was closed.',
             ];
-            //$client = Client::where('id', $ticket->client_id);
             $ticket->client->notify( new StatusNotification($data));
-            //$ticket->user->notify( new MailNotification($data));
-                
-                
-                //event(new TicketAssigned($ticket));
+            //$ticket->client->notify( new MailNotification($data));
+            
         }
         
         return redirect()->route('tickets.show', Auth::user()->id);

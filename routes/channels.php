@@ -20,19 +20,20 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('App.Models.Client.{id}', function ($user, $id) {
+Broadcast::channel('App.Models.Client.{id}', function ($client, $id) {
     //return (int) $user->id === (int) $id;
-    return true;
+    return (int) $client->id === (int) $id;
+    //return true;
 },['guards'=>['webclient']]);
 
 Broadcast::channel('users.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
     //return true;
     //return (int) $user->id;
-},['guards'=>['web']]);
+});
 
 Broadcast::channel('assignement.{id}', function ($user, $userId) {
     return (int) $user->id === (int) $userId;
     //return (int) $user->id === (int) $userId;
     //return true;
-},['guards'=>['web']]);
+});

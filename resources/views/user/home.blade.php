@@ -65,13 +65,13 @@
 
     @endif
 
-    <h1>Hello User</h1> <br>
-    <div class="card">
+    <h1>Hello {{ Auth::user()->name }}</h1> <br>
+    <!--<div class="card">
         <div class="card-body" >
             Name: {{ Auth::user()->name }} <br> <br>
             Role: {{ Auth::user()->role }} <br>
         </div>
-    </div>
+    </div>-->
     <div class="container text-center">
         <div class="row">
             <div class="col">

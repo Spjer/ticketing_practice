@@ -67,33 +67,35 @@
         </ul>
         
         @auth
-        <div class="dropdown-left" style="display: inline-block; z-index: 999;" id="notif-dropdown">
-            <a href="#"onclick="myFunction()" class="dropbtn">
-                <i class="fa fa-bell" onclick="myFunction()" style="z-index: 999"></i>
+       
+            <div class="dropdown-left" style="display: inline-block; z-index: 999;" id="notif-dropdown">
+                <a href="#"onclick="myFunction()" class="dropbtn">
+                    <i class="fa fa-bell" onclick="myFunction()" style="z-index: 999"></i>
 
-                @if(auth()->user()->unreadNotifications->count() != '0')
-                <span class="badge badge-light bg-success badge-xs" id="js-count" onclick="myFunction()">{{auth()->user()->unreadNotifications->count()}}</span>
-                @endif
-            </a>
-            
-            <!--<div id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px">-->
-            <ul id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px; max-height: 550px; overflow: auto;">
-                @foreach (auth()->user()->unreadNotifications as $notification)
-                <li><a href="{{ route('notifications.show', [$notification->id]) }}" class="dropdown-item"> {{$notification->data['title']}} - {{  $notification->created_at->diffForHumans()}}</li></a>
-                @endforeach
-
-                
-                <li class="d-flex justify-content-end mx-1 my-2">
-                    <a href="{{route('notifications.index')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">All notifications</a> &nbsp
-                    @if (auth()->user()->unreadNotifications)
-                    <a href="{{route('notifications.update')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">Mark All as Read</a>
+                    @if(auth()->user()->unreadNotifications->count() != '0')
+                    <span class="badge badge-light bg-success badge-xs" id="js-count" onclick="myFunction()">{{auth()->user()->unreadNotifications->count()}}</span>
                     @endif
-                </li>
-            </ul>
+                </a>
                 
-                
+                <!--<div id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px">-->
+                <ul id="myDropdown" class="dropdown-menu dropdown-menu-dark" style="font-size:12px; max-height: 550px; overflow: auto;">
+                    @foreach (auth()->user()->unreadNotifications as $notification)
+                    <li><a href="{{ route('notifications.show', [$notification->id]) }}" class="dropdown-item"> {{$notification->data['title']}} - {{  $notification->created_at->diffForHumans()}}</li></a>
+                    @endforeach
+
+                    
+                    <li class="d-flex justify-content-end mx-1 my-2">
+                        <a href="{{route('notifications.index')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">All notifications</a> &nbsp
+                        @if (auth()->user()->unreadNotifications)
+                        <a href="{{route('notifications.update')}}" class="btn btn-success btn-sm" style="font-size: 12px; padding:3px;">Mark All as Read</a>
+                        @endif
+                    </li>
+                </ul>
+                    
+                    
+                </div>
             </div>
-        </div>
+      
         @endauth
     </div>
     
@@ -129,7 +131,9 @@
     
         <!--<br>
         <a href="{{ route('user.logout') }}">Logout</a>-->
-        &nbsp<span style='color: gray; margin-left: 5px;'> {{ Auth::user()->name }}</span>
+        &nbsp<span style='color: gray; margin-left: 5px;'> {{ Auth::user()->name }}</span><br>
+        &nbsp<span style='color: gray; margin-left: 5px;'> {{ Auth::user()->role }}</span>
+
         @endauth
 </div>
 @show
