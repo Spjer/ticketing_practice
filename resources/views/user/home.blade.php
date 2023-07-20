@@ -9,7 +9,7 @@
 
 
 @section('content')
-<main>
+<main width = 100%>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -72,9 +72,25 @@
             Role: {{ Auth::user()->role }} <br>
         </div>
     </div>-->
-    <div class="container text-center">
+    <div class="card">
+        <div class="card-header">
+            <h2>My Statistics</h2>  
+        </div>
         <div class="row">
-            <div class="col">
+            <div class="col-xs-12 col-md-12 col-sm12 col-xl-6">
+            
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm12 col-xl-6">
+            
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-xs-12 col-md-12 col-sm12 col-xl-6" >
+                    <div class="card" id="piechart" style="width: 495px; height: 353px;"></div>
+                    
+              
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm12 col-xl-6" >
                 <div class="card" >
         
                     <div class="card-body">
@@ -82,10 +98,6 @@
                         <p class="card-text">{{$tickets->count()}}</p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
                 <div class="card" >
     
                     <div class="card-body">
@@ -93,8 +105,6 @@
                         <p class="card-text">{{$open}}</p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
                 <div class="card" >
     
                     <div class="card-body">
@@ -102,9 +112,6 @@
                         <p class="card-text">{{$inProgress}}</p>
                     </div>
                 </div>
-             
-            </div>
-            <div class="col">
                 <div class="card" >
     
                     <div class="card-body">
@@ -114,13 +121,13 @@
                 </div>
             </div>
         </div>
-    </div>
-   
-    <div id="piechart" style="width: 700px; height: 500px;"></div>
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
-
+        <div class="row">                    
+            <div class="col-xs-12 col-md-12 col-sm12 col-xl-6" >
+                <div class="card" id="columnchart_material" style="width: 495px; height: 309px;"></div>
+            </div>
+        </div>
+    </div>    
     
-            
    
 </main>
 

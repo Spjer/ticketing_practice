@@ -334,7 +334,7 @@ div.forms{
   
 
 
-  .notif-show{
+.notif-show{
     margin-top: 110px;
     margin-right: 8px;
     height: 80%; 
@@ -352,10 +352,37 @@ div.forms{
     box-shadow: 3px 3px 3px grey;
 
 
-  }
+}
   
-  .notif-list{
+.notif-list{
     width: 55.5%;
     overflow: auto;
 
-  }
+}
+
+
+.card-block{
+    flex: 1 1 auto;
+    padding: 2.1rem;
+}
+
+  
+
+.private-messages {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y:auto; 
+    height:500px; 
+
+}
+
+.message2{
+    font-size: 22px;
+    padding: 4px;
+    
+    border-radius: 5px;
+    background-color: rgba(207, 230, 238, 0.822);
+
+}

@@ -90,7 +90,7 @@ class UserAuthController extends Controller
     //  user main page
     public function index()
     {
-        $tickets = Ticket::where('user_id', Auth::user()->id)->get();
+        /*$tickets = Ticket::where('user_id', Auth::user()->id)->get();
         $open = 0; $inProgress = 0; $closed = 0;
         //dd($tickets->status->name);
         foreach($tickets as $ticket){
@@ -116,7 +116,25 @@ class UserAuthController extends Controller
         $all_tickets = $all_tickets / User::all()->count();
         $all_open = $all_open / User::all()->count();
         $all_inProgress = $all_inProgress / User::all()->count();
-        $all_closed = $all_closed / User::all()->count();
+        $all_closed = $all_closed / User::all()->count();*/
+
+        $tickets = Ticket::with('status')->where('user_id', Auth::user()->id)->get();
+
+        $ticketCounts = $tickets->groupBy('status.name')->map->count();
+        $open = $ticketCounts->get('Open', 0);
+        $inProgress = $ticketCounts->get('In Progress', 0);
+        $closed = $ticketCounts->get('Closed', 0);
+
+        $all_tickets = $tickets->count();
+        $all_open = $ticketCounts->get('Open', 0);
+        $all_inProgress = $ticketCounts->get('In Progress', 0);
+        $all_closed = $ticketCounts->get('Closed', 0);
+
+        $userCount = User::count();
+        $all_tickets = $all_tickets / $userCount;
+        $all_open = $all_open / $userCount;
+        $all_inProgress = $all_inProgress / $userCount;
+        $all_closed = $all_closed / $userCount;
         
 
 

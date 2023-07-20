@@ -37,3 +37,10 @@ Broadcast::channel('assignement.{id}', function ($user, $userId) {
     //return (int) $user->id === (int) $userId;
     //return true;
 });
+
+
+Broadcast::channel('private.chat.{id}', function ($user, $id) {
+    //return (int) $user->id === (int) $id;
+    return true;
+    //return (int) $user->id;
+});

@@ -12,6 +12,9 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ClientNotificationController;
+use App\Http\Controllers\ChatController;
+use App\Events\Message;
+use Illuminaate\Http\Response;
 
 //use Illuminate\Support\Facades\Request;
 //use App\Models\Ticket;
@@ -31,6 +34,9 @@ use App\Http\Controllers\ClientNotificationController;
 });*/
 Route::get('/', [Controller::class, 'index'])->name('opening');
 
+Route::get('chats', function () {
+  return view('chats');
+});
 //User(agent) auth
 Route::get('user/', [UserAuthController::class, 'index'])->name('user.home')->middleware('auth:web');
 Route::get('/login', [UserAuthController::class, 'login'])->name('user.login');
@@ -79,6 +85,15 @@ Route::get('client-notifications/index-unread', [ClientNotificationController::c
 Route::get('client-notifications/update', [ClientNotificationController::class,'update'])->name('client-notifications.update')->middleware('auth:webclient'); //mark as read
 Route::resource('client-notifications', 'App\Http\Controllers\ClientNotificationController')->only(['index', 'show'])->parameters(['client-notifications' => 'id'])->middleware('auth:webclient');
 Route::get('client-notifications/destroy/{id}', [ClientNotificationController::class, 'destroy']) ->name('client-notifications.destroy')->middleware('auth:webclient');
+
+
+////// Chat
+
+
+Route::post('chats/store', [ChatController::class, 'store'])->middleware(['web']);
+Route::post('chats/send-message', [ChatController::class, 'sendMessage'])->middleware(['web']);
+Route::resource('chats', 'App\Http\Controllers\ChatController')->only(['index', 'show'])->parameters(['chats' => 'param'])->middleware(['web']);
+
 
 //Route::post('search', [TicketController::class, 'search'])->name('search');
 

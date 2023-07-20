@@ -126,6 +126,11 @@
             <i class="fa fa-circle-plus"></i> New Ticket
         </a>
         <br>
+
+        <a href="{{ route('chats.index') }}">
+            <i class="fa-solid fa-comments"></i> Chats
+        </a>
+        <br>
         
         
     

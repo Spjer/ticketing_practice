@@ -42,7 +42,7 @@
             <td><a href="{{ route('notifications.show', [$notification->id]) }}" >{{$notification->data['title']}}</a></td>
             <td>{{$notification->created_at}}</td>
             <td>
-            <a href="{{ route('notifications.destroy', [$notification->id]) }}" title="delete"><i class="fa fa-trash" ></i></a>
+            <a href="{{ route('client-notifications.show', [$notification->id]) }}" title="delete"><i class="fa fa-trash" ></i></a>
             </td>
         </tr>
               
