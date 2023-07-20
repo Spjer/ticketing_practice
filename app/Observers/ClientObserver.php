@@ -18,10 +18,9 @@ class ClientObserver
     {
         //
         $data =[
-            'subject' => 'TestNotifClient',
+            'subject' => 'Client Registration',
             'body' => $client->name,
         ];
-        //Notification::send($client, new MailNotification($data));
         $client->notify( new MailNotification($data));
     }
 
@@ -31,12 +30,7 @@ class ClientObserver
     public function updated(Client $client): void
     {
         //
-        //$data =[
-        //    'subject' => 'AssignedNotif',
-        //    'body' => 'You were assigned to ticket: ',
-        //];
-        //Notification::route('mail', $client->email)->notify(new MailNotification($data));
-
+       
     }
 
     /**

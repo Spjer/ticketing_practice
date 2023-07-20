@@ -28,10 +28,26 @@
         </div>
         
         <div class='card1-text' style="text-align:center">
-        <p class='basic'><span class='status-span' @if($ticket->status_id == '1') style="background-color: blue;" 
+        <!--<p class='basic'><span class='status-span' @if($ticket->status_id == '1') style="background-color: blue;" 
           @elseif($ticket->status_id == '2') style="background-color: green;" 
           @else style="background-color: red;" @endif >
-          {{$ticket->status->name}}</span></p>
+          {{$ticket->status->name}}</span></p>-->
+
+          <div class="progress" role="progressbar" aria-label="ProgressBar" width="80%" aria-label="Example 20px high"
+                @if($ticket->status_id == '1') aria-valuenow="10"
+                @elseif($ticket->status_id == '2') aria-valuenow="50"
+                @else aria-valuenow="100" @endif aria-valuemin="0" aria-valuemax="100"> 
+                <div @if($ticket->status_id == '1') class="progress-bar progress-bar-striped overflow-visible text-dark" style="width: 10%""
+                  @elseif($ticket->status_id == '2') class="progress-bar progress-bar-striped bg-success overflow-visible text-dark" style="width: 50%""
+                  @else aria-valuenow="100" @endif class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: 100%">
+                  @if($ticket->status->name == "Closed")
+                    {{$ticket->status->name}}
+                  @endif
+                </div>
+                @if($ticket->status->name != "Closed")
+                    {{$ticket->status->name}}
+                @endif
+              </div>
         </div>
         <div class='card1-text'>
           <p class='basic'>{{$ticket->created_at}}</p>

@@ -73,9 +73,11 @@ Route::middleware(['web'])->group(function () {
 
   Route::resource('notifications', 'App\Http\Controllers\NotificationController')->only(['index', 'show'])->parameters(['notifications' => 'id']);
   Route::get('notifications/destroy/{id}', [NotificationController::class, 'destroy']) ->name('notifications.destroy');
-
-
   
+  Route::post('chats/store', [ChatController::class, 'store']);
+  Route::post('chats/send-message', [ChatController::class, 'sendMessage']);
+  Route::resource('chats', 'App\Http\Controllers\ChatController')->only(['index', 'show'])->parameters(['chats' => 'param']);
+    
 });
 Route::resource('ticket-clients', 'App\Http\Controllers\TicketClientController')->only([ 'show', 'create'])->parameters(['ticket-clients' => 'client'])->middleware('auth:webclient'); //add client/store  view_clients/index
 
@@ -90,9 +92,6 @@ Route::get('client-notifications/destroy/{id}', [ClientNotificationController::c
 ////// Chat
 
 
-Route::post('chats/store', [ChatController::class, 'store'])->middleware(['web']);
-Route::post('chats/send-message', [ChatController::class, 'sendMessage'])->middleware(['web']);
-Route::resource('chats', 'App\Http\Controllers\ChatController')->only(['index', 'show'])->parameters(['chats' => 'param'])->middleware(['web']);
 
 
 //Route::post('search', [TicketController::class, 'search'])->name('search');

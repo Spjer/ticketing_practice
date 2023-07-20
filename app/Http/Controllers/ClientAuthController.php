@@ -9,6 +9,7 @@ use Hash;
 use Session;
 use App\Models\Client;
 use App\Models\User;
+use App\Models\Ticket;
 use Notification;
 use App\Notifications\MailNotification;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,7 @@ use Illuminate\Support\Facades\Auth;
 class ClientAuthController extends Controller
 {
     //
-    public function index()
-    {
-        return view('client.home');
-    } 
+    
 
     public function login()
     {
@@ -67,15 +65,15 @@ class ClientAuthController extends Controller
     public function customRegistration(ClientRegisterRequest $request)
     {  
         
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $phone_number = $request->input('phone_number');
-        $password = $request->input('password');
+        //$name = $request->input('name');
+        //$email = $request->input('email');
+        //$phone_number = $request->input('phone_number');
+        //$password = $request->input('password');
         $client = new Client();
-        $client->name = $name;
-        $client->email = $email;
-        $client->phone_number = $phone_number;
-        $client->password = Hash::make($password);
+        $client->name = $request->input('name');
+        $client->email = $request->input('email');
+        $client->phone_number = $request->input('phone_number');
+        $client->password = Hash::make($request->input('password'));
         $client->save();
 
         //$data =[
@@ -90,5 +88,19 @@ class ClientAuthController extends Controller
 
         return Redirect()->route('client.login');
     }
+
+    public function index()
+    {
+        //return view('client.home');
+
+        $tickets = Ticket::with('status')->where('client_id', Auth::user()->id)->get();
+
+        $ticketCounts = $tickets->groupBy('status.name')->map->count();
+        $open = $ticketCounts->get('Open', 0);
+        $inProgress = $ticketCounts->get('In Progress', 0);
+        $closed = $ticketCounts->get('Closed', 0);
+//dd($closed);
+        return view('client.home',compact('open', 'inProgress', 'closed', 'ticketCounts'));
+    } 
     
 }

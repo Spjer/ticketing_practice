@@ -49,10 +49,13 @@ class ChatController extends Controller
     }
 
     public function show($param){
-        $reciever_id = $param;
+        //$reciever_id = $param;
+        //$reciever_name = User::where('id', $reciever_id)->value('name');
+        $reciever = User::where('id', $param)->first();
         $sender_id = Auth::user()->id;
-        $messages = Message::where('sender_id', $sender_id)->where('reciever_id', $reciever_id)->orWhere('sender_id', $reciever_id)->where('reciever_id', $sender_id)->get();
-        return view('user.chat_show')->with('users', User::where('id', '!=', Auth::user()->id)->get())->with('messages', $messages)->with('reciever_id', $reciever_id);
+        $messages = Message::where('sender_id', $sender_id)->where('reciever_id', $param)->orWhere('sender_id', $param)->where('reciever_id', $sender_id)->get();
+        $users = User::where('id', '!=', Auth::user()->id)->get();
+        return view('user.chat_show')->with('users', $users)->with('reciever', $reciever)->/*->with('reciever_id', $reciever_id)->with('reciever_name', $reciever_name)->*/with('messages', $messages);
     }
 
    

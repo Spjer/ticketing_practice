@@ -10,53 +10,7 @@
 
 @section('content')
 <main width = 100%>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Open', {{$open}}],
-            ['In progress', {{$inProgress}}],
-            ['Closed', {{$closed}}]
-            ]);
-
-            var options = {
-            //title: 'My Tickets'
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-            chart.draw(data, options);
-        }
-      
-        google.charts.load('current', {'packages':['bar']});
-        google.charts.setOnLoadCallback(drawChart2);
-
-        function drawChart2() {
-            var data = google.visualization.arrayToDataTable([
-            ['Status', 'You', 'Average'],
-            ['Active', {{$tickets->count()}}, {{$all_tickets}}],
-            ['Open', {{$open}}, {{$all_open}}],
-            ['In Progress', {{$inProgress}}, {{$all_inProgress}}],
-            ['Closed', {{$closed}}, {{$all_closed}}]
-            ]);
-
-            var options = {
-            chart: {
-                title: 'Your Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            }
-            };
-
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    </script>
-
+    
     @if ( Session::has('flash_message') )
 
         <span class="alert alert-success alert-block" style="left: 50%">
@@ -128,6 +82,54 @@
         </div>
     </div>    
     
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+            ['Ticket', 'Status'],
+            ['Open', {{$open}}],
+            ['Closed', {{$closed}}],
+            ['In progress', {{$inProgress}}],
+            ]);
+
+            var options = {
+            //title: 'My Tickets'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+      
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+            var data = google.visualization.arrayToDataTable([
+            ['Status', 'You', 'Average'],
+            ['Active', {{$tickets->count()}}, {{$all_tickets}}],
+            ['Open', {{$open}}, {{$all_open}}],
+            ['In Progress', {{$inProgress}}, {{$all_inProgress}}],
+            ['Closed', {{$closed}}, {{$all_closed}}]
+            ]);
+
+            var options = {
+            chart: {
+                title: 'Your Performance',
+                subtitle: 'Ticket status compared to average',
+            }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
    
 </main>
 

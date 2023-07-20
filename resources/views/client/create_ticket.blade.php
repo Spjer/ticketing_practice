@@ -30,12 +30,12 @@
 
         <div>
             <label for="name" class="form-label">Ticket Name</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Upišite naziv">
+            <input type="text" id="name" name="name" class="form-control" placeholder="Name">
         </div>
         <br>
         <div>
             <label for="details" class="form-label">Description</label><br>
-            <textarea rows="4" cols="50"  id="details" name="details" class="form-control" placeholder="Opišite problem"></textarea>
+            <textarea rows="4" cols="50"  id="details" name="details" class="form-control" placeholder="Describe the problem..."></textarea>
         </div>
 
         <br>

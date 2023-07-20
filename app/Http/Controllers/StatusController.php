@@ -36,7 +36,7 @@ class StatusController extends Controller
                 'body' => 'The ticket you sent: #'.$ticket->id. '-'. $ticket->name.', was closed.',
             ];
             $ticket->client->notify( new StatusNotification($data));
-            //$ticket->client->notify( new MailNotification($data));
+            $ticket->client->notify( new MailNotification($data));
             
         }
         

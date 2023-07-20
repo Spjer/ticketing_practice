@@ -14,7 +14,7 @@ class MessageObserver
     {
         //
         $reciever_id = $message->reciever_id;
-        dd($reciever_id);
+       
         event(new PrivateChatMessage($reciever_id));
     }
 

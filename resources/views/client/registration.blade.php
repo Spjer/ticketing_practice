@@ -13,7 +13,7 @@
         </div><br>
         <div class="card-body" >
             <h5 class="card-title">Input your information</h5><br>
-            <form method="POST" action="{{ route('client.custom_login') }}">
+            <form method="POST" action="{{ route('client.custom_registration') }}">
             @csrf
                 <div>
                     <label for="name">Name:</label><br>

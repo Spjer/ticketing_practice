@@ -35,13 +35,13 @@
          
             <div class="chat-area" >
                 <header>
-                    <h1>Let's Talk</h1>
+                    <h1>Test</h1>
                 </header>
                 <div id="messages" class="card" style=" height:500px; display:flex;">        
                 </div>
 
                 <form id="message_form" >
-                    <input type="text" name="message" id="message_input" class="form-control" style="width: 24rem;" placeholder="Write a message..."/>
+                    <input type="text" name="message" id="message_input" class="form-control" style="width: 100%;" placeholder="Write a message..."/>
                     <button type="submit" id="message_send" class="btn btn-dark btn-block">Send Message</button>
                 </form>
             </div>

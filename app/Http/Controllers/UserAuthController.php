@@ -124,11 +124,14 @@ class UserAuthController extends Controller
         $open = $ticketCounts->get('Open', 0);
         $inProgress = $ticketCounts->get('In Progress', 0);
         $closed = $ticketCounts->get('Closed', 0);
+//dd($closed);
+        $tickets_all = Ticket::all();
+        $ticketCounts_all = $tickets_all->groupBy('status.name')->map->count();
 
-        $all_tickets = $tickets->count();
-        $all_open = $ticketCounts->get('Open', 0);
-        $all_inProgress = $ticketCounts->get('In Progress', 0);
-        $all_closed = $ticketCounts->get('Closed', 0);
+        $all_tickets = $tickets_all->count();
+        $all_open = $ticketCounts_all->get('Open', 0);
+        $all_inProgress = $ticketCounts_all->get('In Progress', 0);
+        $all_closed = $ticketCounts_all->get('Closed', 0);
 
         $userCount = User::count();
         $all_tickets = $all_tickets / $userCount;

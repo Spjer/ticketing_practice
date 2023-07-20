@@ -18,9 +18,9 @@
         <ul class='navbar1'>
             
             @if(Auth::guard('web')->check())
-                <li class='navbar1'><a href="{{ route('user.home') }}"><i class="fa-solid fa-helmet-safety"></i> Users</a></li>
+                <li class='navbar1'><a href="{{ route('user.home') }}"><i class="fa-solid fa-helmet-safety"></i> Agents</a></li>
             @else
-                <li class='navbar1'><a href="{{ route('user.login') }}"><i class="fa-solid fa-helmet-safety"></i> Users</a></li>
+                <li class='navbar1'><a href="{{ route('user.login') }}"><i class="fa-solid fa-helmet-safety"></i> Agents</a></li>
             @endif
 
             

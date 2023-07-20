@@ -30,13 +30,12 @@ const reciever = document.getElementById('reciever_id');
 const username_el = document.getElementById('username');
 const sender = userId;
 
-console.log(reciever);
+
 if(message_form2){
     message_form2.addEventListener('submit', function (e) {
         e.preventDefault();
         let has_errors = false;
 
-        
         if(message_input2.value == ''){
             alert("Please enter a message");
             has_errors = true;
@@ -55,11 +54,21 @@ if(message_form2){
                 sender_id: sender,
             }
         }
+        message_input.value= '';
+        axios(options);
         //$('#message_input').load(document.URL +  ' #message_input');
 
-        axios(options);
 
     })
+
+    window.Echo.private('private-chat.' + reciever.value)
+        .listen('.private-message', (e) => {
+        //alert('amogus');
+            //console.log(e);
+        $('#private-messages').load(document.URL +  ' #private-messages');
+
+    });
+
     window.Echo.private('private-chat.' + userId)
         .listen('.private-message', (e) => {
         //alert('amogus');
@@ -67,12 +76,9 @@ if(message_form2){
         $('#private-messages').load(document.URL +  ' #private-messages');
 
     });
+
+    
 }
-
-
-
-
-
 
 const messages_el = document.getElementById("messages");
 const message_input = document.getElementById("message_input");
@@ -99,6 +105,7 @@ if(message_form){
                 message: message_input.value
             }
         }
+        message_input.value= '';
         axios(options);
     })
 
