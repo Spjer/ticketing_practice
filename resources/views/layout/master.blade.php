@@ -17,13 +17,10 @@
     <link rel="stylesheet" href="<?php echo asset('css/css1.css')?>" type="text/css"> 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
-    <!--<link href="toastr.css" rel="stylesheet"/>
-    <script src="toastr.js"></script>-->
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
+    
     @auth()
     <script>
      
@@ -31,22 +28,25 @@
         var clientId = 0;
 
 
-        
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+        function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-        var pusher = new Pusher('e9e597dc697d1a7af7b2', {
-            cluster: 'eu',
-            authEndpoint: '/broadcast/auth',
-        });
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
-    // var channelName = 'private-assigned.2';
-    // var privateChannel = pusher.subscribe('assignement.1');
-    // privateChannel.bind('TicketAssigned', function(data) {
-    // alert(JSON.stringify(data));
-    // });
-
-  </script>
+    </script>
   @endauth
 
 
@@ -146,25 +146,6 @@
         @yield('content')
     </div>
 
-<script>
 
-    function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-menu");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
-</script>
 </body>
 </html>

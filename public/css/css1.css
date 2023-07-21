@@ -293,7 +293,6 @@ div.forms{
   .dropdown {
     float: right;
     position: relative;
-    display: inline-block;
     z-index: 999;
     
   }
@@ -373,6 +372,7 @@ div.forms{
 .private-messages {
     -ms-overflow-style: none;  
     scrollbar-width: none;  
+    overflow-x: none;
     display: flex;
     flex-direction: column-reverse;
     overflow-y:auto; 
@@ -385,7 +385,9 @@ div.forms{
 }
 
 .priv-msgs-content{
-    position:relative
+    position:relative;
+    overflow-x: hidden;
+
 }
 
 .message2{

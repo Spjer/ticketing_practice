@@ -33,12 +33,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
      
  });
 
- /*window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'e9e597dc697d1a7af7b2',
-    cluster: 'eu',
-    //authEndpoint: '/custom/endpoint/auth'
-});*/
 
 
 

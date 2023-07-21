@@ -169,7 +169,7 @@
                         @csrf
                         @method('put')
                         <input type="hidden" id="user_id" name="user_id" value="{{\App\Models\User::where('role', 'admin')->first()->id}}"></input>
-                        <button type="submit" class="btn btn-danger mt-3">Otpusti</button>
+                        <button type="submit" class="btn btn-danger mt-3">Release</button>
                       </form>
             @endif
             

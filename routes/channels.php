@@ -21,7 +21,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('App.Models.Client.{id}', function ($client, $id) {
-    //return (int) $user->id === (int) $id;
     return (int) $client->id === (int) $id;
     //return true;
 },['guards'=>['webclient']]);
@@ -29,7 +28,7 @@ Broadcast::channel('App.Models.Client.{id}', function ($client, $id) {
 Broadcast::channel('users.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
     //return true;
-    //return (int) $user->id;
+
 });
 
 Broadcast::channel('assignement.{id}', function ($user, $userId) {
@@ -42,5 +41,5 @@ Broadcast::channel('assignement.{id}', function ($user, $userId) {
 Broadcast::channel('private.chat.{id}', function ($user, $id) {
     //return (int) $user->id === (int) $id;
     return true;
-    //return (int) $user->id;
+    
 });

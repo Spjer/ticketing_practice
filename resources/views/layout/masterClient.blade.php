@@ -28,21 +28,23 @@
      
         var clientId = {{ auth()->user()->id }} ?? 0;
 
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-        
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('e9e597dc697d1a7af7b2', {
-            cluster: 'eu',
-            authEndpoint: '/broadcast/auth',
-        });
-
-        // var channelName = 'private-assigned.2';
-        // var privateChannel = pusher.subscribe('assignement.1');
-        // privateChannel.bind('TicketAssigned', function(data) {
-        // alert(JSON.stringify(data));
-        // });
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
     </script>
     @endauth
@@ -50,7 +52,7 @@
 
     <title>@yield('title')</title>
 </head>
-<body>
+<body >
 @section('navbar')
     <div class='navbar1'>
         <ul class='navbar1'>
@@ -100,25 +102,5 @@
         @yield('content')
     </div>
 
-    <script>
-
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-menu");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-</script>
 </body>
 </html>

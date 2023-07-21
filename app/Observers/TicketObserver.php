@@ -37,7 +37,7 @@ class TicketObserver
                 'body' => 'You were assigned ticket: #'.$ticket->id. '-'. $ticket->name,
             ];
             $ticket->user->notify( new AssignedNotification($data));
-            //$ticket->user->notify( new MailNotification($data));
+            $ticket->user->notify( new MailNotification($data));
             $user = User::where('id', $ticket->user_id)->first();
 
             //dd($user);

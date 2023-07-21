@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\Ticket;
 use App\Notifications\StatusNotification;
+use App\Notifications\MailNotification;
+
 use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
@@ -24,10 +26,10 @@ class StatusController extends Controller
         $new_status_id = $request->input('new_status_id');
 
         Ticket::where('id', $ticket_id)->update(['status_id'=> $new_status_id]);
-        //return back();
+       
         $ticket = Ticket::where('id', $ticket_id)->first();
         $status = Status::where('id', $new_status_id)->first();
-       // dd($status->name);
+    
     
         if($status->name  == 'Closed'){
             $data =[

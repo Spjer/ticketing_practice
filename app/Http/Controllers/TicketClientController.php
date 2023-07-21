@@ -40,7 +40,7 @@ class TicketClientController extends Controller
   
         $tickets = Ticket::where('client_id', Auth::user()->id)->get();
         return view('client.client_ticket') ->with('tickets', $tickets);
-        //}
+        
         
 
         

@@ -24,7 +24,7 @@ class UserObserver
     /**
      * Handle the User "updated" event.
      */
-    public function updated(User $user): void
+    public function updated(User $user): void7
     {
         //
     }

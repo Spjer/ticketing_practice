@@ -15,11 +15,10 @@ use App\Http\Requests;
 class ChatController extends Controller
 {
     public function store(ChatMessageRequest $request){
-        //dd($request);
-        //$message = Message::query()->create($request->all());  
+        
+        //$message = Message::query()->create($request->validated());  
         //Message::query()->create($request->all());
  
-        
         $message = new Message();
         $message->username = $request->input('username');
         $message->reciever_id = $request->input('reciever_id');
@@ -27,11 +26,6 @@ class ChatController extends Controller
         $message->body = $request->input('body');
         $message->save();
         event(new PrivateChatMessage($message->reciever_id));
-
-
-        //event(new PrivateChatMessage($reciever_id));
-
-        //return back();//event(new PublicChatMessage($username, $request->input('message')));
         
     }
     
